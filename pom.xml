@@ -69,6 +69,12 @@
 <!--			<artifactId>spring-security-test</artifactId>-->
 <!--			<scope>test</scope>-->
 <!--		</dependency>-->
+		<!-- https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-envers -->
+		<dependency>
+			<groupId>org.hibernate.orm</groupId>
+			<artifactId>hibernate-envers</artifactId>
+			<version>6.2.0.CR1</version>
+		</dependency>
 	</dependencies>
 
 	<build>
