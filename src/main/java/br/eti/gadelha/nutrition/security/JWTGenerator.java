@@ -1,10 +1,7 @@
 package br.eti.gadelha.nutrition.security;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
@@ -14,35 +11,49 @@ import java.util.Date;
 @Component
 public class JWTGenerator {
 
-    SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-    public String generateToken(Authentication authentication) {
-        String username = authentication.getName();
-        Date currentDate = new Date();
-        Date expireDate = new Date(currentDate.getTime() + SecurityConstants.JWT_EXPIRATION);
+    final SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS512);
 
-        String token = Jwts.builder()
-                .setSubject(username)
+    public String generateToken(Authentication authentication) {
+        Date expireDate = new Date(new Date().getTime() + SecurityConstants.JWT_EXPIRATION);
+        return Jwts.builder()
+                .setSubject(authentication.getName())
                 .setIssuedAt(new Date())
                 .setExpiration(expireDate)
-                .signWith(key)
+                .signWith(secretKey)
                 .compact();
-        return token;
     }
-
     public String getUsernameFromJWT(String token) {
-        Claims claims = Jwts.parser()
-                .setSigningKey(SecurityConstants.JWT_SECRET)
+        return Jwts.parser()
+                .setSigningKey(secretKey)
                 .parseClaimsJws(token)
-                .getBody();
-        return claims.getSubject();
+                .getBody()
+                .getSubject();
     }
-
     public boolean validateToken(String token) {
+        System.out.println("validateToken");
         try {
-            Jwts.parser().setSigningKey(SecurityConstants.JWT_SECRET).parseClaimsJws(token);
+            Jwts.parser()
+                    .setSigningKey(secretKey)
+                    .parseClaimsJws(token);
             return true;
+        } catch (SignatureException e) {
+            System.out.println("Invalid JWT signature: " + e.getMessage());
+            return false;
+        } catch (MalformedJwtException e) {
+            System.out.println("Invalid JWT token: " + e.getMessage());
+            return false;
+        } catch (ExpiredJwtException e) {
+            System.out.println("JWT token is expired: " + e.getMessage());
+            return false;
+        } catch (UnsupportedJwtException e) {
+            System.out.println("JWT token is unsupported: " + e.getMessage());
+            return false;
+        } catch (IllegalArgumentException e) {
+            System.out.println("JWT claims string is empty: " + e.getMessage());
+            return false;
         } catch (Exception ex) {
-            throw new AuthenticationCredentialsNotFoundException("JWT was expired or incorrect");
+            System.out.println("validateToken, exception: " + ex);
+            return false;
         }
     }
 }
