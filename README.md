@@ -41,6 +41,7 @@ CRUD service from a nutritional table.
 - [ ] swagger something is not showing (Whitelabel Error Page)
 - [ ] consume service that provide sidebar access
 - [ ] pageable
+- [ ] improve existsByNameAndIdNot on service
 - [ ] add spring security layer
 - [ ] add user in GenericEntity
 - [ ] set up Role and Privileges
