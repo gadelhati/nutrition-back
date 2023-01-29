@@ -40,7 +40,7 @@ CRUD service from a nutritional table.
 - [ ] add Internationalization to ValidationMessages.properties
 - [ ] swagger something is not showing (Whitelabel Error Page)
 - [ ] consume service that provide sidebar access
-
+- [ ] pageable
 - [ ] add spring security layer
 - [ ] add user in GenericEntity
 - [ ] set up Role and Privileges
