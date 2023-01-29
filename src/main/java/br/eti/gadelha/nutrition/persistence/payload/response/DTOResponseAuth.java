@@ -1,13 +1,14 @@
-package br.eti.gadelha.nutrition.persistence.payload;
+package br.eti.gadelha.nutrition.persistence.payload.response;
 
 import lombok.Data;
 
 @Data
-public class AuthResponseDTO {
+public class DTOResponseAuth {
+
     private String accessToken;
     private String tokenType = "Bearer ";
 
-    public AuthResponseDTO(String accessToken) {
+    public DTOResponseAuth(String accessToken) {
         this.accessToken = accessToken;
     }
 }

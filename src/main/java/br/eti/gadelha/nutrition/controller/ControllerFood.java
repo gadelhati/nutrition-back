@@ -36,7 +36,7 @@ public class ControllerFood implements ControllerInterface<DTOResponseFood, DTOR
         return ResponseEntity.ok().body(serviceFood.retrieve(pageable));
     }
     @GetMapping("/{id}")
-    public ResponseEntity<DTOResponseFood> retrieve(@PathVariable UUID id){
+    public ResponseEntity<DTOResponseFood> retrieve(@PathVariable("id") UUID id){
         return ResponseEntity.ok().body(serviceFood.retrieve(id));
     }
     @GetMapping("/source")
@@ -48,7 +48,7 @@ public class ControllerFood implements ControllerInterface<DTOResponseFood, DTOR
         return ResponseEntity.accepted().body(serviceFood.update(id, updated));
     }
     @DeleteMapping("/{id}")
-    public ResponseEntity<DTOResponseFood> delete(@PathVariable UUID id){
+    public ResponseEntity<DTOResponseFood> delete(@PathVariable("id") UUID id){
         return ResponseEntity.accepted().body(serviceFood.delete(id));
     }
     @DeleteMapping("")

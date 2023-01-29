@@ -1,5 +1,6 @@
 package br.eti.gadelha.nutrition.security;
 
+import br.eti.gadelha.nutrition.service.ServiceCustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     private final JwtAuthEntryPoint authEntryPoint;
-    private final CustomUserDetailsService userDetailsService;
+    private final ServiceCustomUserDetails userDetailsService;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
