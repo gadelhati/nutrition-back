@@ -1,6 +1,8 @@
 package br.eti.gadelha.nutrition.persistence.payload.request;
 
-//import br.eti.gadelha.nutrition.exception.annotation.auth.*;
+import br.eti.gadelha.nutrition.exception.annotation.PasswordHasDigit;
+import br.eti.gadelha.nutrition.exception.annotation.PasswordHasLetter;
+import br.eti.gadelha.nutrition.exception.annotation.PasswordLength;
 import br.eti.gadelha.nutrition.persistence.model.Role;
 import br.eti.gadelha.nutrition.persistence.model.UserEntity;
 import lombok.Getter;
@@ -8,10 +10,12 @@ import lombok.Setter;
 
 import jakarta.validation.constraints.*;
 import java.util.Collection;
+import java.util.UUID;
 
 @Getter @Setter
 public class DTORequestUserEntity {
 
+    private UUID id;
     @NotNull(message = "{user.name.not.null}") @NotBlank(message = "{user.name.not.blank}") //@UniqueUserEntityName @ValidUserEntityName @UserEntityNameLength
     private String username;
     @NotBlank(message = "{user.email.not.blank}") @Size(max = 50) @Email //@UniqueEmail
@@ -23,6 +27,6 @@ public class DTORequestUserEntity {
     private Collection<Role> roles;
 
     public UserEntity toObject(){
-        return new UserEntity(username, email, password);
+        return new UserEntity(username, email, password, active);
     }
 }

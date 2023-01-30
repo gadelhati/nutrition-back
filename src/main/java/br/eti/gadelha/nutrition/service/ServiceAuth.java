@@ -2,7 +2,6 @@ package br.eti.gadelha.nutrition.service;
 
 import br.eti.gadelha.nutrition.persistence.model.UserEntity;
 import br.eti.gadelha.nutrition.persistence.payload.request.DTORequestAuth;
-import br.eti.gadelha.nutrition.persistence.payload.request.DTORequestUserEntity;
 import br.eti.gadelha.nutrition.persistence.payload.response.DTOResponseAuth;
 import br.eti.gadelha.nutrition.persistence.payload.response.DTOResponseUserEntity;
 import br.eti.gadelha.nutrition.persistence.repository.RepositoryRole;
@@ -31,15 +30,13 @@ public class ServiceAuth {
         String token = jwtGenerator.generateToken(authentication);
         return new DTOResponseAuth(token);
     }
-    public DTOResponseUserEntity register(DTORequestUserEntity created) {
+    public DTOResponseUserEntity register(DTORequestAuth created) {
         if (repositoryUserEntity.existsByUsername(created.getUsername())) {
             return null;
         }
         UserEntity userEntity = new UserEntity(
                 created.getUsername(),
-                created.getEmail(),
                 passwordEncoder.encode(created.getPassword()),
-                created.isActive(),
                 Arrays.asList(repositoryRole.findByName("ROLE_USER"))
         );
         return DTOResponseUserEntity.toDTO(repositoryUserEntity.save(userEntity));

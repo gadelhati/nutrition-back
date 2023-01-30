@@ -1,6 +1,5 @@
 package br.eti.gadelha.nutrition.controller;
 
-import br.eti.gadelha.nutrition.persistence.payload.request.DTORequestUserEntity;
 import br.eti.gadelha.nutrition.persistence.payload.response.DTOResponseAuth;
 import br.eti.gadelha.nutrition.persistence.payload.request.DTORequestAuth;
 import br.eti.gadelha.nutrition.persistence.payload.response.DTOResponseUserEntity;
@@ -23,7 +22,7 @@ public class ControllerAuth {
         return ResponseEntity.accepted().body(serviceAuth.login(value));
     }
     @PostMapping("/register")
-    public ResponseEntity<DTOResponseUserEntity> register(@RequestBody @Valid DTORequestUserEntity value){
+    public ResponseEntity<DTOResponseUserEntity> register(@RequestBody @Valid DTORequestAuth value){
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/auth/register").toUriString());
         return ResponseEntity.created(uri).body(serviceAuth.register(value));
     }

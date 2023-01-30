@@ -22,10 +22,11 @@ public class UserEntity extends GenericEntity {
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private Collection<Role> roles;
 
-    public UserEntity(String username, String email, String password) {
+    public UserEntity(String username, String email, String password, boolean active) {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.active = active;
     }
     public UserEntity(String username, String password, Collection<Role> roles) {
         this.username = username;
