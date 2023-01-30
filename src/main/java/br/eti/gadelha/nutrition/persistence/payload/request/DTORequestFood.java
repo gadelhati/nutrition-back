@@ -11,7 +11,7 @@ import java.util.UUID;
 public class DTORequestFood {
 
     private UUID id;
-    @NotNull(message = "{name.not.null}") @NotBlank(message = "{name.not.blank}")
+    @NotNull(message = "{food.name.not.null}") @NotBlank(message = "{food.name.not.blank}")
     private String name;
 
     public Food toObject(){

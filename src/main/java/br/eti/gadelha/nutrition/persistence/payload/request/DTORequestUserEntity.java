@@ -12,13 +12,13 @@ import java.util.Collection;
 @Getter @Setter
 public class DTORequestUserEntity {
 
-    @NotNull(message = "{name.not.null}") @NotBlank(message = "{name.not.blank}") //@UniqueUserEntityName @ValidUserEntityName @UserEntityNameLength
+    @NotNull(message = "{user.name.not.null}") @NotBlank(message = "{user.name.not.blank}") //@UniqueUserEntityName @ValidUserEntityName @UserEntityNameLength
     private String username;
-    @NotBlank(message = "{email.not.blank}") @Size(max = 50) @Email //@UniqueEmail
+    @NotBlank(message = "{user.email.not.blank}") @Size(max = 50) @Email //@UniqueEmail
     private String email;
-    @NotNull(message = "{password.not.null}") @NotBlank(message = "{password.not.blank}") //@PasswordHasDigit @PasswordHasLetter @PasswordLength
+    @NotNull(message = "{user.password.not.null}") @NotBlank(message = "{user.password.not.blank}") //@PasswordHasDigit @PasswordHasLetter @PasswordLength
     private String password;
-    @NotNull(message = "{active.not.null}")
+    @NotNull(message = "{user.active.not.null}")
     private boolean active;
     private Collection<Role> roles;
 

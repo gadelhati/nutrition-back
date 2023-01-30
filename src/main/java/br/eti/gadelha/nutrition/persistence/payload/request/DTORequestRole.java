@@ -10,7 +10,7 @@ import jakarta.validation.constraints.NotNull;
 @Getter
 public class DTORequestRole {
 
-    @NotNull(message = "{name.not.null}") @NotBlank(message = "{name.not.blank}") //@UniqueNameRole
+    @NotNull(message = "{role.name.not.null}") @NotBlank(message = "{role.name.not.blank}") //@UniqueNameRole
     private String name;
 
     public Role toObject() { return new Role(name); }
