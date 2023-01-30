@@ -31,19 +31,19 @@ public class JWTGenerator {
                 .compact();
     }
     public String getUsernameFromJWT(String token) {
-        return Jwts.parser()
-                .setSigningKey(secretKey)
+        return Jwts.parserBuilder()
+                .setSigningKey(secretKey).build()
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
     }
     public boolean validateToken(String token) {
         try {
-            Jwts.parser()
-                    .setSigningKey(secretKey)
+            Jwts.parserBuilder()
+                    .setSigningKey(secretKey).build()
                     .parseClaimsJws(token);
             return true;
-        } catch (SignatureException e) {
+        } catch (SecurityException e) {
             System.out.println("Invalid JWT signature: " + e.getMessage());
         } catch (MalformedJwtException e) {
             System.out.println("Invalid JWT token: " + e.getMessage());
