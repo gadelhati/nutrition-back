@@ -14,7 +14,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 
 @RestController @RequestMapping("/auth") @RequiredArgsConstructor
-@CrossOrigin(origins = "*", maxAge = 3600)
 public class ControllerAuth {
 
     private final ServiceAuth serviceAuth;

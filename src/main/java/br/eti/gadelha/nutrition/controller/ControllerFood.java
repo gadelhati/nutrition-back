@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController @RequestMapping("/food") @RequiredArgsConstructor
-@CrossOrigin(origins = "*", maxAge = 3600)
 public class ControllerFood implements ControllerInterface<DTOResponseFood, DTORequestFood> {
 
     private final ServiceFood serviceFood;
