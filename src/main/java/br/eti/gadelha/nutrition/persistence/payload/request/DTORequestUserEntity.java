@@ -1,8 +1,9 @@
 package br.eti.gadelha.nutrition.persistence.payload.request;
 
-import br.eti.gadelha.nutrition.exception.annotation.PasswordHasDigit;
-import br.eti.gadelha.nutrition.exception.annotation.PasswordHasLetter;
-import br.eti.gadelha.nutrition.exception.annotation.PasswordLength;
+//import br.eti.gadelha.nutrition.exception.annotation.PasswordHasDigit;
+//import br.eti.gadelha.nutrition.exception.annotation.PasswordHasLetter;
+//import br.eti.gadelha.nutrition.exception.annotation.PasswordLength;
+import br.eti.gadelha.nutrition.exception.annotation.UniqueUsername;
 import br.eti.gadelha.nutrition.persistence.model.Role;
 import br.eti.gadelha.nutrition.persistence.model.UserEntity;
 import lombok.Getter;
@@ -12,7 +13,7 @@ import jakarta.validation.constraints.*;
 import java.util.Collection;
 import java.util.UUID;
 
-@Getter @Setter
+@Getter @Setter @UniqueUsername
 public class DTORequestUserEntity {
 
     private UUID id;
