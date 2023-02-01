@@ -30,6 +30,7 @@
 CRUD service from a nutritional table.
 
 ### Roadmap
+- [ ] add password validation on jwt
 - [x] show the concept
 - [ ] deploy the application on a tomcat server
 - [ ] service to provide sidebar access
