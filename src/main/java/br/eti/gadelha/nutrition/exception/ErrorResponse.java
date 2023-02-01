@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,7 +15,6 @@ import java.util.Objects;
 public class ErrorResponse {
 
     private int statusCode;
-    private String statusName;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     private Date timestamp;
     private String stackTrace;
@@ -28,10 +27,9 @@ public class ErrorResponse {
         }
         errors.add(new ErrorObject(field, message));
     }
-    public ErrorResponse(HttpStatus httpStatus, String stackTrace, String description) {
+    public ErrorResponse(HttpStatusCode httpStatusCode, String stackTrace, String description) {
         this.timestamp = new Date();
-        this.statusCode = httpStatus.value();
-        this.statusName = httpStatus.name();
+        this.statusCode = httpStatusCode.value();
         this.stackTrace = stackTrace;
         this.description = description;
     }
