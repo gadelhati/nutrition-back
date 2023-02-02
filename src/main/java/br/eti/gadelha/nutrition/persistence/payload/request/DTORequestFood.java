@@ -11,10 +11,17 @@ import java.util.UUID;
 public class DTORequestFood {
 
     private UUID id;
+    private String IBGECODE;
     @NotNull(message = "{food.name.not.null}") @NotBlank(message = "{food.name.not.blank}")
     private String name;
+    private String preparation;
+    private float energy;
+    private float protein;
+    private float totalLipids;
+    private float carbohydrate;
+    private float fiber;
 
     public Food toObject(){
-        return new Food(name);
+        return new Food(IBGECODE, name, preparation, energy, protein, totalLipids, carbohydrate, fiber);
     }
 }

@@ -10,14 +10,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.envers.Audited;
 
 @Audited @Entity @Data @AllArgsConstructor @NoArgsConstructor @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"name"})) @EqualsAndHashCode(callSuper = false)
-public class Food extends GenericEntity {
+public class FoodCategory extends GenericEntity {
 
-    private String IBGECODE;
     private String name;
-    private String preparation;
-    private float energy;
-    private float protein;
-    private float totalLipids;
-    private float carbohydrate;
-    private float fiber;
 }
