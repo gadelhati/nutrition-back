@@ -42,9 +42,7 @@ public class ServiceFood implements ServiceInterface<DTOResponseFood, DTORequest
     public Page<DTOResponseFood> retrieve(Pageable pageable, String source){
         final List<DTOResponseFood> list = new ArrayList<>();
         if (source == null) {
-            for (Food object : repositoryFood.findAll()) {
-                list.add(DTOResponseFood.toDTO(object));
-            }
+            return retrieve(pageable);
         } else {
             for (Food object : repositoryFood.findByNameContainingIgnoreCaseOrderByNameAsc(source)) {
                 list.add(DTOResponseFood.toDTO(object));

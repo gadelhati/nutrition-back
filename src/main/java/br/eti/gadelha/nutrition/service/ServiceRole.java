@@ -42,9 +42,7 @@ public class ServiceRole implements ServiceInterface<DTOResponseRole, DTORequest
     public Page<DTOResponseRole> retrieve(Pageable pageable, String source){
         final List<DTOResponseRole> list = new ArrayList<>();
         if (source == null) {
-            for (Role object : repositoryRole.findAll()) {
-                list.add(DTOResponseRole.toDTO(object));
-            }
+            return retrieve(pageable);
         } else {
             for (Role object : repositoryRole.findByNameContainingIgnoreCaseOrderByNameAsc(source)) {
                 list.add(DTOResponseRole.toDTO(object));

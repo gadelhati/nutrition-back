@@ -43,9 +43,7 @@ public class ServiceUserEntity implements ServiceInterface<DTOResponseUserEntity
     public Page<DTOResponseUserEntity> retrieve(Pageable pageable, String source){
         final List<DTOResponseUserEntity> list = new ArrayList<>();
         if (source == null) {
-            for (UserEntity object : repositoryUserEntity.findAll()) {
-                list.add(DTOResponseUserEntity.toDTO(object));
-            }
+            return retrieve(pageable);
         } else {
             for (UserEntity object : repositoryUserEntity.findByUsernameContainingIgnoreCaseOrderByUsernameAsc(source)) {
                 list.add(DTOResponseUserEntity.toDTO(object));
