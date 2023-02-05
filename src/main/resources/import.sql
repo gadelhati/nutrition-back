@@ -2004,4 +2004,4 @@ INSERT INTO nutrition.role(created_at, updated_at, id, name) VALUES(NOW(), NOW()
 INSERT INTO nutrition.user_entity(created_at, updated_at, id, username, password, email, active) VALUES (NOW(), NOW(), 'b4c48fe3-4cf2-411d-9d4b-82f7c63eff9c', '00038059', '$2a$10$v5q8rJ5T/OlmZ2NKSYB2YOOxkn9AI1K04Bn9pemlEZTAMybsq6ona', 'marcelo.gadelha@marinha.mil.br', true) ON CONFLICT DO NOTHING;
 
 -- POPULING nutrition.user_role
-INSERT INTO nutrition.user_roles(created_at, updated_at, user_id, role_id) VALUES (NOW(), NOW(), 'b4c48fe3-4cf2-411d-9d4b-82f7c63eff9c', '7c12004d-e843-4e00-be40-01845ad75834') ON CONFLICT DO NOTHING;
+INSERT INTO nutrition.user_roles(user_id, role_id) VALUES ('b4c48fe3-4cf2-411d-9d4b-82f7c63eff9c', '7c12004d-e843-4e00-be40-01845ad75834') ON CONFLICT DO NOTHING;
