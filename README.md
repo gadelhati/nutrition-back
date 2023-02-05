@@ -31,9 +31,9 @@ CRUD service from a nutritional table.
 
 ### Roadmap
 - [ ] add password validation on jwt
-- [x] show the concept
 - [ ] deploy the application on a tomcat server
 - [ ] service to provide sidebar access
+- [ ] service to provide color palete
 - [ ] filter by Source
 - [ ] work with git
 - [ ] add data Point of PostGis
@@ -43,11 +43,9 @@ CRUD service from a nutritional table.
 - [ ] consume service that provide sidebar access
 - [ ] pageable
 - [ ] improve existsByNameAndIdNot on service
-- [ ] add spring security layer
 - [ ] add user in GenericEntity
 - [ ] set up Role and Privileges
 - [ ] set up Role Hierarchy
-- [ ] change default jwt to personal jwt
 - [ ] improve refresh token
 
 ## Summary
