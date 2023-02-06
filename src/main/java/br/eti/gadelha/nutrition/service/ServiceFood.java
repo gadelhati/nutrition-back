@@ -53,6 +53,7 @@ public class ServiceFood implements ServiceInterface<DTOResponseFood, DTORequest
     public DTOResponseFood update(UUID id, DTORequestFood updated){
         Food object = repositoryFood.findById(id).orElse(null);
         object.setName(updated.getName());
+        object.setIbgeCode(updated.getIbgeCode());
         return DTOResponseFood.toDTO(repositoryFood.save(object));
     }
     public DTOResponseFood delete(UUID id){
