@@ -31,6 +31,10 @@ CRUD service from a nutritional table.
 
 ### Roadmap
 - [ ] add password validation on jwt
+- [ ] set up Role and Privileges
+- [ ] set up Role Hierarchy
+- [ ] improve refresh token
+- [ ] add user in GenericEntity
 - [ ] deploy the application on a tomcat server
 - [ ] service to provide sidebar access
 - [ ] service to provide color palete
@@ -39,12 +43,7 @@ CRUD service from a nutritional table.
 - [x] change application.properties to [dev using h2, and prod using postgres]
 - [ ] add Internationalization to ValidationMessages.properties
 - [ ] swagger something is not showing (Whitelabel Error Page)
-- [ ] consume service that provide sidebar access
 - [ ] improve existsByNameAndIdNot on service
-- [ ] add user in GenericEntity
-- [ ] set up Role and Privileges
-- [ ] set up Role Hierarchy
-- [ ] improve refresh token
 
 ## Summary
 * [How to work with this project](#how-to-work-with-this-project)
