@@ -1,5 +1,7 @@
 package br.eti.gadelha.nutrition.persistence.payload.request;
 
+import br.eti.gadelha.nutrition.exception.annotation.UniqueIbgeCode;
+import br.eti.gadelha.nutrition.exception.annotation.UniqueNameFood;
 import br.eti.gadelha.nutrition.persistence.model.Food;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -8,10 +10,11 @@ import lombok.Getter;
 import java.math.BigDecimal;
 import java.util.UUID;
 
-@Getter
+@Getter @UniqueNameFood @UniqueIbgeCode
 public class DTORequestFood {
 
     private UUID id;
+    @NotNull(message = "{ibge.not.null}") @NotBlank(message = "{ibge.not.blank}")
     private String IBGECODE;
     @NotNull(message = "{food.name.not.null}") @NotBlank(message = "{food.name.not.blank}")
     private String name;
