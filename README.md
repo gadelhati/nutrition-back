@@ -30,6 +30,7 @@
 CRUD service from a nutritional table.
 
 ### Roadmap
+- [ ] add mapstruct
 - [ ] add password validation on jwt
 - [ ] improve refresh token
 - [ ] add user in GenericEntity
