@@ -15,7 +15,7 @@ public class DTORequestFood {
 
     private UUID id;
     @NotNull(message = "{ibge.not.null}") @NotBlank(message = "{ibge.not.blank}")
-    private String IBGECODE;
+    private String ibgeCode;
     @NotNull(message = "{food.name.not.null}") @NotBlank(message = "{food.name.not.blank}")
     private String name;
     private String preparation;
@@ -58,6 +58,6 @@ public class DTORequestFood {
     private BigDecimal vitaminaC;
 
     public Food toObject(){
-        return new Food(IBGECODE, name, preparation, energy, protein, totalLipids, carbohydrate, fiber, cholesterol, saturated, monounsaturated, polyunsaturated, linoleic, linolenic, trans, totalSugar, addedSugar, calcium, magnesium, manganese, phosphorus, iron, sodium, addedSodium, potassium, copper, zinc, selenium, retinol, vitaminaA, tiamina, riboflavina, niacina, niacinaNE, piridoxina, cobalamina, folato, vitaminaD, vitaminaE, vitaminaC);
+        return new Food(ibgeCode, name, preparation, energy, protein, totalLipids, carbohydrate, fiber, cholesterol, saturated, monounsaturated, polyunsaturated, linoleic, linolenic, trans, totalSugar, addedSugar, calcium, magnesium, manganese, phosphorus, iron, sodium, addedSodium, potassium, copper, zinc, selenium, retinol, vitaminaA, tiamina, riboflavina, niacina, niacinaNE, piridoxina, cobalamina, folato, vitaminaD, vitaminaE, vitaminaC);
     }
 }

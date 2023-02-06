@@ -12,10 +12,10 @@ import org.hibernate.envers.Audited;
 
 import java.math.BigDecimal;
 
-@Audited @Entity @Data @AllArgsConstructor @NoArgsConstructor @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"IBGECODE", "name"})) @EqualsAndHashCode(callSuper = false)
+@Audited @Entity @Data @AllArgsConstructor @NoArgsConstructor @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"ibgeCode", "name"})) @EqualsAndHashCode(callSuper = false)
 public class Food extends GenericEntity {
 
-    private String IBGECODE;
+    private String ibgeCode;
     private String name;
     private String preparation;
 //    energy, macronutrients and fiber
