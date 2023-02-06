@@ -38,9 +38,9 @@ public class ControllerUserEntity implements ControllerInterface<DTOResponseUser
     public ResponseEntity<Page<DTOResponseUserEntity>> retrieve(@PathVariable(value = "value", required = false) String value, Pageable pageable) {
         return ResponseEntity.ok().body(serviceUserEntity.retrieve(pageable, value));
     }
-    @PutMapping("/{id}")
-    public ResponseEntity<DTOResponseUserEntity> update(@PathVariable("id") UUID id, @RequestBody @Valid DTORequestUserEntity updated){
-        return ResponseEntity.accepted().body(serviceUserEntity.update(id, updated));
+    @PutMapping("")
+    public ResponseEntity<DTOResponseUserEntity> update(@RequestBody @Valid DTORequestUserEntity updated){
+        return ResponseEntity.accepted().body(serviceUserEntity.update(updated.getId(), updated));
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<DTOResponseUserEntity> delete(@PathVariable("id") UUID id){

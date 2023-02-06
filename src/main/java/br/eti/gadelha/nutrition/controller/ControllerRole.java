@@ -38,9 +38,9 @@ public class ControllerRole implements ControllerInterface<DTOResponseRole, DTOR
     public ResponseEntity<Page<DTOResponseRole>> retrieve(@PathVariable(value = "value", required = false) String value, Pageable pageable) {
         return ResponseEntity.ok().body(serviceRole.retrieve(pageable, value));
     }
-    @PutMapping("/{id}")
-    public ResponseEntity<DTOResponseRole> update(@PathVariable("id") UUID id, @RequestBody @Valid DTORequestRole updated){
-        return ResponseEntity.accepted().body(serviceRole.update(id, updated));
+    @PutMapping("")
+    public ResponseEntity<DTOResponseRole> update(@RequestBody @Valid DTORequestRole updated){
+        return ResponseEntity.accepted().body(serviceRole.update(updated.getId(), updated));
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<DTOResponseRole> delete(@PathVariable("id") UUID id){

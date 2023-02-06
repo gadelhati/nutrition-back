@@ -36,9 +36,9 @@ public class ControllerFood implements ControllerInterface<DTOResponseFood, DTOR
     public ResponseEntity<Page<DTOResponseFood>> retrieve(@PathVariable(value = "value", required = false) String value, Pageable pageable) {
         return ResponseEntity.ok().body(serviceFood.retrieve(pageable, value));
     }
-    @PutMapping("/{id}")
-    public ResponseEntity<DTOResponseFood> update(@PathVariable("id") UUID id, @RequestBody @Valid DTORequestFood updated){
-        return ResponseEntity.accepted().body(serviceFood.update(id, updated));
+    @PutMapping("")
+    public ResponseEntity<DTOResponseFood> update(@RequestBody @Valid DTORequestFood updated){
+        return ResponseEntity.accepted().body(serviceFood.update(updated.getId(), updated));
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<DTOResponseFood> delete(@PathVariable("id") UUID id){
