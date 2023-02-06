@@ -31,10 +31,10 @@ CRUD service from a nutritional table.
 
 ### Roadmap
 - [ ] add password validation on jwt
-- [ ] set up Role and Privileges
-- [ ] set up Role Hierarchy
 - [ ] improve refresh token
 - [ ] add user in GenericEntity
+- [ ] set up Role and Privileges
+- [ ] set up Role Hierarchy
 - [ ] deploy the application on a tomcat server
 - [ ] service to provide sidebar access
 - [ ] service to provide color palete
