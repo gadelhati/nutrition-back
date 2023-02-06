@@ -39,12 +39,12 @@ public class ServiceRole implements ServiceInterface<DTOResponseRole, DTORequest
         }
         return new PageImpl<>(list, pageable, list.size());
     }
-    public Page<DTOResponseRole> retrieve(Pageable pageable, String source){
+    public Page<DTOResponseRole> retrieve(Pageable pageable, String value){
         final List<DTOResponseRole> list = new ArrayList<>();
-        if (source == null) {
+        if (value == null) {
             return retrieve(pageable);
         } else {
-            for (Role object : repositoryRole.findByNameContainingIgnoreCaseOrderByNameAsc(source)) {
+            for (Role object : repositoryRole.findByNameContainingIgnoreCaseOrderByNameAsc(value)) {
                 list.add(DTOResponseRole.toDTO(object));
             }
         }

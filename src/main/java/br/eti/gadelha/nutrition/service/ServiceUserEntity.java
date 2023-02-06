@@ -40,12 +40,12 @@ public class ServiceUserEntity implements ServiceInterface<DTOResponseUserEntity
         }
         return new PageImpl<>(list, pageable, list.size());
     }
-    public Page<DTOResponseUserEntity> retrieve(Pageable pageable, String source){
+    public Page<DTOResponseUserEntity> retrieve(Pageable pageable, String value){
         final List<DTOResponseUserEntity> list = new ArrayList<>();
-        if (source == null) {
+        if (value == null) {
             return retrieve(pageable);
         } else {
-            for (UserEntity object : repositoryUserEntity.findByUsernameContainingIgnoreCaseOrderByUsernameAsc(source)) {
+            for (UserEntity object : repositoryUserEntity.findByUsernameContainingIgnoreCaseOrderByUsernameAsc(value)) {
                 list.add(DTOResponseUserEntity.toDTO(object));
             }
         }

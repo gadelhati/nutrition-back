@@ -6,6 +6,7 @@ import br.eti.gadelha.nutrition.service.ServiceFood;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,9 +39,9 @@ public class ControllerFood implements ControllerInterface<DTOResponseFood, DTOR
     public ResponseEntity<DTOResponseFood> retrieve(@PathVariable("id") UUID id){
         return ResponseEntity.ok().body(serviceFood.retrieve(id));
     }
-    @GetMapping("/source")
-    public ResponseEntity<Page<DTOResponseFood>> retrieve(Pageable pageable, @RequestParam(required = false) String q){
-        return ResponseEntity.ok().body(serviceFood.retrieve(pageable, q));
+    @GetMapping(value = {"/search/{value}", "/search/"})
+    public ResponseEntity<Page<DTOResponseFood>> retrieve(@PathVariable(value = "value", required = false) String value, Pageable pageable) {
+        return ResponseEntity.ok().body(serviceFood.retrieve(pageable, value));
     }
     @PutMapping("/{id}")
     public ResponseEntity<DTOResponseFood> update(@PathVariable("id") UUID id, @RequestBody @Valid DTORequestFood updated){

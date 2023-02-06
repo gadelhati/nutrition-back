@@ -17,7 +17,7 @@ public interface ControllerInterface<T, S> {
     List<T> retrieve();
     ResponseEntity<Page<T>> retrieve(Pageable pageable);
     ResponseEntity<T> retrieve(@PathVariable("id") UUID id);
-    ResponseEntity<Page<T>> retrieve(Pageable pageable, @RequestParam(required = false) String q);
+    ResponseEntity<Page<T>> retrieve(@PathVariable("value") String value, Pageable pageable);
     ResponseEntity<T> update(@PathVariable("id") UUID id, @RequestBody @Valid S updated);
     ResponseEntity<T> delete(@PathVariable("id") UUID id);
     ResponseEntity<HttpStatus> delete();
