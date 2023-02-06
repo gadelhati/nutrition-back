@@ -6,7 +6,6 @@ import br.eti.gadelha.nutrition.service.ServiceRole;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,15 +30,11 @@ public class ControllerRole implements ControllerInterface<DTOResponseRole, DTOR
     public List<DTOResponseRole> retrieve(){
         return serviceRole.retrieve();
     }
-    @GetMapping("")
-    public ResponseEntity<Page<DTOResponseRole>> retrieve(Pageable pageable){
-        return ResponseEntity.ok().body(serviceRole.retrieve(pageable));
-    }
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public ResponseEntity<DTOResponseRole> retrieve(@PathVariable("id") UUID id){
         return ResponseEntity.ok().body(serviceRole.retrieve(id));
     }
-    @GetMapping(value = {"/search/{value}", "/search/"})
+    @GetMapping(value = {"/{value}", ""})
     public ResponseEntity<Page<DTOResponseRole>> retrieve(@PathVariable(value = "value", required = false) String value, Pageable pageable) {
         return ResponseEntity.ok().body(serviceRole.retrieve(pageable, value));
     }

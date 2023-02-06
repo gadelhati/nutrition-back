@@ -6,7 +6,6 @@ import br.eti.gadelha.nutrition.service.ServiceUserEntity;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,15 +30,11 @@ public class ControllerUserEntity implements ControllerInterface<DTOResponseUser
     public List<DTOResponseUserEntity> retrieve(){
         return serviceUserEntity.retrieve();
     }
-    @GetMapping("")
-    public ResponseEntity<Page<DTOResponseUserEntity>> retrieve(Pageable pageable){
-        return ResponseEntity.ok().body(serviceUserEntity.retrieve(pageable));
-    }
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public ResponseEntity<DTOResponseUserEntity> retrieve(@PathVariable("id") UUID id){
         return ResponseEntity.ok().body(serviceUserEntity.retrieve(id));
     }
-    @GetMapping(value = {"/search/{value}", "/search/"})
+    @GetMapping(value = {"/{value}", ""})
     public ResponseEntity<Page<DTOResponseUserEntity>> retrieve(@PathVariable(value = "value", required = false) String value, Pageable pageable) {
         return ResponseEntity.ok().body(serviceUserEntity.retrieve(pageable, value));
     }
