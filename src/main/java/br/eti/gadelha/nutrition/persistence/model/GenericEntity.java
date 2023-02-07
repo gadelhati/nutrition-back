@@ -6,12 +6,15 @@ import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Data @MappedSuperclass @EqualsAndHashCode(callSuper = false)
+@Data @MappedSuperclass @EqualsAndHashCode(callSuper = false) @EntityListeners(AuditingEntityListener.class)
 public abstract class GenericEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -20,14 +23,14 @@ public abstract class GenericEntity implements Serializable {
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "id", unique = true, nullable = false)
     private UUID id;
-    @CreationTimestamp
+    @CreationTimestamp @Column(updatable = false)
     private LocalDateTime createdAt;
     @UpdateTimestamp
     private LocalDateTime updatedAt;
-//    @CreatedBy
-//    private String createdBy;
-//    @LastModifiedBy
-//    private String modifiedBy;
+    @CreatedBy @Column(updatable = false)
+    private String createdBy;
+    @LastModifiedBy
+    private String modifiedBy;
     @PrePersist
     public void prePersist() { createdAt = LocalDateTime.now();}
     @PostUpdate

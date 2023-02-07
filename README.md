@@ -30,9 +30,9 @@
 CRUD service from a nutritional table.
 
 ### Roadmap
-- [ ] add mapstruct
+- [x] add mapstruct
 - [ ] improve refresh token
-- [ ] add user in GenericEntity
+- [x] add user in GenericEntity
 - [ ] set up Role and Privileges
 - [ ] set up Role Hierarchy
 - [ ] deploy the application on a tomcat server
@@ -110,9 +110,9 @@ systemctl start tomcat
 ## Features
 These are the paths to services:
 - [x] [CREATE](http://localhost:3119/food) - path to item creation;
-- [x] [RETRIEVE_ALL](http://localhost:3119/food) - path to retrieve of all items;
-- [ ] [RETRIEVE](http://localhost:3119/food/id) - path to retrieve of an item by id;
-- [ ] [RETRIEVE](http://localhost:3119/food/id) - path to retrieve of an item by source;
+- [ ] [RETRIEVE_ALL](http://localhost:3119/food) - path to retrieve of all items;
+- [x] [RETRIEVE](http://localhost:3119/food/id) - path to retrieve of an item by id;
+- [x] [RETRIEVE](http://localhost:3119/food/id) - path to retrieve of an item by source or all items without source;
 - [x] [UPDATE](http://localhost:3119/food/id) - path to update an item;
 - [x] [DELETE](http://localhost:3119/food/id) - path to delete an item;
 - [x] [DELETE_ALL](http://localhost:3119/food) - path to delete all items;
