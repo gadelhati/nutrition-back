@@ -9,6 +9,7 @@ import br.eti.gadelha.nutrition.persistence.repository.RepositoryRole;
 import br.eti.gadelha.nutrition.persistence.repository.RepositoryUserEntity;
 import br.eti.gadelha.nutrition.security.JWTGenerator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,13 +21,14 @@ import java.util.Arrays;
 @Service @RequiredArgsConstructor
 public class ServiceAuth {
 
+    private final AuthenticationManager authenticationManager;
     private final RepositoryUserEntity repositoryUserEntity;
     private final RepositoryRole repositoryRole;
     private final PasswordEncoder passwordEncoder;
     private final JWTGenerator jwtGenerator;
 
     public DTOResponseAuth login(DTORequestAuth dtoRequestAuth) {
-        Authentication authentication = new UsernamePasswordAuthenticationToken(dtoRequestAuth.getUsername(), null);
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(dtoRequestAuth.getUsername(), dtoRequestAuth.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = jwtGenerator.generateToken(authentication);
         return new DTOResponseAuth(token);
