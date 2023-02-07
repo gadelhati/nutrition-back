@@ -1,6 +1,6 @@
 package br.eti.gadelha.nutrition.persistence.payload.request;
 
-//import br.eti.gadelha.exception.annotation.auth.UniqueNameRole;
+//import br.eti.gadelha.exception.annotation.auth.UniqueNamePrivilege;
 import br.eti.gadelha.nutrition.persistence.model.Privilege;
 import br.eti.gadelha.nutrition.persistence.model.Role;
 import lombok.Getter;
@@ -12,12 +12,12 @@ import java.util.Collection;
 import java.util.UUID;
 
 @Getter
-public class DTORequestRole {
+public class DTORequestPrivilege {
 
     private UUID id;
-    @NotNull(message = "{role.name.not.null}") @NotBlank(message = "{role.name.not.blank}") //@UniqueNameRole
+    @NotNull(message = "{privilege.name.not.null}") @NotBlank(message = "{Privilege.name.not.blank}") //@UniqueNamePrivilege
     private String name;
-    private Collection<Privilege> privileges;
+    private Collection<Role> roles;
 
-    public Role toObject() { return new Role(name, privileges); }
+    public Privilege toObject() { return new Privilege(name, roles); }
 }

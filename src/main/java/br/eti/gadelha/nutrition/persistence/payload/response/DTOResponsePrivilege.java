@@ -9,13 +9,13 @@ import java.util.Collection;
 import java.util.UUID;
 
 @Getter @AllArgsConstructor
-public class DTOResponseRole {
+public class DTOResponsePrivilege {
 
     private UUID id;
     private String name;
-    private Collection<Privilege> privileges;
+    private Collection<Role> roles;
 
-    public static DTOResponseRole toDTO(Role value) {
-        return new DTOResponseRole(value.getId(), value.getName(), value.getPrivileges());
+    public static DTOResponsePrivilege toDTO(Privilege value) {
+        return new DTOResponsePrivilege(value.getId(), value.getName(), value.getRoles());
     }
 }
