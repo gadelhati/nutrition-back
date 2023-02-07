@@ -5,12 +5,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
+import java.util.UUID;
+
 @Configuration
-@EnableJpaAuditing(auditorAwareRef = "auditorProvider")
+@EnableJpaAuditing(auditorAwareRef = "serviceSecurityAuditorAware")
 public class AuditConfiguration {
 
     @Bean
-    public AuditorAware<String> auditorProvider() {
-        return new SecurityAuditorAware();
+    public AuditorAware<UUID> auditorProvider() {
+        return new ServiceSecurityAuditorAware();
     }
 }

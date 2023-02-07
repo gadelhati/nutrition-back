@@ -1,6 +1,5 @@
 package br.eti.gadelha.nutrition.security;
 
-import br.eti.gadelha.nutrition.persistence.model.UserEntity;
 import br.eti.gadelha.nutrition.persistence.repository.RepositoryUserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.AuditorAware;
@@ -9,20 +8,20 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
-public class SecurityAuditorAware implements AuditorAware<String> {
+public class ServiceSecurityAuditorAware implements AuditorAware<UUID> {
 
-//    @Autowired
-//    private RepositoryUserEntity repositoryUserEntity;
+    @Autowired
+    private RepositoryUserEntity repositoryUserEntity;
 
     @Override
-    public Optional<String> getCurrentAuditor() {
+    public Optional<UUID> getCurrentAuditor() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !authentication.isAuthenticated()) {
             return null;
         }
-//        return repositoryUserEntity.findByUsername(authentication.getName());
-        return Optional.of("sim");
+        return Optional.of(repositoryUserEntity.findByUsername(authentication.getName()).get().getId());
     }
 }

@@ -32,7 +32,6 @@ CRUD service from a nutritional table.
 ### Roadmap
 - [x] add mapstruct
 - [ ] improve refresh token
-- [x] add user in GenericEntity
 - [ ] set up Role and Privileges
 - [ ] set up Role Hierarchy
 - [ ] deploy the application on a tomcat server

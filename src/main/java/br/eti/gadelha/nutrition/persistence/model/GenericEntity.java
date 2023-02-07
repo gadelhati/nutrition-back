@@ -28,9 +28,9 @@ public abstract class GenericEntity implements Serializable {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
     @CreatedBy @Column(updatable = false)
-    private String createdBy;
+    private UUID createdBy;
     @LastModifiedBy
-    private String modifiedBy;
+    private UUID modifiedBy;
     @PrePersist
     public void prePersist() { createdAt = LocalDateTime.now();}
     @PostUpdate
