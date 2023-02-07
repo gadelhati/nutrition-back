@@ -34,11 +34,11 @@ CRUD service from a nutritional table.
 - [ ] improve refresh token
 - [ ] set up Role and Privileges
 - [ ] set up Role Hierarchy
+- [ ] add data Point of PostGis
 - [ ] deploy the application on a tomcat server
 - [ ] service to provide sidebar access
 - [ ] service to provide color palete
 - [ ] work with git
-- [ ] add data Point of PostGis
 - [x] change application.properties to [dev using h2, and prod using postgres]
 - [ ] add Internationalization to ValidationMessages.properties
 - [ ] swagger something is not showing (Whitelabel Error Page)
