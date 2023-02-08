@@ -1,5 +1,6 @@
 package br.eti.gadelha.nutrition.service;
 
+import br.eti.gadelha.nutrition.persistence.MapStruct;
 import br.eti.gadelha.nutrition.persistence.model.Food;
 import br.eti.gadelha.nutrition.persistence.payload.request.DTORequestFood;
 import br.eti.gadelha.nutrition.persistence.payload.response.DTOResponseFood;
@@ -20,32 +21,27 @@ public class ServiceFood implements ServiceInterface<DTOResponseFood, DTORequest
     private final RepositoryFood repositoryFood;
 
     public DTOResponseFood create(DTORequestFood created){
-        return DTOResponseFood.toDTO(repositoryFood.save(created.toObject()));
+        return MapStruct.MAPPER.toFood(repositoryFood.save(MapStruct.MAPPER.toDTOFood(created)));
     }
     public DTOResponseFood retrieve(UUID id){
-        return DTOResponseFood.toDTO(repositoryFood.findById(id).orElse(null));
+        return MapStruct.MAPPER.toFood(repositoryFood.findById(id).orElse(null));
     }
     public List<DTOResponseFood> retrieve(){
         List<DTOResponseFood> list = new ArrayList<>();
         for(Food object: repositoryFood.findAll()) {
-            list.add(DTOResponseFood.toDTO(object));
+            list.add(MapStruct.MAPPER.toFood(object));
         }
         return list;
     }
-    public Page<DTOResponseFood> retrieve(Pageable pageable){
-        List<DTOResponseFood> list = new ArrayList<>();
-        for(Food object: repositoryFood.findAll()) {
-            list.add(DTOResponseFood.toDTO(object));
-        }
-        return new PageImpl<>(list, pageable, list.size());
-    }
     public Page<DTOResponseFood> retrieve(Pageable pageable, String value){
-        final List<DTOResponseFood> list = new ArrayList<>();
+        List<DTOResponseFood> list = new ArrayList<>();
         if (value == null) {
-            return retrieve(pageable);
+            for(Food object: repositoryFood.findAll()) {
+                list.add(MapStruct.MAPPER.toFood(object));
+            }
         } else {
             for (Food object : repositoryFood.findByNameContainingIgnoreCaseOrderByNameAsc(value)) {
-                list.add(DTOResponseFood.toDTO(object));
+                list.add(MapStruct.MAPPER.toFood(object));
             }
         }
         return new PageImpl<>(list, pageable, list.size());
@@ -57,9 +53,8 @@ public class ServiceFood implements ServiceInterface<DTOResponseFood, DTORequest
         return DTOResponseFood.toDTO(repositoryFood.save(object));
     }
     public DTOResponseFood delete(UUID id){
-        Food object = repositoryFood.findById(id).orElse(null);
         repositoryFood.deleteById(id);
-        return DTOResponseFood.toDTO(object);
+        return MapStruct.MAPPER.toFood(repositoryFood.findById(id).orElse(null));
     }
     public void delete() {
         repositoryFood.deleteAll();

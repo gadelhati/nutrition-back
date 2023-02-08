@@ -32,7 +32,7 @@ public class ControllerFood implements ControllerInterface<DTOResponseFood, DTOR
     public ResponseEntity<DTOResponseFood> retrieve(@PathVariable("id") UUID id){
         return ResponseEntity.ok().body(serviceFood.retrieve(id));
     }
-    @GetMapping(value = {"/{value}", ""})
+    @GetMapping(value = {"/{value}", "/"})
     public ResponseEntity<Page<DTOResponseFood>> retrieve(@PathVariable(value = "value", required = false) String value, Pageable pageable) {
         return ResponseEntity.ok().body(serviceFood.retrieve(pageable, value));
     }

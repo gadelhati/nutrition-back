@@ -23,11 +23,11 @@ public abstract class GenericEntity implements Serializable {
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "id", unique = true, nullable = false)
     private UUID id;
-    @CreationTimestamp @Column(updatable = false)
+    @CreationTimestamp
     private LocalDateTime createdAt;
     @UpdateTimestamp
     private LocalDateTime updatedAt;
-    @CreatedBy @Column(updatable = false)
+    @CreatedBy
     private UUID createdBy;
     @LastModifiedBy
     private UUID modifiedBy;

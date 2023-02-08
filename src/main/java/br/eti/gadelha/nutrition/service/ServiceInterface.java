@@ -10,7 +10,6 @@ public interface ServiceInterface<T, S, R> {
     T create(S created);
     T retrieve(UUID id);
     List<T> retrieve();
-    Page<T> retrieve(Pageable pageable);
     Page<T> retrieve(Pageable pageable, String source);
     T update(UUID id, S updated);
     T delete(UUID id);

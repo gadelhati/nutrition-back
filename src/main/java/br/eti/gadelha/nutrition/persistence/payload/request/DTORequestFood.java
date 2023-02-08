@@ -56,8 +56,4 @@ public class DTORequestFood {
     private BigDecimal vitaminaD;
     private BigDecimal vitaminaE;
     private BigDecimal vitaminaC;
-
-    public Food toObject(){
-        return new Food(ibgeCode, name, preparation, energy, protein, totalLipids, carbohydrate, fiber, cholesterol, saturated, monounsaturated, polyunsaturated, linoleic, linolenic, trans, totalSugar, addedSugar, calcium, magnesium, manganese, phosphorus, iron, sodium, addedSodium, potassium, copper, zinc, selenium, retinol, vitaminaA, tiamina, riboflavina, niacina, niacinaNE, piridoxina, cobalamina, folato, vitaminaD, vitaminaE, vitaminaC);
-    }
 }
