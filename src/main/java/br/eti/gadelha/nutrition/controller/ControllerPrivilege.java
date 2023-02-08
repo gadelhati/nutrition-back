@@ -34,7 +34,7 @@ public class ControllerPrivilege implements ControllerInterface<DTOResponsePrivi
     public ResponseEntity<DTOResponsePrivilege> retrieve(@PathVariable("id") UUID id){
         return ResponseEntity.ok().body(servicePrivilege.retrieve(id));
     }
-    @GetMapping(value = {"/{value}", ""})
+    @GetMapping(value = {"/{value}", "/"})
     public ResponseEntity<Page<DTOResponsePrivilege>> retrieve(@PathVariable(value = "value", required = false) String value, Pageable pageable) {
         return ResponseEntity.ok().body(servicePrivilege.retrieve(pageable, value));
     }

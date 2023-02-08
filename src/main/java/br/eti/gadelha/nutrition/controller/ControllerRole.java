@@ -34,7 +34,7 @@ public class ControllerRole implements ControllerInterface<DTOResponseRole, DTOR
     public ResponseEntity<DTOResponseRole> retrieve(@PathVariable("id") UUID id){
         return ResponseEntity.ok().body(serviceRole.retrieve(id));
     }
-    @GetMapping(value = {"/{value}", ""})
+    @GetMapping(value = {"/{value}", "/"})
     public ResponseEntity<Page<DTOResponseRole>> retrieve(@PathVariable(value = "value", required = false) String value, Pageable pageable) {
         return ResponseEntity.ok().body(serviceRole.retrieve(pageable, value));
     }
