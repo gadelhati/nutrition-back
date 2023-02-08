@@ -30,6 +30,7 @@
 CRUD service from a nutritional table.
 
 ### Roadmap
+- [ ] add more unique validations
 - [x] add mapstruct
 - [ ] improve refresh token
 - [ ] set up Role and Privileges
