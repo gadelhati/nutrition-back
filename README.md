@@ -30,12 +30,12 @@
 CRUD service from a nutritional table.
 
 ### Roadmap
-- [ ] add more unique validations
+- [x] add more unique validations
 - [ ] improve refresh token
-- [ ] set up Role and Privileges
-- [ ] set up Role Hierarchy
+- [x] set up Role and Privileges
+- [x] set up Role Hierarchy
 - [ ] add data Point of PostGis
-- [ ] .orElse
+- [x] .orElse
 - [ ] deploy the application on a tomcat server
 - [ ] service to provide sidebar access
 - [ ] service to provide color palete
