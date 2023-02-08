@@ -1,5 +1,6 @@
 package br.eti.gadelha.nutrition.service;
 
+import br.eti.gadelha.nutrition.persistence.MapStruct;
 import br.eti.gadelha.nutrition.persistence.model.UserEntity;
 import br.eti.gadelha.nutrition.persistence.payload.request.DTORequestAuth;
 import br.eti.gadelha.nutrition.persistence.payload.request.DTORequestUserEntity;
@@ -39,6 +40,6 @@ public class ServiceAuth {
                 passwordEncoder.encode(created.getPassword()),
                 Arrays.asList(repositoryRole.findByName("ROLE_USER"))
         );
-        return DTOResponseUserEntity.toDTO(repositoryUserEntity.save(userEntity));
+        return MapStruct.MAPPER.toDTOUserEntity(repositoryUserEntity.save(userEntity));
     }
 }

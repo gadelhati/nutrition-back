@@ -1,5 +1,6 @@
 package br.eti.gadelha.nutrition.service;
 
+import br.eti.gadelha.nutrition.persistence.MapStruct;
 import br.eti.gadelha.nutrition.persistence.model.UserEntity;
 import br.eti.gadelha.nutrition.persistence.payload.request.DTORequestUserEntity;
 import br.eti.gadelha.nutrition.persistence.payload.response.DTOResponseUserEntity;
@@ -12,66 +13,58 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service @RequiredArgsConstructor
-public class ServiceUserEntity implements ServiceInterface<DTOResponseUserEntity, DTORequestUserEntity, Optional<UserEntity>> {
+public class ServiceUserEntity implements ServiceInterface<DTOResponseUserEntity, DTORequestUserEntity, UserEntity> {
 
     private final RepositoryUserEntity repositoryUserEntity;
 
+    @Override
     public DTOResponseUserEntity create(DTORequestUserEntity created){
-        return DTOResponseUserEntity.toDTO(repositoryUserEntity.save(created.toObject()));
+        return MapStruct.MAPPER.toDTOUserEntity(repositoryUserEntity.save(MapStruct.MAPPER.toUserEntity(created)));
     }
+    @Override
     public DTOResponseUserEntity retrieve(UUID id){
-        return DTOResponseUserEntity.toDTO(repositoryUserEntity.findById(id).orElse(null));
+        return MapStruct.MAPPER.toDTOUserEntity(repositoryUserEntity.findById(id).orElse(null));
     }
+    public List<DTOResponseUserEntity> retrieve(List<UserEntity> list){
+        List<DTOResponseUserEntity> search = new ArrayList<>();
+        for(UserEntity object: list) {
+            search.add(MapStruct.MAPPER.toDTOUserEntity(object));
+        }
+        return search;
+    }
+    @Override
     public List<DTOResponseUserEntity> retrieve(){
-        List<DTOResponseUserEntity> list = new ArrayList<>();
-        for(UserEntity object: repositoryUserEntity.findAll()) {
-            list.add(DTOResponseUserEntity.toDTO(object));
-        }
-        return list;
+        return retrieve(repositoryUserEntity.findAll());
     }
-    public Page<DTOResponseUserEntity> retrieve(Pageable pageable){
-        List<DTOResponseUserEntity> list = new ArrayList<>();
-        for(UserEntity object: repositoryUserEntity.findAll()) {
-            list.add(DTOResponseUserEntity.toDTO(object));
-        }
-        return new PageImpl<>(list, pageable, list.size());
-    }
+    @Override
     public Page<DTOResponseUserEntity> retrieve(Pageable pageable, String value){
-        final List<DTOResponseUserEntity> list = new ArrayList<>();
+        List<DTOResponseUserEntity> list = new ArrayList<>();
         if (value == null) {
-            return retrieve(pageable);
+            return new PageImpl<>(retrieve(repositoryUserEntity.findAll()), pageable, list.size());
         } else {
-            for (UserEntity object : repositoryUserEntity.findByUsernameContainingIgnoreCaseOrderByUsernameAsc(value)) {
-                list.add(DTOResponseUserEntity.toDTO(object));
-            }
+            return new PageImpl<>(retrieve(repositoryUserEntity.findByUsernameContainingIgnoreCaseOrderByUsernameAsc(value)), pageable, list.size());
         }
-        return new PageImpl<>(list, pageable, list.size());
     }
+    @Override
     public DTOResponseUserEntity update(UUID id, DTORequestUserEntity updated){
-        UserEntity object = repositoryUserEntity.findById(id).orElse(null);
-        object.setUsername(updated.getUsername());
-        object.setEmail(updated.getEmail());
-        object.setPassword(updated.getPassword());
-        object.setActive(updated.isActive());
-        return DTOResponseUserEntity.toDTO(repositoryUserEntity.save(object));
+        return MapStruct.MAPPER.toDTOUserEntity(repositoryUserEntity.save(MapStruct.MAPPER.toUserEntity(updated)));
     }
+    @Override
     public DTOResponseUserEntity delete(UUID id){
-        UserEntity object = repositoryUserEntity.findById(id).orElse(null);
         repositoryUserEntity.deleteById(id);
-        return DTOResponseUserEntity.toDTO(object);
+        return MapStruct.MAPPER.toDTOUserEntity(repositoryUserEntity.findById(id).orElse(null));
     }
+    @Override
     public void delete() {
         repositoryUserEntity.deleteAll();
     }
-    public Optional<UserEntity> findByName(String value) { return  repositoryUserEntity.findByUsername(value); }
+
     public boolean existsByName(String value) {
         return repositoryUserEntity.existsByUsernameContainingIgnoreCase(value);
     }
-
     public boolean existsByNameAndIdNot(String value, UUID id) {
         return !repositoryUserEntity.findByUsernameContaining(value).and(repositoryUserEntity.findByIdNot(id)).isEmpty();
     }

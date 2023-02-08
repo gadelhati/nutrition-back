@@ -18,6 +18,4 @@ public class DTORequestRole {
     @NotNull(message = "{role.name.not.null}") @NotBlank(message = "{role.name.not.blank}") //@UniqueNameRole
     private String name;
     private Collection<Privilege> privileges;
-
-    public Role toObject() { return new Role(name, privileges); }
 }

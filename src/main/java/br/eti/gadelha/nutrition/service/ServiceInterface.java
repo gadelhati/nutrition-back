@@ -14,6 +14,4 @@ public interface ServiceInterface<T, S, R> {
     T update(UUID id, S updated);
     T delete(UUID id);
     void delete();
-    R findByName(String value);
-    boolean existsByName(String value);
 }

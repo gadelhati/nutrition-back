@@ -3,7 +3,6 @@ package br.eti.gadelha.nutrition.persistence.payload.response;
 //import br.eti.gadelha.nutrition.exception.annotation.auth.UniqueEmail;
 //import br.eti.gadelha.nutrition.exception.annotation.auth.UniqueNameRole;
 import br.eti.gadelha.nutrition.persistence.model.Role;
-import br.eti.gadelha.nutrition.persistence.model.UserEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -24,8 +23,4 @@ public class DTOResponseUserEntity {
     private String password;
     private Boolean active;
     private Collection<Role> roles;
-
-    public static DTOResponseUserEntity toDTO(UserEntity value) {
-        return new DTOResponseUserEntity(value.getId(), value.getUsername(), value.getEmail(), value.getPassword(), value.getActive(), value.getRoles());
-    }
 }

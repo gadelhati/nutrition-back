@@ -20,50 +20,51 @@ public class ServiceFood implements ServiceInterface<DTOResponseFood, DTORequest
 
     private final RepositoryFood repositoryFood;
 
+    @Override
     public DTOResponseFood create(DTORequestFood created){
-        return MapStruct.MAPPER.toFood(repositoryFood.save(MapStruct.MAPPER.toDTOFood(created)));
+        return MapStruct.MAPPER.toDTOFood(repositoryFood.save(MapStruct.MAPPER.toFood(created)));
     }
+    @Override
     public DTOResponseFood retrieve(UUID id){
-        return MapStruct.MAPPER.toFood(repositoryFood.findById(id).orElse(null));
+        return MapStruct.MAPPER.toDTOFood(repositoryFood.findById(id).orElse(null));
     }
-    public List<DTOResponseFood> retrieve(){
-        List<DTOResponseFood> list = new ArrayList<>();
-        for(Food object: repositoryFood.findAll()) {
-            list.add(MapStruct.MAPPER.toFood(object));
+    public List<DTOResponseFood> retrieve(List<Food> list){
+        List<DTOResponseFood> search = new ArrayList<>();
+        for(Food object: list) {
+            search.add(MapStruct.MAPPER.toDTOFood(object));
         }
-        return list;
+        return search;
     }
+    @Override
+    public List<DTOResponseFood> retrieve(){
+        return retrieve(repositoryFood.findAll());
+    }
+    @Override
     public Page<DTOResponseFood> retrieve(Pageable pageable, String value){
         List<DTOResponseFood> list = new ArrayList<>();
         if (value == null) {
-            for(Food object: repositoryFood.findAll()) {
-                list.add(MapStruct.MAPPER.toFood(object));
-            }
+            return new PageImpl<>(retrieve(repositoryFood.findAll()), pageable, list.size());
         } else {
-            for (Food object : repositoryFood.findByNameContainingIgnoreCaseOrderByNameAsc(value)) {
-                list.add(MapStruct.MAPPER.toFood(object));
-            }
+            return new PageImpl<>(retrieve(repositoryFood.findByNameContainingIgnoreCaseOrderByNameAsc(value)), pageable, list.size());
         }
-        return new PageImpl<>(list, pageable, list.size());
     }
+    @Override
     public DTOResponseFood update(UUID id, DTORequestFood updated){
-        Food object = repositoryFood.findById(id).orElse(null);
-        object.setName(updated.getName());
-        object.setIbgeCode(updated.getIbgeCode());
-        return DTOResponseFood.toDTO(repositoryFood.save(object));
+        return MapStruct.MAPPER.toDTOFood(repositoryFood.save(MapStruct.MAPPER.toFood(updated)));
     }
+    @Override
     public DTOResponseFood delete(UUID id){
         repositoryFood.deleteById(id);
-        return MapStruct.MAPPER.toFood(repositoryFood.findById(id).orElse(null));
+        return MapStruct.MAPPER.toDTOFood(repositoryFood.findById(id).orElse(null));
     }
+    @Override
     public void delete() {
         repositoryFood.deleteAll();
     }
-    public Food findByName(String value) { return  repositoryFood.findByName(value); }
+
     public boolean existsByName(String value) {
         return repositoryFood.existsByNameContainingIgnoreCase(value);
     }
-
     public boolean existsByNameAndIdNot(String value, UUID id) {
         return !repositoryFood.findByNameContaining(value).and(repositoryFood.findByIdNot(id)).isEmpty();
     }

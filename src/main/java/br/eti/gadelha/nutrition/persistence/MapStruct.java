@@ -2,7 +2,7 @@ package br.eti.gadelha.nutrition.persistence;
 
 import br.eti.gadelha.nutrition.persistence.model.*;
 import br.eti.gadelha.nutrition.persistence.payload.request.*;
-import br.eti.gadelha.nutrition.persistence.payload.response.DTOResponseFood;
+import br.eti.gadelha.nutrition.persistence.payload.response.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -10,17 +10,17 @@ import org.mapstruct.factory.Mappers;
 public interface MapStruct {
 
     MapStruct MAPPER = Mappers.getMapper(MapStruct.class);
-    DTOResponseFood toFood(Food food);
-    DTORequestFoodCategory toFoodCategory(FoodCategory foodCategory);
-    DTORequestUserEntity toUserEntity(UserEntity userEntity);
-    DTORequestAuth mapAuthToUserEntity(UserEntity userEntity);
-    DTORequestRole toRole(Role role);
-    DTORequestPrivilege toPrivilege(Privilege privilege);
+    DTOResponseFood toDTOFood(Food food);
+    DTOResponseFoodCategory toDTOFoodCategory(FoodCategory foodCategory);
+    DTOResponseUserEntity toDTOUserEntity(UserEntity userEntity);
+    DTOResponseAuth authToDTOUserEntity(UserEntity userEntity);
+    DTOResponseRole toDTORole(Role role);
+    DTOResponsePrivilege toDTOPrivilege(Privilege privilege);
 
-    Food toDTOFood(DTORequestFood dtoRequestFood);
-    FoodCategory toDTOFoodCategory(DTORequestFoodCategory dtoRequestFoodCategory);
-    UserEntity toDTOUserEntity(DTORequestUserEntity dtoRequestUserEntity);
-    UserEntity mapAuthToDTOAuth(DTORequestAuth dtoRequestAuth);
-    Role toDTORole(DTORequestRole dtoRequestRole);
-    Privilege toDTOPrivilege(DTORequestPrivilege dtoRequestPrivilege);
+    Food toFood(DTORequestFood dtoRequestFood);
+    FoodCategory toFoodCategory(DTORequestFoodCategory dtoRequestFoodCategory);
+    UserEntity toUserEntity(DTORequestUserEntity dtoRequestUserEntity);
+    UserEntity userEntityToDTOAuth(DTORequestAuth dtoRequestAuth);
+    Role toRole(DTORequestRole dtoRequestRole);
+    Privilege toPrivilege(DTORequestPrivilege dtoRequestPrivilege);
 }

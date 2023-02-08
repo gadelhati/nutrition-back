@@ -5,7 +5,6 @@ package br.eti.gadelha.nutrition.persistence.payload.request;
 //import br.eti.gadelha.nutrition.exception.annotation.PasswordLength;
 import br.eti.gadelha.nutrition.exception.annotation.UniqueUsername;
 import br.eti.gadelha.nutrition.persistence.model.Role;
-import br.eti.gadelha.nutrition.persistence.model.UserEntity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,8 +25,4 @@ public class DTORequestUserEntity {
     @NotNull(message = "{user.active.not.null}")
     private boolean active;
     private Collection<Role> roles;
-
-    public UserEntity toObject(){
-        return new UserEntity(username, email, password, active);
-    }
 }

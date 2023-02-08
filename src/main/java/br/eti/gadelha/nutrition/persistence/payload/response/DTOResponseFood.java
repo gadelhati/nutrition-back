@@ -1,8 +1,5 @@
 package br.eti.gadelha.nutrition.persistence.payload.response;
 
-import br.eti.gadelha.nutrition.persistence.model.Food;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -53,8 +50,4 @@ public class DTOResponseFood {
     private BigDecimal vitaminaD;
     private BigDecimal vitaminaE;
     private BigDecimal vitaminaC;
-
-    public static DTOResponseFood toDTO(Food value) {
-        return new DTOResponseFood(value.getId(), value.getIbgeCode(), value.getName(), value.getPreparation(), value.getEnergy(), value.getProtein(), value.getTotalLipids(), value.getCarbohydrate(), value.getFiber(), value.getCholesterol(), value.getSaturated(), value.getMonounsaturated(), value.getPolyunsaturated(), value.getLinoleic(), value.getLinolenic(), value.getTrans(), value.getTotalSugar(), value.getAddedSugar(), value.getCalcium(), value.getMagnesium(), value.getManganese(), value.getPhosphorus(), value.getIron(), value.getSodium(), value.getAddedSodium(), value.getPotassium(), value.getCopper(), value.getZinc(), value.getSelenium(), value.getRetinol(), value.getVitaminaA(), value.getTiamina(), value.getRiboflavina(), value.getNiacina(), value.getNiacinaNE(), value.getPiridoxina(), value.getCobalamina(), value.getFolato(), value.getVitaminaD(), value.getVitaminaE(), value.getVitaminaC());
-    }
 }

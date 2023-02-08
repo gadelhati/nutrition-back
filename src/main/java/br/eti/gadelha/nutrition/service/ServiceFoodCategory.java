@@ -1,5 +1,6 @@
 package br.eti.gadelha.nutrition.service;
 
+import br.eti.gadelha.nutrition.persistence.MapStruct;
 import br.eti.gadelha.nutrition.persistence.model.FoodCategory;
 import br.eti.gadelha.nutrition.persistence.payload.request.DTORequestFoodCategory;
 import br.eti.gadelha.nutrition.persistence.payload.response.DTOResponseFoodCategory;
@@ -19,55 +20,51 @@ public class ServiceFoodCategory implements ServiceInterface<DTOResponseFoodCate
 
     private final RepositoryFoodCategory repositoryFoodCategory;
 
+    @Override
     public DTOResponseFoodCategory create(DTORequestFoodCategory created){
-        return DTOResponseFoodCategory.toDTO(repositoryFoodCategory.save(created.toObject()));
+        return MapStruct.MAPPER.toDTOFoodCategory(repositoryFoodCategory.save(MapStruct.MAPPER.toFoodCategory(created)));
     }
+    @Override
     public DTOResponseFoodCategory retrieve(UUID id){
-        return DTOResponseFoodCategory.toDTO(repositoryFoodCategory.findById(id).orElse(null));
+        return MapStruct.MAPPER.toDTOFoodCategory(repositoryFoodCategory.findById(id).orElse(null));
     }
+    public List<DTOResponseFoodCategory> retrieve(List<FoodCategory> list){
+        List<DTOResponseFoodCategory> search = new ArrayList<>();
+        for(FoodCategory object: list) {
+            search.add(MapStruct.MAPPER.toDTOFoodCategory(object));
+        }
+        return search;
+    }
+    @Override
     public List<DTOResponseFoodCategory> retrieve(){
-        List<DTOResponseFoodCategory> list = new ArrayList<>();
-        for(FoodCategory object: repositoryFoodCategory.findAll()) {
-            list.add(DTOResponseFoodCategory.toDTO(object));
-        }
-        return list;
+        return retrieve(repositoryFoodCategory.findAll());
     }
-    public Page<DTOResponseFoodCategory> retrieve(Pageable pageable){
-        List<DTOResponseFoodCategory> list = new ArrayList<>();
-        for(FoodCategory object: repositoryFoodCategory.findAll()) {
-            list.add(DTOResponseFoodCategory.toDTO(object));
-        }
-        return new PageImpl<>(list, pageable, list.size());
-    }
+    @Override
     public Page<DTOResponseFoodCategory> retrieve(Pageable pageable, String value){
-        final List<DTOResponseFoodCategory> list = new ArrayList<>();
+        List<DTOResponseFoodCategory> list = new ArrayList<>();
         if (value == null) {
-            return retrieve(pageable);
+            return new PageImpl<>(retrieve(repositoryFoodCategory.findAll()), pageable, list.size());
         } else {
-            for (FoodCategory object : repositoryFoodCategory.findByNameContainingIgnoreCaseOrderByNameAsc(value)) {
-                list.add(DTOResponseFoodCategory.toDTO(object));
-            }
+            return new PageImpl<>(retrieve(repositoryFoodCategory.findByNameContainingIgnoreCaseOrderByNameAsc(value)), pageable, list.size());
         }
-        return new PageImpl<>(list, pageable, list.size());
     }
+    @Override
     public DTOResponseFoodCategory update(UUID id, DTORequestFoodCategory updated){
-        FoodCategory object = repositoryFoodCategory.findById(id).orElse(null);
-        object.setName(updated.getName());
-        return DTOResponseFoodCategory.toDTO(repositoryFoodCategory.save(object));
+        return MapStruct.MAPPER.toDTOFoodCategory(repositoryFoodCategory.save(MapStruct.MAPPER.toFoodCategory(updated)));
     }
+    @Override
     public DTOResponseFoodCategory delete(UUID id){
-        FoodCategory object = repositoryFoodCategory.findById(id).orElse(null);
         repositoryFoodCategory.deleteById(id);
-        return DTOResponseFoodCategory.toDTO(object);
+        return MapStruct.MAPPER.toDTOFoodCategory(repositoryFoodCategory.findById(id).orElse(null));
     }
+    @Override
     public void delete() {
         repositoryFoodCategory.deleteAll();
     }
-    public FoodCategory findByName(String value) { return  repositoryFoodCategory.findByName(value); }
+
     public boolean existsByName(String value) {
         return repositoryFoodCategory.existsByNameContainingIgnoreCase(value);
     }
-
     public boolean existsByNameAndIdNot(String value, UUID id) {
         return !repositoryFoodCategory.findByNameContaining(value).and(repositoryFoodCategory.findByIdNot(id)).isEmpty();
     }
