@@ -2,7 +2,6 @@ package br.eti.gadelha.nutrition.persistence.payload.request;
 
 //import br.eti.gadelha.exception.annotation.auth.UniqueNameRole;
 import br.eti.gadelha.nutrition.persistence.model.Privilege;
-import br.eti.gadelha.nutrition.persistence.model.Role;
 import lombok.Getter;
 
 import jakarta.validation.constraints.NotBlank;
