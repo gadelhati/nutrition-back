@@ -7,7 +7,6 @@ import br.eti.gadelha.nutrition.persistence.payload.response.DTOResponseUserEnti
 import br.eti.gadelha.nutrition.service.ServiceAuth;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
