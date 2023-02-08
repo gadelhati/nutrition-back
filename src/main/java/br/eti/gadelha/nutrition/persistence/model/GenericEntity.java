@@ -14,7 +14,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Data @MappedSuperclass @EqualsAndHashCode(callSuper = false) @EntityListeners(AuditingEntityListener.class)
+@Data @MappedSuperclass @EqualsAndHashCode(callSuper = false) //@EntityListeners(AuditingEntityListener.class)
 public abstract class GenericEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
