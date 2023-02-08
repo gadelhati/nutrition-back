@@ -23,7 +23,7 @@ public class ControllerPrivilege implements ControllerInterface<DTOResponsePrivi
 
     @PostMapping("")
     public ResponseEntity<DTOResponsePrivilege> create(@RequestBody @Valid DTORequestPrivilege created){
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/food").toUriString());
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/privilege").toUriString());
         return ResponseEntity.created(uri).body(servicePrivilege.create(created));
     }
     @GetMapping("/retrieve")

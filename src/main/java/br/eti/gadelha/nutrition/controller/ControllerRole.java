@@ -23,7 +23,7 @@ public class ControllerRole implements ControllerInterface<DTOResponseRole, DTOR
 
     @PostMapping("")
     public ResponseEntity<DTOResponseRole> create(@RequestBody @Valid DTORequestRole created){
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/food").toUriString());
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/role").toUriString());
         return ResponseEntity.created(uri).body(serviceRole.create(created));
     }
     @GetMapping("/retrieve")

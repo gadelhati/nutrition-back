@@ -23,7 +23,7 @@ public class ControllerUserEntity implements ControllerInterface<DTOResponseUser
 
     @PostMapping("")
     public ResponseEntity<DTOResponseUserEntity> create(@RequestBody @Valid DTORequestUserEntity created){
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/food").toUriString());
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/user").toUriString());
         return ResponseEntity.created(uri).body(serviceUserEntity.create(created));
     }
     @GetMapping("/retrieve")

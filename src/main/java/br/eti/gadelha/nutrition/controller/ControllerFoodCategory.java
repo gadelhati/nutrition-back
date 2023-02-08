@@ -23,7 +23,7 @@ public class ControllerFoodCategory implements ControllerInterface<DTOResponseFo
 
     @PostMapping("")
     public ResponseEntity<DTOResponseFoodCategory> create(@RequestBody @Valid DTORequestFoodCategory created){
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/food").toUriString());
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/food_category").toUriString());
         return ResponseEntity.created(uri).body(serviceFoodCategory.create(created));
     }
     @GetMapping("/retrieve")
