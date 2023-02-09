@@ -9,5 +9,7 @@ import java.util.UUID;
 public interface RepositoryFood extends JpaRepository<Food, UUID>, RepositoryInterface<Food> {
 
     Streamable<Food> findByNameContaining(String value);
-    Streamable<Food> findByIdNot(UUID value);
+    boolean existsByIbgeCodeIgnoreCase(String ibgeCode);
+    boolean existsByIbgeCodeIgnoreCaseAndIdNot (String name, UUID id);
+    boolean existsByNameIgnoreCaseAndIdNot (String name, UUID id);
 }

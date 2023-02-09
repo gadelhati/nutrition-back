@@ -63,9 +63,15 @@ public class ServiceFood implements ServiceInterface<DTOResponseFood, DTORequest
     }
 
     public boolean existsByName(String value) {
-        return repositoryFood.existsByNameContainingIgnoreCase(value);
+        return repositoryFood.existsByNameIgnoreCase(value);
     }
     public boolean existsByNameAndIdNot(String value, UUID id) {
-        return !repositoryFood.findByNameContaining(value).and(repositoryFood.findByIdNot(id)).isEmpty();
+        return repositoryFood.existsByNameIgnoreCaseAndIdNot(value, id);
+    }
+    public boolean existsByIbgeCode(String value) {
+        return repositoryFood.existsByIbgeCodeIgnoreCase(value);
+    }
+    public boolean existsByIbgeCodeAndIdNot(String value, UUID id) {
+        return repositoryFood.existsByIbgeCodeIgnoreCaseAndIdNot(value, id);
     }
 }

@@ -63,9 +63,9 @@ public class ServiceUserEntity implements ServiceInterface<DTOResponseUserEntity
     }
 
     public boolean existsByName(String value) {
-        return repositoryUserEntity.existsByUsernameContainingIgnoreCase(value);
+        return repositoryUserEntity.existsByUsernameIgnoreCase(value);
     }
     public boolean existsByNameAndIdNot(String value, UUID id) {
-        return !repositoryUserEntity.findByUsernameContaining(value).and(repositoryUserEntity.findByIdNot(id)).isEmpty();
+        return repositoryUserEntity.existsByUsernameIgnoreCaseAndIdNot(value, id);
     }
 }

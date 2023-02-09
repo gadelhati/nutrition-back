@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
+import static br.eti.gadelha.nutrition.exception.validator.Validator.isNull;
+
 public class ValidatorUniqueIbgeCode implements ConstraintValidator<UniqueIbgeCode, DTORequestFood> {
 
     @Autowired
@@ -18,8 +20,8 @@ public class ValidatorUniqueIbgeCode implements ConstraintValidator<UniqueIbgeCo
     }
     @Override
     public boolean isValid(DTORequestFood value, ConstraintValidatorContext context) {
-        if (value != null && value.getId() == null && !serviceFood.existsByName(value.getName()) ||
-                value != null && value.getId() != null && value.getName() != null && serviceFood.existsByNameAndIdNot(value.getName(), value.getId()) ) {
+        if (!isNull(value.getName()) && !serviceFood.existsByIbgeCode(value.getName()) ||
+            !isNull(value.getName()) && !isNull(value.getId()) && serviceFood.existsByIbgeCodeAndIdNot(value.getName(), value.getId()) ) {
             return true;
         } else {
             return false;

@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
+import static br.eti.gadelha.nutrition.exception.validator.Validator.isNull;
+
 public class ValidatorUniqueNameFood implements ConstraintValidator<UniqueNameFood, DTORequestFood> {
 
     @Autowired
@@ -18,8 +20,8 @@ public class ValidatorUniqueNameFood implements ConstraintValidator<UniqueNameFo
     }
     @Override
     public boolean isValid(DTORequestFood value, ConstraintValidatorContext context) {
-        if (value != null && value.getId() == null && !serviceFood.existsByName(value.getName()) ||
-                value != null && value.getId() != null && value.getName() != null && serviceFood.existsByNameAndIdNot(value.getName(), value.getId()) ) {
+        if (!isNull(value.getName()) && !serviceFood.existsByName(value.getName()) ||
+            !isNull(value.getName()) && !isNull(value.getId()) && serviceFood.existsByNameAndIdNot(value.getName(), value.getId()) ) {
             return true;
         } else {
             return false;

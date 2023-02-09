@@ -11,9 +11,8 @@ import java.util.UUID;
 public interface RepositoryUserEntity extends JpaRepository<UserEntity, UUID> {
 
     Optional<UserEntity> findByUsername(String name);
-    boolean existsByUsername(String value);
-    boolean existsByUsernameContainingIgnoreCase(String value);
-    Streamable<UserEntity> findByUsernameContaining(String value);
+    boolean existsByUsernameIgnoreCase(String value);
+    boolean existsByUsernameIgnoreCaseAndIdNot(String username, UUID id);
     List<UserEntity> findByUsernameContainingIgnoreCaseOrderByUsernameAsc(String value);
     Streamable<UserEntity> findByIdNot(UUID value);
 }
