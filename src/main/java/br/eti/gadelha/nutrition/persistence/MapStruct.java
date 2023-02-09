@@ -13,14 +13,12 @@ public interface MapStruct {
     DTOResponseFood toDTOFood(Food food);
     DTOResponseFoodCategory toDTOFoodCategory(FoodCategory foodCategory);
     DTOResponseUserEntity toDTOUserEntity(UserEntity userEntity);
-    DTOResponseAuth authToDTOUserEntity(UserEntity userEntity);
     DTOResponseRole toDTORole(Role role);
     DTOResponsePrivilege toDTOPrivilege(Privilege privilege);
 
     Food toFood(DTORequestFood dtoRequestFood);
     FoodCategory toFoodCategory(DTORequestFoodCategory dtoRequestFoodCategory);
     UserEntity toUserEntity(DTORequestUserEntity dtoRequestUserEntity);
-    UserEntity userEntityToDTOAuth(DTORequestAuth dtoRequestAuth);
     Role toRole(DTORequestRole dtoRequestRole);
     Privilege toPrivilege(DTORequestPrivilege dtoRequestPrivilege);
 }
