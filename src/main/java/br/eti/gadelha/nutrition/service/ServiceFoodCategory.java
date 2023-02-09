@@ -63,7 +63,7 @@ public class ServiceFoodCategory implements ServiceInterface<DTOResponseFoodCate
     }
 
     public boolean existsByName(String value) {
-        return repositoryFoodCategory.existsByNameContainingIgnoreCase(value);
+        return repositoryFoodCategory.existsByNameIgnoreCase(value);
     }
     public boolean existsByNameAndIdNot(String value, UUID id) {
         return !repositoryFoodCategory.findByNameContaining(value).and(repositoryFoodCategory.findByIdNot(id)).isEmpty();
