@@ -21,7 +21,7 @@ public class ValidatorUniqueNamePrivilege implements ConstraintValidator<UniqueN
     @Override
     public boolean isValid(DTORequestPrivilege value, ConstraintValidatorContext context) {
         if (!isNull(value.getName()) && !servicePrivilege.existsByName(value.getName()) ||
-                !isNull(value.getName()) && !isNull(value.getId()) && servicePrivilege.existsByNameAndIdNot(value.getName(), value.getId()) ) {
+                !isNull(value.getName()) && !isNull(value.getId()) && !servicePrivilege.existsByNameAndIdNot(value.getName(), value.getId()) ) {
             return true;
         } else {
             return false;

@@ -64,6 +64,6 @@ public class ServicePrivilege implements ServiceInterface<DTOResponsePrivilege, 
         return repositoryPrivilege.existsByNameIgnoreCase(value);
     }
     public boolean existsByNameAndIdNot(String value, UUID id) {
-        return !repositoryPrivilege.findByNameContaining(value).and(repositoryPrivilege.findByIdNot(id)).isEmpty();
+        return repositoryPrivilege.existsByNameIgnoreCaseAndIdNot(value, id);
     }
 }

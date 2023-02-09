@@ -21,7 +21,7 @@ public class ValidatorUniqueIbgeCode implements ConstraintValidator<UniqueIbgeCo
     @Override
     public boolean isValid(DTORequestFood value, ConstraintValidatorContext context) {
         if (!isNull(value.getName()) && !serviceFood.existsByIbgeCode(value.getName()) ||
-            !isNull(value.getName()) && !isNull(value.getId()) && serviceFood.existsByIbgeCodeAndIdNot(value.getName(), value.getId()) ) {
+            !isNull(value.getName()) && !isNull(value.getId()) && !serviceFood.existsByIbgeCodeAndIdNot(value.getName(), value.getId()) ) {
             return true;
         } else {
             return false;

@@ -11,5 +11,4 @@ public interface RepositoryFood extends JpaRepository<Food, UUID>, RepositoryInt
     Streamable<Food> findByNameContaining(String value);
     boolean existsByIbgeCodeIgnoreCase(String ibgeCode);
     boolean existsByIbgeCodeIgnoreCaseAndIdNot (String name, UUID id);
-    boolean existsByNameIgnoreCaseAndIdNot (String name, UUID id);
 }

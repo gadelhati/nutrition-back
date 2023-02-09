@@ -21,7 +21,7 @@ public class ValidatorUniqueUsername implements ConstraintValidator<UniqueUserna
     @Override
     public boolean isValid(DTORequestUserEntity value, ConstraintValidatorContext context) {
         if (!isNull(value.getUsername()) && !serviceUserEntity.existsByName(value.getUsername()) ||
-            !isNull(value.getUsername()) && !isNull(value.getId()) && serviceUserEntity.existsByNameAndIdNot(value.getUsername(), value.getId()) ) {
+            !isNull(value.getUsername()) && !isNull(value.getId()) && !serviceUserEntity.existsByNameAndIdNot(value.getUsername(), value.getId()) ) {
             return true;
         } else {
             return false;

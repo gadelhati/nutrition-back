@@ -21,7 +21,7 @@ public class ValidatorUniqueNameRole implements ConstraintValidator<UniqueNameRo
     @Override
     public boolean isValid(DTORequestRole value, ConstraintValidatorContext context) {
         if (!isNull(value.getName()) && !serviceRole.existsByName(value.getName()) ||
-                !isNull(value.getName()) && !isNull(value.getId()) && serviceRole.existsByNameAndIdNot(value.getName(), value.getId()) ) {
+                !isNull(value.getName()) && !isNull(value.getId()) && !serviceRole.existsByNameAndIdNot(value.getName(), value.getId()) ) {
             return true;
         } else {
             return false;

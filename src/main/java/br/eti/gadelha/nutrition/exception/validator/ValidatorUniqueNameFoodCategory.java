@@ -21,7 +21,7 @@ public class ValidatorUniqueNameFoodCategory implements ConstraintValidator<Uniq
     @Override
     public boolean isValid(DTORequestFoodCategory value, ConstraintValidatorContext context) {
         if (!isNull(value.getName()) && !serviceFoodCategory.existsByName(value.getName()) ||
-                !isNull(value.getName()) && !isNull(value.getId()) && serviceFoodCategory.existsByNameAndIdNot(value.getName(), value.getId()) ) {
+                !isNull(value.getName()) && !isNull(value.getId()) && !serviceFoodCategory.existsByNameAndIdNot(value.getName(), value.getId()) ) {
             return true;
         } else {
             return false;

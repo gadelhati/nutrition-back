@@ -64,6 +64,6 @@ public class ServiceRole implements ServiceInterface<DTOResponseRole, DTORequest
         return repositoryRole.existsByNameIgnoreCase(value);
     }
     public boolean existsByNameAndIdNot(String value, UUID id) {
-        return !repositoryRole.findByNameContaining(value).and(repositoryRole.findByIdNot(id)).isEmpty();
+        return repositoryRole.existsByNameIgnoreCaseAndIdNot(value, id);
     }
 }
