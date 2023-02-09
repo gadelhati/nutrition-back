@@ -14,5 +14,4 @@ public interface RepositoryUserEntity extends JpaRepository<UserEntity, UUID> {
     boolean existsByUsernameIgnoreCase(String value);
     boolean existsByUsernameIgnoreCaseAndIdNot(String username, UUID id);
     List<UserEntity> findByUsernameContainingIgnoreCaseOrderByUsernameAsc(String value);
-    Streamable<UserEntity> findByIdNot(UUID value);
 }

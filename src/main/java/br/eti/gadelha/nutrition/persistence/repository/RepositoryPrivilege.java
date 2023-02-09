@@ -8,6 +8,4 @@ import java.util.UUID;
 
 public interface RepositoryPrivilege extends JpaRepository<Privilege, UUID>, RepositoryInterface<Privilege> {
 
-    Streamable<Privilege> findByNameContaining(String value);
-    Streamable<Privilege> findByIdNot(UUID value);
 }

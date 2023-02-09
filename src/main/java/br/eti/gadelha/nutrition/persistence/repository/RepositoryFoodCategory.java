@@ -8,6 +8,4 @@ import java.util.UUID;
 
 public interface RepositoryFoodCategory extends JpaRepository<FoodCategory, UUID>, RepositoryInterface<FoodCategory> {
 
-    Streamable<FoodCategory> findByNameContaining(String value);
-    Streamable<FoodCategory> findByIdNot(UUID value);
 }
