@@ -1,6 +1,5 @@
 package br.eti.gadelha.nutrition.persistence.payload.response;
 
-import br.eti.gadelha.nutrition.persistence.model.Privilege;
 import br.eti.gadelha.nutrition.persistence.model.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
