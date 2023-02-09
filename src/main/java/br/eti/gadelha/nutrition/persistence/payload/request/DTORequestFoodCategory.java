@@ -9,7 +9,6 @@ import lombok.Getter;
 import java.util.UUID;
 
 @Getter @UniqueNameFoodCategory
-@UniqueIbgeCode
 public class DTORequestFoodCategory {
 
     private UUID id;

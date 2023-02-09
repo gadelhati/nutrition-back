@@ -9,22 +9,30 @@ public final class Validator {
             return false;
         }
     }
-    public static boolean isNumber(String number) {
-        if (number == null) {
+    public static boolean hasNumber(String value) {
+        if (value == null) {
             return false;
         }
         try {
-            double d = Double.parseDouble(number);
+            double d = Double.parseDouble(value);
         } catch (NumberFormatException nfe) {
             return false;
         }
         return true;
     }
-    public static boolean isName(String name) {
-        if (name == null || name.isEmpty()) {
-            return false;
-        } else {
-            return true;
-        }
+    public static boolean hasDigit(String value) {
+        return value.chars().anyMatch(letter -> Character.isDigit(letter));
+    }
+    public static boolean hasLetter(String value) {
+        return value.chars().anyMatch(letter -> Character.isLetter(letter));
+    }
+    public static boolean hasLowerCase(String value) {
+        return value.chars().anyMatch(letter -> Character.isLowerCase(letter));
+    }
+    public static boolean hasUpperCase(String value) {
+        return value.chars().anyMatch(letter -> Character.isUpperCase(letter));
+    }
+    public static boolean hasLength(int length) {
+        return true;
     }
 }
