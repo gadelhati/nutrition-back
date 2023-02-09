@@ -36,6 +36,8 @@ CRUD service from a nutritional table.
 - [x] set up Role Hierarchy
 - [ ] add data Point of PostGis
 - [x] .orElse
+- [ ] Streamable
+- [ ] Optional
 - [ ] deploy the application on a tomcat server
 - [ ] service to provide sidebar access
 - [ ] service to provide color palete
