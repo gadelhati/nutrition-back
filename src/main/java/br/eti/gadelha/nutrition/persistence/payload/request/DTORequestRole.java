@@ -1,6 +1,6 @@
 package br.eti.gadelha.nutrition.persistence.payload.request;
 
-//import br.eti.gadelha.exception.annotation.auth.UniqueNameRole;
+import br.eti.gadelha.nutrition.exception.annotation.UniqueNameRole;
 import br.eti.gadelha.nutrition.persistence.model.Privilege;
 import lombok.Getter;
 
@@ -10,7 +10,7 @@ import jakarta.validation.constraints.NotNull;
 import java.util.Collection;
 import java.util.UUID;
 
-@Getter
+@Getter @UniqueNameRole
 public class DTORequestRole {
 
     private UUID id;
