@@ -26,7 +26,7 @@ public class ServiceFoodCategory implements ServiceInterface<DTOResponseFoodCate
     }
     @Override
     public DTOResponseFoodCategory retrieve(UUID id){
-        return MapStruct.MAPPER.toDTOFoodCategory(repositoryFoodCategory.findById(id).orElse(null));
+        return MapStruct.MAPPER.toDTOFoodCategory(repositoryFoodCategory.findById(id).orElseGet(null));
     }
     public List<DTOResponseFoodCategory> retrieve(List<FoodCategory> list){
         List<DTOResponseFoodCategory> search = new ArrayList<>();

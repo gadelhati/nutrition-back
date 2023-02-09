@@ -26,7 +26,7 @@ public class ServiceUserEntity implements ServiceInterface<DTOResponseUserEntity
     }
     @Override
     public DTOResponseUserEntity retrieve(UUID id){
-        return MapStruct.MAPPER.toDTOUserEntity(repositoryUserEntity.findById(id).orElse(null));
+        return MapStruct.MAPPER.toDTOUserEntity(repositoryUserEntity.findById(id).orElseGet(null));
     }
     public List<DTOResponseUserEntity> retrieve(List<UserEntity> list){
         List<DTOResponseUserEntity> search = new ArrayList<>();

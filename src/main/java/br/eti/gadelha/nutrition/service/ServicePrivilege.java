@@ -26,7 +26,7 @@ public class ServicePrivilege implements ServiceInterface<DTOResponsePrivilege, 
     }
     @Override
     public DTOResponsePrivilege retrieve(UUID id){
-        return MapStruct.MAPPER.toDTOPrivilege(repositoryPrivilege.findById(id).orElse(null));
+        return MapStruct.MAPPER.toDTOPrivilege(repositoryPrivilege.findById(id).orElseGet(null));
     }
     public List<DTOResponsePrivilege> retrieve(List<Privilege> list){
         List<DTOResponsePrivilege> search = new ArrayList<>();

@@ -26,7 +26,7 @@ public class ServiceRole implements ServiceInterface<DTOResponseRole, DTORequest
     }
     @Override
     public DTOResponseRole retrieve(UUID id){
-        return MapStruct.MAPPER.toDTORole(repositoryRole.findById(id).orElse(null));
+        return MapStruct.MAPPER.toDTORole(repositoryRole.findById(id).orElseGet(null));
     }
     public List<DTOResponseRole> retrieve(List<Role> list){
         List<DTOResponseRole> search = new ArrayList<>();
