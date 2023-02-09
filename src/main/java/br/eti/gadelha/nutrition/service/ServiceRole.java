@@ -30,9 +30,7 @@ public class ServiceRole implements ServiceInterface<DTOResponseRole, DTORequest
     }
     public List<DTOResponseRole> retrieve(List<Role> list){
         List<DTOResponseRole> search = new ArrayList<>();
-        for(Role object: list) {
-            search.add(MapStruct.MAPPER.toDTORole(object));
-        }
+        list.stream().forEach(value -> search.add(MapStruct.MAPPER.toDTORole(value)));
         return search;
     }
     @Override

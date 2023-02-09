@@ -1,5 +1,6 @@
 package br.eti.gadelha.nutrition.service;
 
+import br.eti.gadelha.nutrition.persistence.MapStruct;
 import br.eti.gadelha.nutrition.persistence.model.Privilege;
 import br.eti.gadelha.nutrition.persistence.payload.request.DTORequestPrivilege;
 import br.eti.gadelha.nutrition.persistence.payload.response.DTOResponsePrivilege;
@@ -19,55 +20,49 @@ public class ServicePrivilege implements ServiceInterface<DTOResponsePrivilege, 
 
     private final RepositoryPrivilege repositoryPrivilege;
 
+    @Override
     public DTOResponsePrivilege create(DTORequestPrivilege created){
-        return DTOResponsePrivilege.toDTO(repositoryPrivilege.save(created.toObject()));
+        return MapStruct.MAPPER.toDTOPrivilege(repositoryPrivilege.save(MapStruct.MAPPER.toPrivilege(created)));
     }
+    @Override
     public DTOResponsePrivilege retrieve(UUID id){
-        return DTOResponsePrivilege.toDTO(repositoryPrivilege.findById(id).orElse(null));
+        return MapStruct.MAPPER.toDTOPrivilege(repositoryPrivilege.findById(id).orElse(null));
     }
+    public List<DTOResponsePrivilege> retrieve(List<Privilege> list){
+        List<DTOResponsePrivilege> search = new ArrayList<>();
+        list.stream().forEach(value -> search.add(MapStruct.MAPPER.toDTOPrivilege(value)));
+        return search;
+    }
+    @Override
     public List<DTOResponsePrivilege> retrieve(){
-        List<DTOResponsePrivilege> list = new ArrayList<>();
-        for(Privilege object: repositoryPrivilege.findAll()) {
-            list.add(DTOResponsePrivilege.toDTO(object));
-        }
-        return list;
+        return retrieve(repositoryPrivilege.findAll());
     }
-    public Page<DTOResponsePrivilege> retrieve(Pageable pageable){
-        List<DTOResponsePrivilege> list = new ArrayList<>();
-        for(Privilege object: repositoryPrivilege.findAll()) {
-            list.add(DTOResponsePrivilege.toDTO(object));
-        }
-        return new PageImpl<>(list, pageable, list.size());
-    }
+    @Override
     public Page<DTOResponsePrivilege> retrieve(Pageable pageable, String value){
-        final List<DTOResponsePrivilege> list = new ArrayList<>();
+        List<DTOResponsePrivilege> list = new ArrayList<>();
         if (value == null) {
-            return retrieve(pageable);
+            return new PageImpl<>(retrieve(repositoryPrivilege.findAll()), pageable, list.size());
         } else {
-            for (Privilege object : repositoryPrivilege.findByNameContainingIgnoreCaseOrderByNameAsc(value)) {
-                list.add(DTOResponsePrivilege.toDTO(object));
-            }
+            return new PageImpl<>(retrieve(repositoryPrivilege.findByNameContainingIgnoreCaseOrderByNameAsc(value)), pageable, list.size());
         }
-        return new PageImpl<>(list, pageable, list.size());
     }
+    @Override
     public DTOResponsePrivilege update(UUID id, DTORequestPrivilege updated){
-        Privilege object = repositoryPrivilege.findById(id).orElse(null);
-        object.setName(updated.getName());
-        return DTOResponsePrivilege.toDTO(repositoryPrivilege.save(object));
+        return MapStruct.MAPPER.toDTOPrivilege(repositoryPrivilege.save(MapStruct.MAPPER.toPrivilege(updated)));
     }
+    @Override
     public DTOResponsePrivilege delete(UUID id){
-        Privilege object = repositoryPrivilege.findById(id).orElse(null);
         repositoryPrivilege.deleteById(id);
-        return DTOResponsePrivilege.toDTO(object);
+        return MapStruct.MAPPER.toDTOPrivilege(repositoryPrivilege.findById(id).orElse(null));
     }
+    @Override
     public void delete() {
         repositoryPrivilege.deleteAll();
     }
-    public Privilege findByName(String value) { return  repositoryPrivilege.findByName(value); }
+
     public boolean existsByName(String value) {
         return repositoryPrivilege.existsByNameIgnoreCase(value);
     }
-
     public boolean existsByNameAndIdNot(String value, UUID id) {
         return !repositoryPrivilege.findByNameContaining(value).and(repositoryPrivilege.findByIdNot(id)).isEmpty();
     }

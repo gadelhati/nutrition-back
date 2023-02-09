@@ -14,8 +14,4 @@ public class DTOResponsePrivilege {
     private UUID id;
     private String name;
     private Collection<Role> roles;
-
-    public static DTOResponsePrivilege toDTO(Privilege value) {
-        return new DTOResponsePrivilege(value.getId(), value.getName(), value.getRoles());
-    }
 }

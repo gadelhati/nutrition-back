@@ -30,9 +30,7 @@ public class ServiceUserEntity implements ServiceInterface<DTOResponseUserEntity
     }
     public List<DTOResponseUserEntity> retrieve(List<UserEntity> list){
         List<DTOResponseUserEntity> search = new ArrayList<>();
-        for(UserEntity object: list) {
-            search.add(MapStruct.MAPPER.toDTOUserEntity(object));
-        }
+        list.stream().forEach(value -> search.add(MapStruct.MAPPER.toDTOUserEntity(value)));
         return search;
     }
     @Override

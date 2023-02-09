@@ -30,9 +30,7 @@ public class ServiceFoodCategory implements ServiceInterface<DTOResponseFoodCate
     }
     public List<DTOResponseFoodCategory> retrieve(List<FoodCategory> list){
         List<DTOResponseFoodCategory> search = new ArrayList<>();
-        for(FoodCategory object: list) {
-            search.add(MapStruct.MAPPER.toDTOFoodCategory(object));
-        }
+        list.stream().forEach(value -> search.add(MapStruct.MAPPER.toDTOFoodCategory(value)));
         return search;
     }
     @Override
