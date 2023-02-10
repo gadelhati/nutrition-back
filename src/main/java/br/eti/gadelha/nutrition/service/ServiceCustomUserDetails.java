@@ -1,7 +1,9 @@
 package br.eti.gadelha.nutrition.service;
 
+import br.eti.gadelha.nutrition.persistence.model.Privilege;
 import br.eti.gadelha.nutrition.persistence.model.Role;
 import br.eti.gadelha.nutrition.persistence.model.UserEntity;
+import br.eti.gadelha.nutrition.persistence.repository.RepositoryRole;
 import br.eti.gadelha.nutrition.persistence.repository.RepositoryUserEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -12,14 +14,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service @RequiredArgsConstructor
 public class ServiceCustomUserDetails implements UserDetailsService {
 
     private final RepositoryUserEntity repositoryUserEntity;
+    private final RepositoryRole repositoryRole;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -28,5 +30,39 @@ public class ServiceCustomUserDetails implements UserDetailsService {
     }
     private Collection<GrantedAuthority> mapRolesToAuthorities(List<Role> roles) {
         return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
+    }
+
+//    @Override
+//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//        Optional<UserEntity> user = repositoryUserEntity.findByUsername(username);
+//        if (user == null) {
+//            return new org.springframework.security.core.userdetails.User(
+//                    " ", " ", true, true, true, true,
+//                    getAuthorities(Arrays.asList(repositoryRole.findByName("ROLE_USER"))));
+//        }
+//        return new UserEntity(
+//                user.get().getUsername(), user.get().getEmail(), user.get().getPassword(), user.get().getActive(), getAuthorities(user.get().getRoles()));
+//    }
+    private Collection<? extends GrantedAuthority> getAuthorities(Collection<Role> roles) {
+        return getGrantedAuthorities(getPrivileges(roles));
+    }
+    private List<String> getPrivileges(Collection<Role> roles) {
+        List<String> privileges = new ArrayList<>();
+        List<Privilege> collection = new ArrayList<>();
+        for (Role role : roles) {
+            privileges.add(role.getName());
+            collection.addAll(role.getPrivileges());
+        }
+        for (Privilege item : collection) {
+            privileges.add(item.getName());
+        }
+        return privileges;
+    }
+    private List<GrantedAuthority> getGrantedAuthorities(List<String> privileges) {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        for (String privilege : privileges) {
+            authorities.add(new SimpleGrantedAuthority(privilege));
+        }
+        return authorities;
     }
 }
