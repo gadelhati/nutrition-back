@@ -33,7 +33,7 @@ CRUD service from a nutritional table.
 - [ ] improve refresh token
 - [x] set up Role and Privileges
 - [x] set up Role Hierarchy
-- [ ] @PreAuthorize
+- [x] @PreAuthorize(hasRole('')), @PostFilter(hasPermission('')), hasAuthority('Admin')
 - [ ] add data Point of PostGis
 - [ ] Streamable
 - [x] Optional
