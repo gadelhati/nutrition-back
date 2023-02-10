@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service @RequiredArgsConstructor
 public class ServicePrivilege implements ServiceInterface<DTOResponsePrivilege, DTORequestPrivilege, Privilege> {
@@ -29,9 +30,7 @@ public class ServicePrivilege implements ServiceInterface<DTOResponsePrivilege, 
         return MapStruct.MAPPER.toDTOPrivilege(repositoryPrivilege.findById(id).orElseGet(null));
     }
     public List<DTOResponsePrivilege> retrieve(List<Privilege> list){
-        List<DTOResponsePrivilege> search = new ArrayList<>();
-        list.stream().forEach(value -> search.add(MapStruct.MAPPER.toDTOPrivilege(value)));
-        return search;
+        return list.stream().map(value -> MapStruct.MAPPER.toDTOPrivilege(value)).collect(Collectors.toList());
     }
     @Override
     public List<DTOResponsePrivilege> retrieve(){

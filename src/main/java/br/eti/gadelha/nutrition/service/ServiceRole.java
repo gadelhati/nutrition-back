@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service @RequiredArgsConstructor
 public class ServiceRole implements ServiceInterface<DTOResponseRole, DTORequestRole, Role> {
@@ -29,9 +30,7 @@ public class ServiceRole implements ServiceInterface<DTOResponseRole, DTORequest
         return MapStruct.MAPPER.toDTORole(repositoryRole.findById(id).orElseGet(null));
     }
     public List<DTOResponseRole> retrieve(List<Role> list){
-        List<DTOResponseRole> search = new ArrayList<>();
-        list.stream().forEach(value -> search.add(MapStruct.MAPPER.toDTORole(value)));
-        return search;
+        return list.stream().map(value -> MapStruct.MAPPER.toDTORole(value)).collect(Collectors.toList());
     }
     @Override
     public List<DTOResponseRole> retrieve(){

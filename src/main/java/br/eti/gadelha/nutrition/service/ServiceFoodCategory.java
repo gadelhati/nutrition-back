@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service @RequiredArgsConstructor
 public class ServiceFoodCategory implements ServiceInterface<DTOResponseFoodCategory, DTORequestFoodCategory, FoodCategory> {
@@ -29,9 +30,7 @@ public class ServiceFoodCategory implements ServiceInterface<DTOResponseFoodCate
         return MapStruct.MAPPER.toDTOFoodCategory(repositoryFoodCategory.findById(id).orElseGet(null));
     }
     public List<DTOResponseFoodCategory> retrieve(List<FoodCategory> list){
-        List<DTOResponseFoodCategory> search = new ArrayList<>();
-        list.stream().forEach(value -> search.add(MapStruct.MAPPER.toDTOFoodCategory(value)));
-        return search;
+        return list.stream().map(value -> MapStruct.MAPPER.toDTOFoodCategory(value)).collect(Collectors.toList());
     }
     @Override
     public List<DTOResponseFoodCategory> retrieve(){

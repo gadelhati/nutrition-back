@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service @RequiredArgsConstructor
 public class ServiceUserEntity implements ServiceInterface<DTOResponseUserEntity, DTORequestUserEntity, UserEntity> {
@@ -29,9 +30,7 @@ public class ServiceUserEntity implements ServiceInterface<DTOResponseUserEntity
         return MapStruct.MAPPER.toDTOUserEntity(repositoryUserEntity.findById(id).orElseGet(null));
     }
     public List<DTOResponseUserEntity> retrieve(List<UserEntity> list){
-        List<DTOResponseUserEntity> search = new ArrayList<>();
-        list.stream().forEach(value -> search.add(MapStruct.MAPPER.toDTOUserEntity(value)));
-        return search;
+        return list.stream().map(value -> MapStruct.MAPPER.toDTOUserEntity(value)).collect(Collectors.toList());
     }
     @Override
     public List<DTOResponseUserEntity> retrieve(){
