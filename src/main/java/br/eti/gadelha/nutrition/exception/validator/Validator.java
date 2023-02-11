@@ -32,7 +32,7 @@ public final class Validator {
     public static boolean hasUpperCase(String value) {
         return value.chars().anyMatch(letter -> Character.isUpperCase(letter));
     }
-    public static boolean hasLength(int length) {
-        return true;
+    public static boolean hasLength(int length, String value) {
+        return value.length() >= length;
     }
 }

@@ -1,20 +1,20 @@
 package br.eti.gadelha.nutrition.exception.validator;
 
-import br.eti.gadelha.nutrition.exception.annotation.HasDigit;
+import br.eti.gadelha.nutrition.exception.annotation.HasLetter;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
-import static br.eti.gadelha.nutrition.exception.validator.Validator.hasDigit;
+import static br.eti.gadelha.nutrition.exception.validator.Validator.hasLetter;
 
-public class ValidatorHasDigit implements ConstraintValidator<HasDigit, String> {
+public class ValidatorHasLetter implements ConstraintValidator<HasLetter, String> {
 
     @Override
-    public void initialize(HasDigit constraintAnnotation) {
+    public void initialize(HasLetter constraintAnnotation) {
     }
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        if (hasDigit(value)) {
+        if (hasLetter(value)) {
             return true;
         } else {
             return false;

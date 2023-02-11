@@ -1,9 +1,6 @@
 package br.eti.gadelha.nutrition.persistence.payload.request;
 
-//import br.eti.gadelha.nutrition.exception.annotation.PasswordLength;
-import br.eti.gadelha.nutrition.exception.annotation.HasDigit;
-import br.eti.gadelha.nutrition.exception.annotation.HasNumber;
-import br.eti.gadelha.nutrition.exception.annotation.UniqueUsername;
+import br.eti.gadelha.nutrition.exception.annotation.*;
 import br.eti.gadelha.nutrition.persistence.model.Role;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,11 +13,11 @@ import java.util.UUID;
 public class DTORequestUserEntity {
 
     private UUID id;
-    @NotNull(message = "{user.name.not.null}") @NotBlank(message = "{user.name.not.blank}") //@ValidUserEntityName @UserEntityNameLength
+    @NotNull(message = "{user.name.not.null}") @NotBlank(message = "{user.name.not.blank}") @HasLength
     private String username;
     @NotBlank(message = "{user.email.not.blank}") @Size(max = 50) @Email //@UniqueEmail
     private String email;
-    @NotNull(message = "{user.password.not.null}") @NotBlank(message = "{user.password.not.blank}") @HasDigit @HasNumber //@PasswordLength
+    @NotNull(message = "{user.password.not.null}") @NotBlank(message = "{user.password.not.blank}") @HasDigit @HasUpperCase @HasLowerCase @HasLength
     private String password;
     @NotNull(message = "{user.active.not.null}")
     private boolean active;
