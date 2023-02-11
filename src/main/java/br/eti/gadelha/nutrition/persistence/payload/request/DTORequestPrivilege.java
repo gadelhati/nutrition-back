@@ -14,7 +14,7 @@ import java.util.UUID;
 public class DTORequestPrivilege {
 
     private UUID id;
-    @NotNull(message = "{privilege.name.not.null}") @NotBlank(message = "{Privilege.name.not.blank}") //@UniqueNamePrivilege
+    @NotNull(message = "{privilege.name.not.null}") @NotBlank(message = "{privilege.name.not.blank}")
     private String name;
     private Collection<Role> roles;
 }

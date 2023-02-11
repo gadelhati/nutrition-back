@@ -1,6 +1,5 @@
 package br.eti.gadelha.nutrition.persistence.payload.request;
 
-import br.eti.gadelha.nutrition.exception.annotation.UniqueIbgeCode;
 import br.eti.gadelha.nutrition.exception.annotation.UniqueNameFoodCategory;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

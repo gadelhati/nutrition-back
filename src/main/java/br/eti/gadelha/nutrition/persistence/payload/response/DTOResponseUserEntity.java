@@ -14,9 +14,7 @@ import java.util.UUID;
 public class DTOResponseUserEntity {
 
     private UUID id;
-    @NotBlank @Size(min = 3, max = 20) //@UniqueNameRole
     private String username;
-    @NotBlank @Size(max = 50) @Email //@UniqueEmail
     private String email;
     private String password;
     private Boolean active;
