@@ -37,7 +37,9 @@ public class ServiceAuth {
     public DTOResponseUserEntity register(DTORequestUserEntity created) {
         UserEntity userEntity = new UserEntity(
                 created.getUsername(),
+                created.getEmail(),
                 passwordEncoder.encode(created.getPassword()),
+                created.isActive(),
                 Arrays.asList(repositoryRole.findByName("ROLE_USER"))
         );
         return MapStruct.MAPPER.toDTOUserEntity(repositoryUserEntity.save(userEntity));
