@@ -14,7 +14,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Data @MappedSuperclass @EqualsAndHashCode(callSuper = false) //@EntityListeners(AuditingEntityListener.class)
+@Data @MappedSuperclass @EntityListeners(AuditingEntityListener.class)
 public abstract class GenericEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -23,18 +23,12 @@ public abstract class GenericEntity implements Serializable {
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "id", unique = true, nullable = false)
     private UUID id;
-    @CreationTimestamp
+    @CreationTimestamp @Column(updatable = false)
     private LocalDateTime createdAt;
-    @UpdateTimestamp
+    @UpdateTimestamp @Column(updatable = true)
     private LocalDateTime updatedAt;
-    @CreatedBy
-    private UUID createdBy;
-    @LastModifiedBy
-    private UUID modifiedBy;
-    @PrePersist
-    public void prePersist() { createdAt = LocalDateTime.now();}
-    @PostUpdate
-    public void postUpdate() { updatedAt = LocalDateTime.now();}
-    @PreRemove
-    public void preRemove() { }
+    @CreatedBy @Column(updatable = false)
+    private UserEntity createdBy;
+    @LastModifiedBy @Column(updatable = true)
+    private UserEntity modifiedBy;
 }
