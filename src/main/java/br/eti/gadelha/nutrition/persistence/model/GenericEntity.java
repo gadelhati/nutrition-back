@@ -2,7 +2,6 @@ package br.eti.gadelha.nutrition.persistence.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -16,7 +15,6 @@ import java.util.UUID;
 
 @Data @MappedSuperclass @EntityListeners(AuditingEntityListener.class)
 public abstract class GenericEntity implements Serializable {
-    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(generator = "UUID", strategy = GenerationType.AUTO)
@@ -25,10 +23,14 @@ public abstract class GenericEntity implements Serializable {
     private UUID id;
     @CreationTimestamp @Column(updatable = false)
     private LocalDateTime createdAt;
-    @UpdateTimestamp @Column(updatable = true)
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
-    @CreatedBy @Column(updatable = false)
-    private UserEntity createdBy;
-    @LastModifiedBy @Column(updatable = true)
-    private UserEntity modifiedBy;
+    @CreatedBy
+//    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+//    @JoinColumn(name = "createdBy")
+    private String createdBy;
+    @LastModifiedBy
+//    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+//    @JoinColumn(name = "modifiedBy")
+    private String modifiedBy;
 }

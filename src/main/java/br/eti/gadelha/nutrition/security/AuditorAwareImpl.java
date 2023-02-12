@@ -11,17 +11,17 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class AuditorAwareImpl implements AuditorAware<UserEntity> {
+public class AuditorAwareImpl implements AuditorAware<String> {
 
     @Autowired
     private RepositoryUserEntity repositoryUserEntity;
 
     @Override
-    public Optional<UserEntity> getCurrentAuditor() {
+    public Optional<String> getCurrentAuditor() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !authentication.isAuthenticated()) {
             return null;
         }
-        return Optional.of(repositoryUserEntity.findByUsername(authentication.getName()).get());
+        return Optional.of(authentication.getName());
     }
 }

@@ -44,6 +44,7 @@ CRUD service from a nutritional table.
 - [x] change application.properties to [dev using h2, and prod using postgres]
 - [ ] add Internationalization to ValidationMessages.properties
 - [ ] swagger something is not showing (Whitelabel Error Page)
+- [x] auditAware with UserEntity
 
 ## Summary
 * [How to work with this project](#how-to-work-with-this-project)
