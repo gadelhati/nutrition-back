@@ -1,6 +1,24 @@
 -- CREATING SCHEMA
 CREATE SCHEMA IF NOT EXISTS nutrition;
 
+-- POPULING nutrition.preparation
+INSERT INTO nutrition.preparation (created_at, updated_at, id, code, name) VALUES (NOW(), NOW(), 'af2c0750-c7f1-49be-86af-32a1192d60e4', '1', 'Ao alho e óleo') ON CONFLICT DO NOTHING;
+INSERT INTO nutrition.preparation (created_at, updated_at, id, code, name) VALUES (NOW(), NOW(), '33707a49-077f-4e5c-b614-e95e98e5751a', '2', 'Ao vinagrete') ON CONFLICT DO NOTHING;
+INSERT INTO nutrition.preparation (created_at, updated_at, id, code, name) VALUES (NOW(), NOW(), '2a8c7d59-b403-41a5-9341-97e1e45f7324', '3', 'Assado(a)') ON CONFLICT DO NOTHING;
+INSERT INTO nutrition.preparation (created_at, updated_at, id, code, name) VALUES (NOW(), NOW(), 'c26645e1-d7c5-4fdf-85ad-79bd35a58269', '4', 'Com manteiga/óleo') ON CONFLICT DO NOTHING;
+INSERT INTO nutrition.preparation (created_at, updated_at, id, code, name) VALUES (NOW(), NOW(), '3c95a138-f46b-4ab2-bd43-aa525096dce3', '5', 'Cozido(a)') ON CONFLICT DO NOTHING;
+INSERT INTO nutrition.preparation (created_at, updated_at, id, code, name) VALUES (NOW(), NOW(), '786272b8-5897-40cf-af97-89faf14077e5', '6', 'Cru(a)') ON CONFLICT DO NOTHING;
+INSERT INTO nutrition.preparation (created_at, updated_at, id, code, name) VALUES (NOW(), NOW(), '3b4c20f3-31a6-4c57-97c4-8b2279af941f', '7', 'Empanado(a)/à milanesa') ON CONFLICT DO NOTHING;
+INSERT INTO nutrition.preparation (created_at, updated_at, id, code, name) VALUES (NOW(), NOW(), 'c899ab24-670a-473f-844f-47753d8d7cba', '8', 'Ensopado') ON CONFLICT DO NOTHING;
+INSERT INTO nutrition.preparation (created_at, updated_at, id, code, name) VALUES (NOW(), NOW(), 'a7dfe7e1-6ea9-40be-92be-01780125a0e7', '9', 'Frito(a)') ON CONFLICT DO NOTHING;
+INSERT INTO nutrition.preparation (created_at, updated_at, id, code, name) VALUES (NOW(), NOW(), '0367c0c1-316d-4cf5-bd22-4b36f1257170', '10', 'Grelhado(a)/brasa/churrasco') ON CONFLICT DO NOTHING;
+INSERT INTO nutrition.preparation (created_at, updated_at, id, code, name) VALUES (NOW(), NOW(), '942dec89-bdd9-4c69-9466-80ce93202c47', '11', 'Mingau') ON CONFLICT DO NOTHING;
+INSERT INTO nutrition.preparation (created_at, updated_at, id, code, name) VALUES (NOW(), NOW(), 'd57223a7-f29c-4a5e-affa-2120acf6ebae', '12', 'Molho branco') ON CONFLICT DO NOTHING;
+INSERT INTO nutrition.preparation (created_at, updated_at, id, code, name) VALUES (NOW(), NOW(), 'fb05c4ba-c640-4710-ae9d-7b4ff2642b96', '13', 'Molho vermelho') ON CONFLICT DO NOTHING;
+INSERT INTO nutrition.preparation (created_at, updated_at, id, code, name) VALUES (NOW(), NOW(), 'd3243be5-1b03-48dd-aa13-487778c0ec16', '14', 'Não se aplica') ON CONFLICT DO NOTHING;
+INSERT INTO nutrition.preparation (created_at, updated_at, id, code, name) VALUES (NOW(), NOW(), '2ab5c0b7-a242-472a-9bd7-92b097f7eed2', '15', 'Refogado(a)') ON CONFLICT DO NOTHING;
+INSERT INTO nutrition.preparation (created_at, updated_at, id, code, name) VALUES (NOW(), NOW(), 'cdb485c6-367f-4939-aeba-4be70aeec5fb', '99', 'Sopa') ON CONFLICT DO NOTHING;
+
 -- POPULING nutrition.food
 INSERT INTO nutrition.food (created_at, updated_at, id, ibge_code, name, preparation, energy, protein, total_lipids, carbohydrate, fiber, cholesterol, saturated, monounsaturated, polyunsaturated, linoleic, linolenic, trans, total_sugar, added_sugar, calcium, magnesium, manganese, phosphorus, iron, sodium, added_sodium, potassium, copper, zinc, selenium, retinol, vitaminaA, tiamina, riboflavina, niacina, niacinaNE, piridoxina, cobalamina, folato, vitaminaD, vitaminaE, vitaminaC) VALUES (NOW(), NOW(), '02754131-fd85-4303-a585-81116be20c5e', '6300101', 'Arroz (polido, parboilizado, agulha, agulhinha, etc.)', '99', 135.62, 2.50, 1.20, 27.78, 1.55, null, 0.35, 0.22, 0.56, 0.56, 0.07, 0.01, null, null, 3.51, 2.23, 0.29, 17.77, 0.08, 1.19, 382.00, 14.53, 0.01, 0.49, 0.45, null, null, null, null, null, null, null, null, null, null, 0.08, null) ON CONFLICT DO NOTHING;
 INSERT INTO nutrition.food (created_at, updated_at, id, ibge_code, name, preparation, energy, protein, total_lipids, carbohydrate, fiber, cholesterol, saturated, monounsaturated, polyunsaturated, linoleic, linolenic, trans, total_sugar, added_sugar, calcium, magnesium, manganese, phosphorus, iron, sodium, added_sodium, potassium, copper, zinc, selenium, retinol, vitaminaA, tiamina, riboflavina, niacina, niacinaNE, piridoxina, cobalamina, folato, vitaminaD, vitaminaE, vitaminaC) VALUES (NOW(), NOW(), '9ba059f6-ba42-4f26-9683-5e529cd1257c', '6300201', 'Arroz integral', '99', 130.95, 2.56, 1.97, 25.56, 2.72, null, 0.45, 0.62, 0.86, 0.80, 0.08, 0.01, null, null, 5.15, 58.13, 0.62, 104.82, 0.26, 1.23, 282.00, 74.42, 0.02, 0.68, 0.45, null, null, 0.08, null, null, null, 0.08, null, null, null, 0.08, null) ON CONFLICT DO NOTHING;

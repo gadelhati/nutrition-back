@@ -1,9 +1,6 @@
 package br.eti.gadelha.nutrition.persistence.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -17,6 +14,7 @@ public class Food extends GenericEntity {
 
     private String ibgeCode;
     private String name;
+//    @OneToOne
     private String preparation;
 //    energy, macronutrients and fiber
     @Column(nullable = true)
