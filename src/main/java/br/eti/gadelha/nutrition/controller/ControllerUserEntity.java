@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -20,7 +21,7 @@ public class ControllerUserEntity implements ControllerInterface<DTOResponseUser
 
     private final ServiceUserEntity serviceUserEntity;
 
-    @PostMapping("")
+    @PostMapping("") @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
     public ResponseEntity<DTOResponseUserEntity> create(@RequestBody @Valid DTORequestUserEntity created){
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/user").toUriString());
         return ResponseEntity.created(uri).body(serviceUserEntity.create(created));
@@ -33,15 +34,15 @@ public class ControllerUserEntity implements ControllerInterface<DTOResponseUser
     public ResponseEntity<Page<DTOResponseUserEntity>> retrieve(@PathVariable(value = "value", required = false) String value, Pageable pageable) {
         return ResponseEntity.ok().body(serviceUserEntity.retrieve(pageable, value));
     }
-    @PutMapping("")
+    @PutMapping("") @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
     public ResponseEntity<DTOResponseUserEntity> update(@RequestBody @Valid DTORequestUserEntity updated){
         return ResponseEntity.accepted().body(serviceUserEntity.update(updated.getId(), updated));
     }
-    @DeleteMapping("{id}")
+    @DeleteMapping("{id}") @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
     public ResponseEntity<DTOResponseUserEntity> delete(@PathVariable("id") UUID id){
         return ResponseEntity.accepted().body(serviceUserEntity.delete(id));
     }
-    @DeleteMapping("")
+    @DeleteMapping("") @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
     public ResponseEntity<HttpStatus> delete(){
         try {
             serviceUserEntity.delete();

@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -20,7 +21,7 @@ public class ControllerFoodCategory implements ControllerInterface<DTOResponseFo
 
     private final ServiceFoodCategory serviceFoodCategory;
 
-    @PostMapping("")
+    @PostMapping("") @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
     public ResponseEntity<DTOResponseFoodCategory> create(@RequestBody @Valid DTORequestFoodCategory created){
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/food_category").toUriString());
         return ResponseEntity.created(uri).body(serviceFoodCategory.create(created));
@@ -33,15 +34,15 @@ public class ControllerFoodCategory implements ControllerInterface<DTOResponseFo
     public ResponseEntity<Page<DTOResponseFoodCategory>> retrieve(@PathVariable(value = "value", required = false) String value, Pageable pageable) {
         return ResponseEntity.ok().body(serviceFoodCategory.retrieve(pageable, value));
     }
-    @PutMapping("")
+    @PutMapping("") @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
     public ResponseEntity<DTOResponseFoodCategory> update(@RequestBody @Valid DTORequestFoodCategory updated){
         return ResponseEntity.accepted().body(serviceFoodCategory.update(updated.getId(), updated));
     }
-    @DeleteMapping("{id}")
+    @DeleteMapping("{id}") @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
     public ResponseEntity<DTOResponseFoodCategory> delete(@PathVariable("id") UUID id){
         return ResponseEntity.accepted().body(serviceFoodCategory.delete(id));
     }
-    @DeleteMapping("")
+    @DeleteMapping("") @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
     public ResponseEntity<HttpStatus> delete(){
         try {
             serviceFoodCategory.delete();

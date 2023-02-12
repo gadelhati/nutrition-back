@@ -35,7 +35,6 @@ CRUD service from a nutritional table.
 - [x] set up Role Hierarchy
 - [x] @PreAuthorize(hasRole('')), @PostFilter(hasPermission('')), hasAuthority('Admin')
 - [ ] add data Point of PostGis
-- [ ] Streamable
 - [x] Optional
 - [ ] deploy the application on a tomcat server
 - [ ] service to provide sidebar access

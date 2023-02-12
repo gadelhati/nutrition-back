@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -20,7 +21,7 @@ public class ControllerPrivilege implements ControllerInterface<DTOResponsePrivi
 
     private final ServicePrivilege servicePrivilege;
 
-    @PostMapping("")
+    @PostMapping("") @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<DTOResponsePrivilege> create(@RequestBody @Valid DTORequestPrivilege created){
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/privilege").toUriString());
         return ResponseEntity.created(uri).body(servicePrivilege.create(created));
@@ -37,11 +38,11 @@ public class ControllerPrivilege implements ControllerInterface<DTOResponsePrivi
     public ResponseEntity<DTOResponsePrivilege> update(@RequestBody @Valid DTORequestPrivilege updated){
         return ResponseEntity.accepted().body(servicePrivilege.update(updated.getId(), updated));
     }
-    @DeleteMapping("{id}")
+    @DeleteMapping("{id}") @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<DTOResponsePrivilege> delete(@PathVariable("id") UUID id){
         return ResponseEntity.accepted().body(servicePrivilege.delete(id));
     }
-    @DeleteMapping("")
+    @DeleteMapping("") @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<HttpStatus> delete(){
         try {
             servicePrivilege.delete();
