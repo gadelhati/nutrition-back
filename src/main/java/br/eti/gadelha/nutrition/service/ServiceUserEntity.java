@@ -4,14 +4,17 @@ import br.eti.gadelha.nutrition.persistence.MapStruct;
 import br.eti.gadelha.nutrition.persistence.model.UserEntity;
 import br.eti.gadelha.nutrition.persistence.payload.request.DTORequestUserEntity;
 import br.eti.gadelha.nutrition.persistence.payload.response.DTOResponseUserEntity;
+import br.eti.gadelha.nutrition.persistence.repository.RepositoryRole;
 import br.eti.gadelha.nutrition.persistence.repository.RepositoryUserEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -20,9 +23,13 @@ import java.util.stream.Collectors;
 public class ServiceUserEntity implements ServiceInterface<DTOResponseUserEntity, DTORequestUserEntity, UserEntity> {
 
     private final RepositoryUserEntity repositoryUserEntity;
+    private final RepositoryRole repositoryRole;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public DTOResponseUserEntity create(DTORequestUserEntity created){
+        created.setPassword(passwordEncoder.encode(created.getPassword()));
+        created.setRoles(Arrays.asList(repositoryRole.findByName("ROLE_USER")));
         return MapStruct.MAPPER.toDTOUserEntity(repositoryUserEntity.save(MapStruct.MAPPER.toUserEntity(created)));
     }
     @Override
