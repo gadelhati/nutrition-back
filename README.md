@@ -31,9 +31,6 @@ CRUD service from a nutritional table.
 
 ### Roadmap
 - [ ] improve refresh token
-- [x] set up Role and Privileges
-- [x] set up Role Hierarchy
-- [x] @PreAuthorize(hasRole('')), @PostFilter(hasPermission('')), hasAuthority('Admin')
 - [ ] add data Point of PostGis
 - [x] Optional
 - [ ] deploy the application on a tomcat server
@@ -45,6 +42,9 @@ CRUD service from a nutritional table.
 - [ ] swagger something is not showing (Whitelabel Error Page)
 - [x] travis
 - [x] auditAware with UserEntity
+- [x] set up Role Hierarchy
+- [x] set up Role and Privileges
+- [x] @PostFilter(hasPermission('')), hasAuthority('Admin')
 
 ## Summary
 * [How to work with this project](#how-to-work-with-this-project)
