@@ -16,7 +16,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
-@RestController @RequestMapping("/privilege/") @RequiredArgsConstructor
+@RestController @RequestMapping("/privilege") @RequiredArgsConstructor
 public class ControllerPrivilege implements ControllerInterface<DTOResponsePrivilege, DTORequestPrivilege> {
 
     private final ServicePrivilege servicePrivilege;
@@ -26,15 +26,11 @@ public class ControllerPrivilege implements ControllerInterface<DTOResponsePrivi
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/privilege").toUriString());
         return ResponseEntity.created(uri).body(servicePrivilege.create(created));
     }
-    @GetMapping("retrieve")
-    public List<DTOResponsePrivilege> retrieve(){
-        return servicePrivilege.retrieve();
-    }
     @GetMapping("id/{id}")
     public ResponseEntity<DTOResponsePrivilege> retrieve(@PathVariable("id") UUID id){
         return ResponseEntity.ok().body(servicePrivilege.retrieve(id));
     }
-    @GetMapping(value = {"{value}", ""})
+    @GetMapping(value = {"/{value}", ""})
     public ResponseEntity<Page<DTOResponsePrivilege>> retrieve(@PathVariable(value = "value", required = false) String value, Pageable pageable) {
         return ResponseEntity.ok().body(servicePrivilege.retrieve(pageable, value));
     }

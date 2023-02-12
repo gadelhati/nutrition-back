@@ -16,7 +16,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
-@RestController @RequestMapping("/user/") @RequiredArgsConstructor
+@RestController @RequestMapping("/user") @RequiredArgsConstructor
 public class ControllerUserEntity implements ControllerInterface<DTOResponseUserEntity, DTORequestUserEntity> {
 
     private final ServiceUserEntity serviceUserEntity;
@@ -26,15 +26,11 @@ public class ControllerUserEntity implements ControllerInterface<DTOResponseUser
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/user").toUriString());
         return ResponseEntity.created(uri).body(serviceUserEntity.create(created));
     }
-    @GetMapping("retrieve")
-    public List<DTOResponseUserEntity> retrieve(){
-        return serviceUserEntity.retrieve();
-    }
     @GetMapping("id/{id}")
     public ResponseEntity<DTOResponseUserEntity> retrieve(@PathVariable("id") UUID id){
         return ResponseEntity.ok().body(serviceUserEntity.retrieve(id));
     }
-    @GetMapping(value = {"{value}", ""})
+    @GetMapping(value = {"/{value}", ""})
     public ResponseEntity<Page<DTOResponseUserEntity>> retrieve(@PathVariable(value = "value", required = false) String value, Pageable pageable) {
         return ResponseEntity.ok().body(serviceUserEntity.retrieve(pageable, value));
     }

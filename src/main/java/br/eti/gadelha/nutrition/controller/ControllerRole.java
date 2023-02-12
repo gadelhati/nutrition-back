@@ -16,7 +16,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
-@RestController @RequestMapping("/role/") @RequiredArgsConstructor
+@RestController @RequestMapping("/role") @RequiredArgsConstructor
 public class ControllerRole implements ControllerInterface<DTOResponseRole, DTORequestRole> {
 
     private final ServiceRole serviceRole;
@@ -26,15 +26,11 @@ public class ControllerRole implements ControllerInterface<DTOResponseRole, DTOR
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/role").toUriString());
         return ResponseEntity.created(uri).body(serviceRole.create(created));
     }
-    @GetMapping("retrieve")
-    public List<DTOResponseRole> retrieve(){
-        return serviceRole.retrieve();
-    }
     @GetMapping("id/{id}")
     public ResponseEntity<DTOResponseRole> retrieve(@PathVariable("id") UUID id){
         return ResponseEntity.ok().body(serviceRole.retrieve(id));
     }
-    @GetMapping(value = {"{value}", ""})
+    @GetMapping(value = {"/{value}", ""})
     public ResponseEntity<Page<DTOResponseRole>> retrieve(@PathVariable(value = "value", required = false) String value, Pageable pageable) {
         return ResponseEntity.ok().body(serviceRole.retrieve(pageable, value));
     }

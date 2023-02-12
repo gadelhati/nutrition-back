@@ -16,7 +16,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
-@RestController @RequestMapping("/food_category/") @RequiredArgsConstructor
+@RestController @RequestMapping("/food_category") @RequiredArgsConstructor
 public class ControllerFoodCategory implements ControllerInterface<DTOResponseFoodCategory, DTORequestFoodCategory> {
 
     private final ServiceFoodCategory serviceFoodCategory;
@@ -26,13 +26,11 @@ public class ControllerFoodCategory implements ControllerInterface<DTOResponseFo
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/food_category").toUriString());
         return ResponseEntity.created(uri).body(serviceFoodCategory.create(created));
     }
-    @GetMapping("retrieve")
-    public List<DTOResponseFoodCategory> retrieve(){ return serviceFoodCategory.retrieve(); }
     @GetMapping("id/{id}")
     public ResponseEntity<DTOResponseFoodCategory> retrieve(@PathVariable("id") UUID id){
         return ResponseEntity.ok().body(serviceFoodCategory.retrieve(id));
     }
-    @GetMapping(value = {"{value}", ""})
+    @GetMapping(value = {"/{value}", ""})
     public ResponseEntity<Page<DTOResponseFoodCategory>> retrieve(@PathVariable(value = "value", required = false) String value, Pageable pageable) {
         return ResponseEntity.ok().body(serviceFoodCategory.retrieve(pageable, value));
     }
