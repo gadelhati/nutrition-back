@@ -41,7 +41,6 @@ CRUD service from a nutritional table.
 - [ ] swagger something is not showing (Whitelabel Error Page)
 - [x] travis
 - [x] auditAware with UserEntity
-- [x] set up Role Hierarchy
 - [x] set up Role and Privileges
 - [x] @PostFilter(hasPermission('')), hasAuthority('Admin')
 
