@@ -31,7 +31,6 @@ CRUD service from a nutritional table.
 
 ### Roadmap
 - [ ] improve refresh token
-- [ ] add data Point of PostGis
 - [x] Optional
 - [ ] deploy the application on a tomcat server
 - [ ] service to provide sidebar access
