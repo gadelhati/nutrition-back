@@ -26,15 +26,15 @@ public class ControllerPrivilege implements ControllerInterface<DTOResponsePrivi
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/privilege").toUriString());
         return ResponseEntity.created(uri).body(servicePrivilege.create(created));
     }
-    @GetMapping("id/{id}")
+    @GetMapping("id/{id}") @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<DTOResponsePrivilege> retrieve(@PathVariable("id") UUID id){
         return ResponseEntity.ok().body(servicePrivilege.retrieve(id));
     }
-    @GetMapping(value = {"/{value}", ""})
+    @GetMapping(value = {"/{value}", ""}) @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<Page<DTOResponsePrivilege>> retrieve(@PathVariable(value = "value", required = false) String value, Pageable pageable) {
         return ResponseEntity.ok().body(servicePrivilege.retrieve(pageable, value));
     }
-    @PutMapping("")
+    @PutMapping("") @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<DTOResponsePrivilege> update(@RequestBody @Valid DTORequestPrivilege updated){
         return ResponseEntity.accepted().body(servicePrivilege.update(updated.getId(), updated));
     }

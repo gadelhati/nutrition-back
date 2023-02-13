@@ -26,11 +26,11 @@ public class ControllerRole implements ControllerInterface<DTOResponseRole, DTOR
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/role").toUriString());
         return ResponseEntity.created(uri).body(serviceRole.create(created));
     }
-    @GetMapping("id/{id}")
+    @GetMapping("id/{id}") @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<DTOResponseRole> retrieve(@PathVariable("id") UUID id){
         return ResponseEntity.ok().body(serviceRole.retrieve(id));
     }
-    @GetMapping(value = {"/{value}", ""})
+    @GetMapping(value = {"/{value}", ""}) @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<Page<DTOResponseRole>> retrieve(@PathVariable(value = "value", required = false) String value, Pageable pageable) {
         return ResponseEntity.ok().body(serviceRole.retrieve(pageable, value));
     }
