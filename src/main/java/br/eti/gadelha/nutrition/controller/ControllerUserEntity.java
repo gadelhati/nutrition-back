@@ -21,7 +21,7 @@ public class ControllerUserEntity implements ControllerInterface<DTOResponseUser
 
     private final ServiceUserEntity serviceUserEntity;
 
-    @PostMapping("") @PreAuthorize("hasAnyRole('MODERATOR')")
+    @PostMapping("") @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
     public ResponseEntity<DTOResponseUserEntity> create(@RequestBody @Valid DTORequestUserEntity created){
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/user").toUriString());
         return ResponseEntity.created(uri).body(serviceUserEntity.create(created));

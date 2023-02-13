@@ -25,17 +25,12 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .cors().and().csrf().disable()
-                .exceptionHandling()
-                .authenticationEntryPoint(authEntryPoint)
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
+                .exceptionHandling().authenticationEntryPoint(authEntryPoint).and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeHttpRequests()
-                .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .httpBasic();
+                    .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
+    //                .requestMatchers(HttpMethod.POST, "/user").hasAnyRole("ADMIN", "MODERATOR")
+                .anyRequest().authenticated();
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
