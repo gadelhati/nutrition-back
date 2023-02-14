@@ -97,21 +97,20 @@ two files with the extension .war will be created, the one with the shortest nam
 ## How to deploy on Tomcat Server
 Type in your linux server
 ```
-systemctl stop tomcat
+service tomcat stop
 rm /opt/tomcat/webapps/<old_version>.war
 rm -Rfv /opt/tomcat/webapps/<old_version>
 cp /home/<user>/<application_name>.war /opt/tomcat/webapps/
 chown tomcat:tomcat /opt/tomcat/webapps/<application_name>.war
 chmod 755 <application_name>
-systemctl start tomcat
+service tomcat start
 ```
 
 ## Features
 These are the paths to services:
 - [x] [CREATE](http://localhost:3119/food) - path to item creation;
-- [ ] [RETRIEVE_ALL](http://localhost:3119/food) - path to retrieve of all items;
 - [x] [RETRIEVE](http://localhost:3119/food/id) - path to retrieve of an item by id;
-- [x] [RETRIEVE](http://localhost:3119/food/id) - path to retrieve of an item by source or all items without source;
+- [x] [RETRIEVE](http://localhost:3119/food/search) - path to retrieve of an item by search or all items without source;
 - [x] [UPDATE](http://localhost:3119/food/id) - path to update an item;
 - [x] [DELETE](http://localhost:3119/food/id) - path to delete an item;
 - [x] [DELETE_ALL](http://localhost:3119/food) - path to delete all items;
