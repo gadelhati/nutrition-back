@@ -30,9 +30,9 @@
 CRUD service from a nutritional table.
 
 ### Roadmap
+- [ ] change validateToken
 - [ ] improve refresh token
 - [x] Optional
-- [ ] deploy the application on a tomcat server
 - [ ] service to provide sidebar access
 - [ ] service to provide color palete
 - [ ] work with git
