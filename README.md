@@ -30,11 +30,10 @@
 CRUD service from a nutritional table.
 
 ### Roadmap
-- [ ] change validateToken
-- [ ] improve refresh token
-- [x] Optional
 - [ ] service to provide sidebar access
 - [ ] service to provide color palete
+- [ ] change validateToken
+- [ ] improve refresh token
 - [ ] work with git
 - [x] change application.properties to [dev using h2, and prod using postgres]
 - [ ] add Internationalization to ValidationMessages.properties
