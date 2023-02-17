@@ -1,6 +1,6 @@
-package br.eti.gadelha.nutrition.security;
+package br.eti.gadelha.nutrition.configuration;
 
-import br.eti.gadelha.nutrition.persistence.model.UserEntity;
+import br.eti.gadelha.nutrition.security.AuditorAwareImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @Configuration
 @EnableJpaAuditing(auditorAwareRef="auditorAwareImpl")
-public class AuditConfiguration {
+public class ConfigurationAudit {
 
     @Bean
     public AuditorAware<String> auditorProvider() {

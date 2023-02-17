@@ -1,5 +1,7 @@
-package br.eti.gadelha.nutrition.security;
+package br.eti.gadelha.nutrition.configuration;
 
+import br.eti.gadelha.nutrition.security.JWTAuthenticationFilter;
+import br.eti.gadelha.nutrition.security.JWTAuthEntryPoint;
 import br.eti.gadelha.nutrition.service.ServiceCustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -16,9 +18,9 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration @EnableWebSecurity @RequiredArgsConstructor
-public class SecurityConfig {
+public class ConfigurationSecurity {
 
-    private final JwtAuthEntryPoint authEntryPoint;
+    private final JWTAuthEntryPoint authEntryPoint;
     private final ServiceCustomUserDetails userDetailsService;
 
     @Bean
@@ -44,7 +46,7 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
     @Bean
-    public  JWTAuthenticationFilter jwtAuthenticationFilter() {
+    public JWTAuthenticationFilter jwtAuthenticationFilter() {
         return new JWTAuthenticationFilter();
     }
 }
