@@ -35,7 +35,6 @@ CRUD service from a nutritional table.
 - [ ] change validateToken
 - [ ] improve refresh token
 - [ ] work with git
-- [x] change application.properties to [dev using h2, and prod using postgres]
 - [ ] add Internationalization to ValidationMessages.properties
 - [ ] swagger something is not showing (Whitelabel Error Page)
 - [x] travis
