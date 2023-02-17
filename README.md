@@ -32,7 +32,7 @@ CRUD service from a nutritional table.
 ### Roadmap
 - [ ] service to provide sidebar access
 - [ ] service to provide color palete
-- [ ] change validateToken
+- [ ] change date validate Token
 - [ ] improve refresh token
 - [ ] work with git
 - [ ] add Internationalization to ValidationMessages.properties
