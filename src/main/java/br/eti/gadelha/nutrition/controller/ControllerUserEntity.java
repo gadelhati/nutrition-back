@@ -30,7 +30,7 @@ public class ControllerUserEntity implements ControllerInterface<DTOResponseUser
     public ResponseEntity<DTOResponseUserEntity> retrieve(@PathVariable("id") UUID id){
         return ResponseEntity.ok().body(serviceUserEntity.retrieve(id));
     }
-    @GetMapping(value = {"/{value}", ""}) @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
+    @GetMapping(value = {"/{value}", "/"}) @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
     public ResponseEntity<Page<DTOResponseUserEntity>> retrieve(@PathVariable(value = "value", required = false) String value, Pageable pageable) {
         return ResponseEntity.ok().body(serviceUserEntity.retrieve(pageable, value));
     }

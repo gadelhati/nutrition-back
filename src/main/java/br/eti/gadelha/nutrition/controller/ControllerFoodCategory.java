@@ -30,7 +30,7 @@ public class ControllerFoodCategory implements ControllerInterface<DTOResponseFo
     public ResponseEntity<DTOResponseFoodCategory> retrieve(@PathVariable("id") UUID id){
         return ResponseEntity.ok().body(serviceFoodCategory.retrieve(id));
     }
-    @GetMapping(value = {"/{value}", ""})
+    @GetMapping(value = {"/{value}", "/"})
     public ResponseEntity<Page<DTOResponseFoodCategory>> retrieve(@PathVariable(value = "value", required = false) String value, Pageable pageable) {
         return ResponseEntity.ok().body(serviceFoodCategory.retrieve(pageable, value));
     }
