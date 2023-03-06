@@ -1,14 +1,15 @@
 package br.eti.gadelha.nutrition.persistence.payload.response;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
-@Data
+import java.util.List;
+
+@Data @AllArgsConstructor
 public class DTOResponseAuth {
 
     private String accessToken;
     private String tokenType = "Bearer ";
-
-    public DTOResponseAuth(String accessToken) {
-        this.accessToken = accessToken;
-    }
+    private String username;
+    private List<String> roles;
 }
