@@ -2031,7 +2031,7 @@ INSERT INTO nutrition.privilege(user_id, role_id) VALUES ('8652ec73-0a53-433c-93
 
 -- POPULING nutrition.user
 INSERT INTO nutrition.user_entity(created_at, updated_at, id, username, password, email, active) VALUES (NOW(), NOW(), '6120ce60-4499-4a8d-816b-9080e3f8e6e2', '00038059', '$2a$10$v5q8rJ5T/OlmZ2NKSYB2YOOxkn9AI1K04Bn9pemlEZTAMybsq6ona', 'marcelo.gadelha@marinha.mil.br', true) ON CONFLICT DO NOTHING;
-INSERT INTO nutrition.user_entity(created_at, updated_at, id, username, password, email, active) VALUES (NOW(), NOW(), 'c0a87d57-85d7-48a9-ba3b-39473aa8175c', '00038060', '$2a$10$v5q8rJ5T/OlmZ2NKSYB2YOOxkn9AI1K04Bn9pemlEZTAMybsq6ona', 'gael.gadelha@marinha.mil.br', true) ON CONFLICT DO NOTHING;
+INSERT INTO nutrition.user_entity(created_at, updated_at, id, username, password, email, active) VALUES (NOW(), NOW(), '67d43c5e-bd63-4e17-b386-09438e758194', '00038060', '$2a$10$v5q8rJ5T/OlmZ2NKSYB2YOOxkn9AI1K04Bn9pemlEZTAMybsq6ona', 'gael.gadelha@marinha.mil.br', true) ON CONFLICT DO NOTHING;
 
 -- POPULING nutrition.user_role
 INSERT INTO nutrition.user_roles(user_id, role_id) VALUES ('6120ce60-4499-4a8d-816b-9080e3f8e6e2', '7c12004d-e843-4e00-be40-01845ad75834') ON CONFLICT DO NOTHING;
