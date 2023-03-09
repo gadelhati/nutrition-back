@@ -10,15 +10,15 @@ import org.mapstruct.factory.Mappers;
 public interface MapStruct {
 
     MapStruct MAPPER = Mappers.getMapper(MapStruct.class);
-    DTOResponseFood toDTOFood(Food food);
-    DTOResponseFoodCategory toDTOFoodCategory(FoodCategory foodCategory);
-    DTOResponseUserEntity toDTOUserEntity(UserEntity userEntity);
-    DTOResponseRole toDTORole(Role role);
-    DTOResponsePrivilege toDTOPrivilege(Privilege privilege);
+    DTOResponseFood toDTO(Food food);
+    DTOResponseFoodCategory toDTO(FoodCategory foodCategory);
+    DTOResponseUserEntity toDTO(UserEntity userEntity);
+    DTOResponseRole toDTO(Role role);
+    DTOResponsePrivilege toDTO(Privilege privilege);
 
-    Food toFood(DTORequestFood dtoRequestFood);
-    FoodCategory toFoodCategory(DTORequestFoodCategory dtoRequestFoodCategory);
-    UserEntity toUserEntity(DTORequestUserEntity dtoRequestUserEntity);
-    Role toRole(DTORequestRole dtoRequestRole);
-    Privilege toPrivilege(DTORequestPrivilege dtoRequestPrivilege);
+    Food toObject(DTORequestFood dtoRequestFood);
+    FoodCategory toObject(DTORequestFoodCategory dtoRequestFoodCategory);
+    UserEntity toObject(DTORequestUserEntity dtoRequestUserEntity);
+    Role toObject(DTORequestRole dtoRequestRole);
+    Privilege toObject(DTORequestPrivilege dtoRequestPrivilege);
 }

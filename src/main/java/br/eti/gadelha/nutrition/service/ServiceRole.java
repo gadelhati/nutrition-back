@@ -23,14 +23,14 @@ public class ServiceRole implements ServiceInterface<DTOResponseRole, DTORequest
 
     @Override
     public DTOResponseRole create(DTORequestRole created){
-        return MapStruct.MAPPER.toDTORole(repositoryRole.save(MapStruct.MAPPER.toRole(created)));
+        return MapStruct.MAPPER.toDTO(repositoryRole.save(MapStruct.MAPPER.toObject(created)));
     }
     @Override
     public DTOResponseRole retrieve(UUID id){
-        return MapStruct.MAPPER.toDTORole(repositoryRole.findById(id).orElseGet(null));
+        return MapStruct.MAPPER.toDTO(repositoryRole.findById(id).orElseGet(null));
     }
     public List<DTOResponseRole> retrieve(List<Role> list){
-        return list.stream().map(value -> MapStruct.MAPPER.toDTORole(value)).collect(Collectors.toList());
+        return list.stream().map(value -> MapStruct.MAPPER.toDTO(value)).collect(Collectors.toList());
     }
     @Override
     public List<DTOResponseRole> retrieve(){
@@ -47,12 +47,12 @@ public class ServiceRole implements ServiceInterface<DTOResponseRole, DTORequest
     }
     @Override
     public DTOResponseRole update(UUID id, DTORequestRole updated){
-        return MapStruct.MAPPER.toDTORole(repositoryRole.save(MapStruct.MAPPER.toRole(updated)));
+        return MapStruct.MAPPER.toDTO(repositoryRole.save(MapStruct.MAPPER.toObject(updated)));
     }
     @Override
     public DTOResponseRole delete(UUID id){
         repositoryRole.deleteById(id);
-        return MapStruct.MAPPER.toDTORole(repositoryRole.findById(id).orElse(null));
+        return MapStruct.MAPPER.toDTO(repositoryRole.findById(id).orElse(null));
     }
     @Override
     public void delete() {

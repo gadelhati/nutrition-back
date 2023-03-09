@@ -23,14 +23,14 @@ public class ServicePrivilege implements ServiceInterface<DTOResponsePrivilege, 
 
     @Override
     public DTOResponsePrivilege create(DTORequestPrivilege created){
-        return MapStruct.MAPPER.toDTOPrivilege(repositoryPrivilege.save(MapStruct.MAPPER.toPrivilege(created)));
+        return MapStruct.MAPPER.toDTO(repositoryPrivilege.save(MapStruct.MAPPER.toObject(created)));
     }
     @Override
     public DTOResponsePrivilege retrieve(UUID id){
-        return MapStruct.MAPPER.toDTOPrivilege(repositoryPrivilege.findById(id).orElseGet(null));
+        return MapStruct.MAPPER.toDTO(repositoryPrivilege.findById(id).orElseGet(null));
     }
     public List<DTOResponsePrivilege> retrieve(List<Privilege> list){
-        return list.stream().map(value -> MapStruct.MAPPER.toDTOPrivilege(value)).collect(Collectors.toList());
+        return list.stream().map(value -> MapStruct.MAPPER.toDTO(value)).collect(Collectors.toList());
     }
     @Override
     public List<DTOResponsePrivilege> retrieve(){
@@ -47,12 +47,12 @@ public class ServicePrivilege implements ServiceInterface<DTOResponsePrivilege, 
     }
     @Override
     public DTOResponsePrivilege update(UUID id, DTORequestPrivilege updated){
-        return MapStruct.MAPPER.toDTOPrivilege(repositoryPrivilege.save(MapStruct.MAPPER.toPrivilege(updated)));
+        return MapStruct.MAPPER.toDTO(repositoryPrivilege.save(MapStruct.MAPPER.toObject(updated)));
     }
     @Override
     public DTOResponsePrivilege delete(UUID id){
         repositoryPrivilege.deleteById(id);
-        return MapStruct.MAPPER.toDTOPrivilege(repositoryPrivilege.findById(id).orElse(null));
+        return MapStruct.MAPPER.toDTO(repositoryPrivilege.findById(id).orElse(null));
     }
     @Override
     public void delete() {

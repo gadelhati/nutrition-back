@@ -30,14 +30,14 @@ public class ServiceUserEntity implements ServiceInterface<DTOResponseUserEntity
     public DTOResponseUserEntity create(DTORequestUserEntity created){
         created.setPassword(passwordEncoder.encode(created.getPassword()));
         created.setRoles(Arrays.asList(repositoryRole.findByName("ROLE_USER")));
-        return MapStruct.MAPPER.toDTOUserEntity(repositoryUserEntity.save(MapStruct.MAPPER.toUserEntity(created)));
+        return MapStruct.MAPPER.toDTO(repositoryUserEntity.save(MapStruct.MAPPER.toObject(created)));
     }
     @Override
     public DTOResponseUserEntity retrieve(UUID id){
-        return MapStruct.MAPPER.toDTOUserEntity(repositoryUserEntity.findById(id).orElseGet(null));
+        return MapStruct.MAPPER.toDTO(repositoryUserEntity.findById(id).orElseGet(null));
     }
     public List<DTOResponseUserEntity> retrieve(List<UserEntity> list){
-        return list.stream().map(value -> MapStruct.MAPPER.toDTOUserEntity(value)).collect(Collectors.toList());
+        return list.stream().map(value -> MapStruct.MAPPER.toDTO(value)).collect(Collectors.toList());
     }
     @Override
     public List<DTOResponseUserEntity> retrieve(){
@@ -54,12 +54,12 @@ public class ServiceUserEntity implements ServiceInterface<DTOResponseUserEntity
     }
     @Override
     public DTOResponseUserEntity update(UUID id, DTORequestUserEntity updated){
-        return MapStruct.MAPPER.toDTOUserEntity(repositoryUserEntity.save(MapStruct.MAPPER.toUserEntity(updated)));
+        return MapStruct.MAPPER.toDTO(repositoryUserEntity.save(MapStruct.MAPPER.toObject(updated)));
     }
     @Override
     public DTOResponseUserEntity delete(UUID id){
         repositoryUserEntity.deleteById(id);
-        return MapStruct.MAPPER.toDTOUserEntity(repositoryUserEntity.findById(id).orElse(null));
+        return MapStruct.MAPPER.toDTO(repositoryUserEntity.findById(id).orElse(null));
     }
     @Override
     public void delete() {

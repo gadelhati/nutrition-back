@@ -23,14 +23,14 @@ public class ServiceFood implements ServiceInterface<DTOResponseFood, DTORequest
 
     @Override
     public DTOResponseFood create(DTORequestFood created){
-        return MapStruct.MAPPER.toDTOFood(repositoryFood.save(MapStruct.MAPPER.toFood(created)));
+        return MapStruct.MAPPER.toDTO(repositoryFood.save(MapStruct.MAPPER.toObject(created)));
     }
     @Override
     public DTOResponseFood retrieve(UUID id){
-        return MapStruct.MAPPER.toDTOFood(repositoryFood.findById(id).orElseGet(null));
+        return MapStruct.MAPPER.toDTO(repositoryFood.findById(id).orElseGet(null));
     }
     public List<DTOResponseFood> retrieve(List<Food> list){
-        return list.stream().map(value -> MapStruct.MAPPER.toDTOFood(value)).collect(Collectors.toList());
+        return list.stream().map(value -> MapStruct.MAPPER.toDTO(value)).collect(Collectors.toList());
     }
     @Override
     public List<DTOResponseFood> retrieve(){
@@ -47,12 +47,12 @@ public class ServiceFood implements ServiceInterface<DTOResponseFood, DTORequest
     }
     @Override
     public DTOResponseFood update(UUID id, DTORequestFood updated){
-        return MapStruct.MAPPER.toDTOFood(repositoryFood.save(MapStruct.MAPPER.toFood(updated)));
+        return MapStruct.MAPPER.toDTO(repositoryFood.save(MapStruct.MAPPER.toObject(updated)));
     }
     @Override
     public DTOResponseFood delete(UUID id){
         repositoryFood.deleteById(id);
-        return MapStruct.MAPPER.toDTOFood(repositoryFood.findById(id).orElse(null));
+        return MapStruct.MAPPER.toDTO(repositoryFood.findById(id).orElse(null));
     }
     @Override
     public void delete() {
