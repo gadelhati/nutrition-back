@@ -29,6 +29,6 @@ public class ServiceAuth {
         UserDetails userDetails = serviceCustomUserDetails.loadUserByUsername(dtoRequestAuth.getUsername());
         String token = jwtGenerator.generateToken(authentication);
         List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority()).collect(Collectors.toList());
-        return new DTOResponseAuth(token, "Bearer ", authentication.getName(), roles);
+        return new DTOResponseAuth(token, "Bearer ", roles);
     }
 }
