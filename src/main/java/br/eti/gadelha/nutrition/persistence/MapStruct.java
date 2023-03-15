@@ -15,10 +15,12 @@ public interface MapStruct {
     DTOResponseUserEntity toDTO(UserEntity userEntity);
     DTOResponseRole toDTO(Role role);
     DTOResponsePrivilege toDTO(Privilege privilege);
+    DTOResponseCompositeUnit toDTO(CompositeUnit compositeUnit);
 
     Food toObject(DTORequestFood dtoRequestFood);
     FoodCategory toObject(DTORequestFoodCategory dtoRequestFoodCategory);
     UserEntity toObject(DTORequestUserEntity dtoRequestUserEntity);
     Role toObject(DTORequestRole dtoRequestRole);
     Privilege toObject(DTORequestPrivilege dtoRequestPrivilege);
+    CompositeUnit toObject(DTORequestCompositeUnit dtoRequestCompositeUnit);
 }
