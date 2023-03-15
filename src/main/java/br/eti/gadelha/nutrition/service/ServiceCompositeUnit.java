@@ -25,9 +25,9 @@ public class ServiceCompositeUnit {
     public DTOResponseCompositeUnit create(DTORequestCompositeUnit created){
         return MapStruct.MAPPER.toDTO(repositoryCompositeUnit.save(MapStruct.MAPPER.toObject(created)));
     }
-//    public DTOResponseCompositeUnit retrieve(CompositePK id){
-//        return MapStruct.MAPPER.toDTO(repositoryCompositeUnit.findById(id).orElseGet(null));
-//    }
+    public DTOResponseCompositeUnit retrieve(CompositePK id){
+        return MapStruct.MAPPER.toDTO(repositoryCompositeUnit.findById(id).orElseGet(null));
+    }
     public List<DTOResponseCompositeUnit> retrieve(List<CompositeUnit> list){
         return list.stream().map(value -> MapStruct.MAPPER.toDTO(value)).collect(Collectors.toList());
     }
@@ -43,13 +43,13 @@ public class ServiceCompositeUnit {
 //            return new PageImpl<>(retrieve(repositoryCompositeUnit.findByNameContainingIgnoreCaseOrderByNameAsc(value)), pageable, list.size());
         }
     }
-//    public DTOResponseCompositeUnit update(CompositePK id, DTORequestCompositeUnit updated){
-//        return MapStruct.MAPPER.toDTO(repositoryCompositeUnit.save(MapStruct.MAPPER.toObject(updated)));
-//    }
-//    public DTOResponseCompositeUnit delete(CompositePK id){
-//        repositoryCompositeUnit.deleteById(id);
-//        return MapStruct.MAPPER.toDTO(repositoryCompositeUnit.findById(id).orElse(null));
-//    }
+    public DTOResponseCompositeUnit update(CompositePK id, DTORequestCompositeUnit updated){
+        return MapStruct.MAPPER.toDTO(repositoryCompositeUnit.save(MapStruct.MAPPER.toObject(updated)));
+    }
+    public DTOResponseCompositeUnit delete(CompositePK id){
+        repositoryCompositeUnit.deleteById(id);
+        return MapStruct.MAPPER.toDTO(repositoryCompositeUnit.findById(id).orElse(null));
+    }
     public void delete() {
         repositoryCompositeUnit.deleteAll();
     }
