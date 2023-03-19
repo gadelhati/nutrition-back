@@ -30,6 +30,7 @@
 CRUD service from a nutritional table.
 
 ### Roadmap
+#### in concept
 - [ ] service to provide sidebar access
 - [ ] service to provide color palete
 - [ ] change date validate Token
@@ -37,6 +38,7 @@ CRUD service from a nutritional table.
 - [ ] work with git
 - [ ] add Internationalization to ValidationMessages.properties
 - [ ] swagger something is not showing (Whitelabel Error Page)
+#### in development
 - [x] travis
 - [x] auditAware with UserEntity
 - [x] set up Role and Privileges
