@@ -1,5 +1,6 @@
 package br.eti.gadelha.nutrition.persistence.model;
 
+import br.eti.gadelha.nutrition.persistence.EnumMenu;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -13,6 +14,7 @@ import java.util.Collection;
 public class Role extends GenericEntity {
 
     private String name;
+    private Collection<EnumMenu> menu;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "role_privilege", joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
