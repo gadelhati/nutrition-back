@@ -16,6 +16,7 @@ public class Food extends GenericEntity {
     private String name;
 //    @OneToOne
     private String preparation;
+    private String foodCategory;
 //    energy, macronutrients and fiber
     @Column(nullable = true)
     private BigDecimal energy;
