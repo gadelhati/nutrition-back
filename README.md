@@ -52,6 +52,7 @@ CRUD service from a nutritional table.
   - [how to run project](#how-to-run-project)
   - [how to stop application on localhost](#how-to-stop-application-on-localhost)
   - [how to create file war](#how-to-create-file-war)
+  - [how to select page on get request](#how-to-select-page-on-get-request)
 * [How to deploy on Tomcat Server](#how-to-deploy-on-tomcat-server)
 * [Features](#features)
 * [HTTP Status code list](#http-status-code-list)
@@ -93,6 +94,12 @@ tskill "NÚMERO DO PID"
 mvn clean package
 ```
 two files with the extension .war will be created, the one with the shortest name will be used.
+
+### how to select page on get request
+```
+{{nutrition-local}}/food/?page=2&size=5
+{{nutrition-local}}/food/?sort=name,desc
+```
 
 ## How to deploy on Tomcat Server
 Type in your linux server

@@ -5,6 +5,7 @@ import br.eti.gadelha.nutrition.persistence.model.Food;
 import br.eti.gadelha.nutrition.persistence.payload.request.DTORequestFood;
 import br.eti.gadelha.nutrition.persistence.payload.response.DTOResponseFood;
 import br.eti.gadelha.nutrition.persistence.repository.RepositoryFood;
+import br.eti.gadelha.nutrition.persistence.repository.RepositoryFoodPage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 public class ServiceFood implements ServiceInterface<DTOResponseFood, DTORequestFood, Food> {
 
     private final RepositoryFood repositoryFood;
+    private final RepositoryFoodPage repositoryFoodPage;
 
     @Override
     public DTOResponseFood create(DTORequestFood created){
@@ -38,11 +40,10 @@ public class ServiceFood implements ServiceInterface<DTOResponseFood, DTORequest
     }
     @Override
     public Page<DTOResponseFood> retrieve(Pageable pageable, String value){
-        List<DTOResponseFood> list = new ArrayList<>();
         if (value == null) {
-            return new PageImpl<>(retrieve(repositoryFood.findAll()), pageable, list.size());
+            return repositoryFoodPage.findAll(pageable).map(object -> MapStruct.MAPPER.toDTO(object));
         } else {
-            return new PageImpl<>(retrieve(repositoryFood.findByNameContainingIgnoreCaseOrderByNameAsc(value)), pageable, list.size());
+            return repositoryFoodPage.findByNameContainingIgnoreCaseOrderByNameAsc(pageable, value).map(object -> MapStruct.MAPPER.toDTO(object));
         }
     }
     @Override
