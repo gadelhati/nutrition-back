@@ -26,11 +26,11 @@ public class ControllerUserEntity implements ControllerInterface<DTOResponseUser
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/user").toUriString());
         return ResponseEntity.created(uri).body(serviceUserEntity.create(created));
     }
-    @GetMapping("id/{id}") @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
+    @GetMapping("/id/{id}") @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
     public ResponseEntity<DTOResponseUserEntity> retrieve(@PathVariable("id") UUID id){
         return ResponseEntity.ok().body(serviceUserEntity.retrieve(id));
     }
-    @GetMapping(value = {"/{value}", "/"}) @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
+    @GetMapping(value = {"/{value}", "/", ""}) @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
     public ResponseEntity<Page<DTOResponseUserEntity>> retrieve(@PathVariable(value = "value", required = false) String value, Pageable pageable) {
         return ResponseEntity.ok().body(serviceUserEntity.retrieve(pageable, value));
     }
