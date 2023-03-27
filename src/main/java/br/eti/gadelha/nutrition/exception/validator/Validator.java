@@ -21,18 +21,18 @@ public final class Validator {
         return true;
     }
     public static boolean hasDigit(String value) {
-        return value.chars().anyMatch(letter -> Character.isDigit(letter));
+        return isNull(value)? false : value.chars().anyMatch(letter -> Character.isDigit(letter));
     }
     public static boolean hasLetter(String value) {
-        return value.chars().anyMatch(letter -> Character.isLetter(letter));
+        return isNull(value)? false : value.chars().anyMatch(letter -> Character.isLetter(letter));
     }
     public static boolean hasLowerCase(String value) {
-        return value.chars().anyMatch(letter -> Character.isLowerCase(letter));
+        return isNull(value)? false : value.chars().anyMatch(letter -> Character.isLowerCase(letter));
     }
     public static boolean hasUpperCase(String value) {
-        return value.chars().anyMatch(letter -> Character.isUpperCase(letter));
+        return isNull(value)? false : value.chars().anyMatch(letter -> Character.isUpperCase(letter));
     }
     public static boolean hasLength(int length, String value) {
-        return value.length() >= length;
+        return isNull(value)? false : value.length() >= length;
     }
 }
