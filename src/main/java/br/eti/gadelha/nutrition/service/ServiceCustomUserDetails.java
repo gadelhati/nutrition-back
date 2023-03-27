@@ -51,7 +51,7 @@ public class ServiceCustomUserDetails implements UserDetailsService {
         List<Privilege> collection = new ArrayList<>();
         for (Role role : roles) {
             privileges.add(role.getName());
-            collection.addAll(role.getPrivileges());
+//            collection.addAll(role.getPrivileges());
         }
         for (Privilege item : collection) {
             privileges.add(item.getName());

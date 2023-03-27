@@ -4,7 +4,8 @@ import br.eti.gadelha.nutrition.persistence.model.Privilege;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter @AllArgsConstructor
@@ -12,5 +13,5 @@ public class DTOResponseRole {
 
     private UUID id;
     private String name;
-    private Collection<Privilege> privileges;
+    private Set<Privilege> privileges = new HashSet<>();
 }

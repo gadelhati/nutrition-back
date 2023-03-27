@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import org.hibernate.envers.Audited;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Audited @Entity @Data @AllArgsConstructor @NoArgsConstructor
 public class Role extends GenericEntity {
@@ -19,5 +21,5 @@ public class Role extends GenericEntity {
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "role_privilege", joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "privilege_id", referencedColumnName = "id"))
-    private Collection<Privilege> privileges;
+    private Set<Privilege> privileges = new HashSet<>();
 }
