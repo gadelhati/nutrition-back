@@ -5,11 +5,11 @@ import br.eti.gadelha.nutrition.persistence.model.UserEntity;
 import br.eti.gadelha.nutrition.persistence.payload.request.DTORequestUserEntity;
 import br.eti.gadelha.nutrition.persistence.payload.response.DTOResponseUserEntity;
 import br.eti.gadelha.nutrition.persistence.repository.RepositoryRole;
+import br.eti.gadelha.nutrition.persistence.repository.RepositoryRolePage;
 import br.eti.gadelha.nutrition.persistence.repository.RepositoryUserEntity;
+import br.eti.gadelha.nutrition.persistence.repository.RepositoryUserEntityPage;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +24,7 @@ public class ServiceUserEntity implements ServiceInterface<DTOResponseUserEntity
 
     private final RepositoryUserEntity repositoryUserEntity;
     private final RepositoryRole repositoryRole;
+    private final RepositoryUserEntityPage repositoryUserEntityPage;
     private final PasswordEncoder passwordEncoder;
 
     @Override
@@ -50,6 +51,16 @@ public class ServiceUserEntity implements ServiceInterface<DTOResponseUserEntity
             return new PageImpl<>(retrieve(repositoryUserEntity.findAll()), pageable, list.size());
         } else {
             return new PageImpl<>(retrieve(repositoryUserEntity.findByUsernameContainingIgnoreCaseOrderByUsernameAsc(value)), pageable, list.size());
+        }
+    }
+    @Override
+    public Page<DTOResponseUserEntity> retrievePage(Integer page, Integer size, String sort, String value, String order){
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sort));
+//        if(order != null && order.equals("asc")) pageable = PageRequest.of(page, size, Sort.by(sort).ascending());
+        if (value == null) {
+            return repositoryUserEntityPage.findAll(pageable).map(object -> MapStruct.MAPPER.toDTO(object));
+        } else {
+            return repositoryUserEntityPage.findByUsernameContainingIgnoreCaseOrderByUsernameAsc(pageable, value).map(object -> MapStruct.MAPPER.toDTO(object));
         }
     }
     @Override

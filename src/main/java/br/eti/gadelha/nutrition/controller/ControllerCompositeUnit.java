@@ -3,6 +3,7 @@ package br.eti.gadelha.nutrition.controller;
 import br.eti.gadelha.nutrition.persistence.model.CompositePK;
 import br.eti.gadelha.nutrition.persistence.payload.request.DTORequestCompositeUnit;
 import br.eti.gadelha.nutrition.persistence.payload.response.DTOResponseCompositeUnit;
+import br.eti.gadelha.nutrition.persistence.payload.response.DTOResponseFood;
 import br.eti.gadelha.nutrition.service.ServiceCompositeUnit;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +35,15 @@ public class ControllerCompositeUnit {
     @GetMapping(value = {"/{value}", "/"}) @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<Page<DTOResponseCompositeUnit>> retrieve(@PathVariable(value = "value", required = false) String value, Pageable pageable) {
         return ResponseEntity.ok().body(serviceCompositeUnit.retrieve(pageable, value));
+    }
+    @GetMapping(value = {"/{page}/{size}/{sort}", "/{page}/{size}/{sort}/{value}", "/{page}/{size}/{sort}/{value}/{order}"})
+    public ResponseEntity<Page<DTOResponseCompositeUnit>> retrievePage(
+            @PathVariable(value = "page", required = false) Integer page,
+            @PathVariable(value = "size", required = false) Integer size,
+            @PathVariable(value = "sort", required = false) String sort,
+            @PathVariable(value = "value", required = false) String value,
+            @PathVariable(value = "order", required = false) String order) {
+        return ResponseEntity.ok().body(serviceCompositeUnit.retrievePage(page, size, sort, value, order));
     }
     @PutMapping("") @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<DTOResponseCompositeUnit> update(@RequestBody @Valid DTORequestCompositeUnit updated){

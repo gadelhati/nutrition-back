@@ -33,6 +33,15 @@ public class ControllerFood implements ControllerInterface<DTOResponseFood, DTOR
     public ResponseEntity<Page<DTOResponseFood>> retrieve(@PathVariable(value = "value", required = false) String value, Pageable pageable) {
         return ResponseEntity.ok().body(serviceFood.retrieve(pageable, value));
     }
+    @GetMapping(value = {"/{page}/{size}/{sort}", "/{page}/{size}/{sort}/{value}", "/{page}/{size}/{sort}/{value}/{order}"})
+    public ResponseEntity<Page<DTOResponseFood>> retrievePage(
+            @PathVariable(value = "page", required = false) Integer page,
+            @PathVariable(value = "size", required = false) Integer size,
+            @PathVariable(value = "sort", required = false) String sort,
+            @PathVariable(value = "value", required = false) String value,
+            @PathVariable(value = "order", required = false) String order) {
+        return ResponseEntity.ok().body(serviceFood.retrievePage(page, size, sort, value, order));
+    }
     @PutMapping("")
     public ResponseEntity<DTOResponseFood> update(@RequestBody @Valid DTORequestFood updated){
         return ResponseEntity.accepted().body(serviceFood.update(updated.getId(), updated));

@@ -4,11 +4,11 @@ import br.eti.gadelha.nutrition.persistence.MapStruct;
 import br.eti.gadelha.nutrition.persistence.model.Privilege;
 import br.eti.gadelha.nutrition.persistence.payload.request.DTORequestPrivilege;
 import br.eti.gadelha.nutrition.persistence.payload.response.DTOResponsePrivilege;
+import br.eti.gadelha.nutrition.persistence.payload.response.DTOResponseUserEntity;
 import br.eti.gadelha.nutrition.persistence.repository.RepositoryPrivilege;
+import br.eti.gadelha.nutrition.persistence.repository.RepositoryPrivilegePage;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 public class ServicePrivilege implements ServiceInterface<DTOResponsePrivilege, DTORequestPrivilege, Privilege> {
 
     private final RepositoryPrivilege repositoryPrivilege;
+    private final RepositoryPrivilegePage repositoryPrivilegePage;
 
     @Override
     public DTOResponsePrivilege create(DTORequestPrivilege created){
@@ -43,6 +44,16 @@ public class ServicePrivilege implements ServiceInterface<DTOResponsePrivilege, 
             return new PageImpl<>(retrieve(repositoryPrivilege.findAll()), pageable, list.size());
         } else {
             return new PageImpl<>(retrieve(repositoryPrivilege.findByNameContainingIgnoreCaseOrderByNameAsc(value)), pageable, list.size());
+        }
+    }
+    @Override
+    public Page<DTOResponsePrivilege> retrievePage(Integer page, Integer size, String sort, String value, String order){
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sort));
+//        if(order != null && order.equals("asc")) pageable = PageRequest.of(page, size, Sort.by(sort).ascending());
+        if (value == null) {
+            return repositoryPrivilegePage.findAll(pageable).map(object -> MapStruct.MAPPER.toDTO(object));
+        } else {
+            return repositoryPrivilegePage.findByNameContainingIgnoreCaseOrderByNameAsc(pageable, value).map(object -> MapStruct.MAPPER.toDTO(object));
         }
     }
     @Override

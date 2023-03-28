@@ -1,6 +1,7 @@
 package br.eti.gadelha.nutrition.controller;
 
 import br.eti.gadelha.nutrition.persistence.payload.request.DTORequestRole;
+import br.eti.gadelha.nutrition.persistence.payload.response.DTOResponseFood;
 import br.eti.gadelha.nutrition.persistence.payload.response.DTOResponseRole;
 import br.eti.gadelha.nutrition.service.ServiceRole;
 import jakarta.validation.Valid;
@@ -33,6 +34,15 @@ public class ControllerRole implements ControllerInterface<DTOResponseRole, DTOR
     @GetMapping(value = {"/{value}", "/", ""}) @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<Page<DTOResponseRole>> retrieve(@PathVariable(value = "value", required = false) String value, Pageable pageable) {
         return ResponseEntity.ok().body(serviceRole.retrieve(pageable, value));
+    }
+    @GetMapping(value = {"/{page}/{size}/{sort}", "/{page}/{size}/{sort}/{value}", "/{page}/{size}/{sort}/{value}/{order}"})
+    public ResponseEntity<Page<DTOResponseRole>> retrievePage(
+            @PathVariable(value = "page", required = false) Integer page,
+            @PathVariable(value = "size", required = false) Integer size,
+            @PathVariable(value = "sort", required = false) String sort,
+            @PathVariable(value = "value", required = false) String value,
+            @PathVariable(value = "order", required = false) String order) {
+        return ResponseEntity.ok().body(serviceRole.retrievePage(page, size, sort, value, order));
     }
     @PutMapping("") @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<DTOResponseRole> update(@RequestBody @Valid DTORequestRole updated){

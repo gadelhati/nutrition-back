@@ -5,11 +5,11 @@ import br.eti.gadelha.nutrition.persistence.model.CompositePK;
 import br.eti.gadelha.nutrition.persistence.model.CompositeUnit;
 import br.eti.gadelha.nutrition.persistence.payload.request.DTORequestCompositeUnit;
 import br.eti.gadelha.nutrition.persistence.payload.response.DTOResponseCompositeUnit;
+import br.eti.gadelha.nutrition.persistence.payload.response.DTOResponseFood;
 import br.eti.gadelha.nutrition.persistence.repository.RepositoryCompositeUnit;
+import br.eti.gadelha.nutrition.persistence.repository.RepositoryCompositeUnitPage;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 public class ServiceCompositeUnit {
 
     private final RepositoryCompositeUnit repositoryCompositeUnit;
+    private final RepositoryCompositeUnitPage repositoryCompositeUnitPage;
 
     public DTOResponseCompositeUnit create(DTORequestCompositeUnit created){
         return MapStruct.MAPPER.toDTO(repositoryCompositeUnit.save(MapStruct.MAPPER.toObject(created)));
@@ -41,6 +42,15 @@ public class ServiceCompositeUnit {
         } else {
             return null;
 //            return new PageImpl<>(retrieve(repositoryCompositeUnit.findByNameContainingIgnoreCaseOrderByNameAsc(value)), pageable, list.size());
+        }
+    }
+    public Page<DTOResponseCompositeUnit> retrievePage(Integer page, Integer size, String sort, String value, String order){
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sort));
+//        if(order != null && order.equals("asc")) pageable = PageRequest.of(page, size, Sort.by(sort).ascending());
+        if (value == null) {
+            return repositoryCompositeUnitPage.findAll(pageable).map(object -> MapStruct.MAPPER.toDTO(object));
+        } else {
+            return repositoryCompositeUnitPage.findByNameContainingIgnoreCaseOrderByNameAsc(pageable, value).map(object -> MapStruct.MAPPER.toDTO(object));
         }
     }
     public DTOResponseCompositeUnit update(CompositePK id, DTORequestCompositeUnit updated){

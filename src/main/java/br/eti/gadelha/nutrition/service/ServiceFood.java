@@ -7,9 +7,7 @@ import br.eti.gadelha.nutrition.persistence.payload.response.DTOResponseFood;
 import br.eti.gadelha.nutrition.persistence.repository.RepositoryFood;
 import br.eti.gadelha.nutrition.persistence.repository.RepositoryFoodPage;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -40,6 +38,16 @@ public class ServiceFood implements ServiceInterface<DTOResponseFood, DTORequest
     }
     @Override
     public Page<DTOResponseFood> retrieve(Pageable pageable, String value){
+        if (value == null) {
+            return repositoryFoodPage.findAll(pageable).map(object -> MapStruct.MAPPER.toDTO(object));
+        } else {
+            return repositoryFoodPage.findByNameContainingIgnoreCaseOrderByNameAsc(pageable, value).map(object -> MapStruct.MAPPER.toDTO(object));
+        }
+    }
+    @Override
+    public Page<DTOResponseFood> retrievePage(Integer page, Integer size, String sort, String value, String order){
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sort));
+//        if(order != null && order.equals("asc")) pageable = PageRequest.of(page, size, Sort.by(sort).ascending());
         if (value == null) {
             return repositoryFoodPage.findAll(pageable).map(object -> MapStruct.MAPPER.toDTO(object));
         } else {
