@@ -1,7 +1,6 @@
 package br.eti.gadelha.nutrition.service;
 
 import br.eti.gadelha.nutrition.persistence.MapStruct;
-import br.eti.gadelha.nutrition.persistence.model.UserEntity;
 import br.eti.gadelha.nutrition.persistence.payload.request.DTORequestUserEntity;
 import br.eti.gadelha.nutrition.persistence.payload.response.DTOResponseUserEntity;
 import br.eti.gadelha.nutrition.persistence.repository.RepositoryRole;
@@ -14,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.UUID;
 
 @Service @RequiredArgsConstructor
@@ -27,7 +27,7 @@ public class ServiceUserEntity implements ServiceInterface<DTOResponseUserEntity
     @Override
     public DTOResponseUserEntity create(DTORequestUserEntity created){
         created.setPassword(passwordEncoder.encode(created.getPassword()));
-        created.setRoles(Arrays.asList(repositoryRole.findByName("ROLE_USER")));
+        created.setRoles(Collections.singletonList(repositoryRole.findByName("ROLE_USER")));
         return MapStruct.MAPPER.toDTO(repositoryUserEntity.save(MapStruct.MAPPER.toObject(created)));
     }
     @Override

@@ -24,13 +24,13 @@ public class ServiceCompositeUnit {
         switch (pageable.getSort().toString().substring(0, pageable.getSort().toString().length() - 5)) {
             case "id": {
 //                return repositoryCompositeUnitPage.findByNameAndNumberOrderByNameAndNumberAsc(pageable, name, number).map(object -> MapStruct.MAPPER.toDTO(object));
-                return repositoryCompositeUnitPage.findAll(pageable).map(object -> MapStruct.MAPPER.toDTO(object));
+                return repositoryCompositeUnitPage.findAll(pageable).map(MapStruct.MAPPER::toDTO);
             }
             case "name": {
-                return repositoryCompositeUnitPage.findByNameContainingIgnoreCaseOrderByNameAsc(pageable, filter).map(object -> MapStruct.MAPPER.toDTO(object));
+                return repositoryCompositeUnitPage.findByNameContainingIgnoreCaseOrderByNameAsc(pageable, filter).map(MapStruct.MAPPER::toDTO);
             }
             default: {
-                return repositoryCompositeUnitPage.findAll(pageable).map(object -> MapStruct.MAPPER.toDTO(object));
+                return repositoryCompositeUnitPage.findAll(pageable).map(MapStruct.MAPPER::toDTO);
             }
         }
     }

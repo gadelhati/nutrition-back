@@ -1,7 +1,6 @@
 package br.eti.gadelha.nutrition.service;
 
 import br.eti.gadelha.nutrition.persistence.MapStruct;
-import br.eti.gadelha.nutrition.persistence.model.FoodCategory;
 import br.eti.gadelha.nutrition.persistence.payload.request.DTORequestFoodCategory;
 import br.eti.gadelha.nutrition.persistence.payload.response.DTOResponseFoodCategory;
 import br.eti.gadelha.nutrition.persistence.repository.RepositoryFoodCategory;

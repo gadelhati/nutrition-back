@@ -1,7 +1,6 @@
 package br.eti.gadelha.nutrition.service;
 
 import br.eti.gadelha.nutrition.persistence.MapStruct;
-import br.eti.gadelha.nutrition.persistence.model.Privilege;
 import br.eti.gadelha.nutrition.persistence.payload.request.DTORequestPrivilege;
 import br.eti.gadelha.nutrition.persistence.payload.response.DTOResponsePrivilege;
 import br.eti.gadelha.nutrition.persistence.repository.RepositoryPrivilege;

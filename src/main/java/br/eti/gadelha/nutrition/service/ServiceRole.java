@@ -1,7 +1,6 @@
 package br.eti.gadelha.nutrition.service;
 
 import br.eti.gadelha.nutrition.persistence.MapStruct;
-import br.eti.gadelha.nutrition.persistence.model.Role;
 import br.eti.gadelha.nutrition.persistence.payload.request.DTORequestRole;
 import br.eti.gadelha.nutrition.persistence.payload.response.DTOResponseRole;
 import br.eti.gadelha.nutrition.persistence.repository.RepositoryRole;
