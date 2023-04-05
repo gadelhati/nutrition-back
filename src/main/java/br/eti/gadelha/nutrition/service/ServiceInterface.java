@@ -5,7 +5,7 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.UUID;
 
-public interface ServiceInterface<T, S, R> {
+public interface ServiceInterface<T, S> {
     T create(S created);
     Page<T> retrieve(Pageable pageable, String filter);
     T update(UUID id, S updated);

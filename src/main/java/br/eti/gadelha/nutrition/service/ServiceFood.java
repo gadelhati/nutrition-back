@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.UUID;
 
 @Service @RequiredArgsConstructor
-public class ServiceFood implements ServiceInterface<DTOResponseFood, DTORequestFood, Food> {
+public class ServiceFood implements ServiceInterface<DTOResponseFood, DTORequestFood> {
 
     private final RepositoryFood repositoryFood;
     private final RepositoryFoodPage repositoryFoodPage;
@@ -27,13 +27,13 @@ public class ServiceFood implements ServiceInterface<DTOResponseFood, DTORequest
     public Page<DTOResponseFood> retrieve(Pageable pageable, String filter) {
         switch (pageable.getSort().toString().substring(0, pageable.getSort().toString().length() - 5)) {
             case "id": {
-                return repositoryFoodPage.findByIdOrderByIdAsc(pageable, UUID.fromString(filter)).map(object -> MapStruct.MAPPER.toDTO(object));
+                return repositoryFoodPage.findByIdOrderByIdAsc(pageable, UUID.fromString(filter)).map(MapStruct.MAPPER::toDTO);
             }
             case "name": {
-                return repositoryFoodPage.findByNameContainingIgnoreCaseOrderByNameAsc(pageable, filter).map(object -> MapStruct.MAPPER.toDTO(object));
+                return repositoryFoodPage.findByNameContainingIgnoreCaseOrderByNameAsc(pageable, filter).map(MapStruct.MAPPER::toDTO);
             }
             default: {
-                return repositoryFoodPage.findAll(pageable).map(object -> MapStruct.MAPPER.toDTO(object));
+                return repositoryFoodPage.findAll(pageable).map(MapStruct.MAPPER::toDTO);
             }
         }
     }

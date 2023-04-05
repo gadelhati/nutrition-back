@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.UUID;
 
 @Service @RequiredArgsConstructor
-public class ServicePrivilege implements ServiceInterface<DTOResponsePrivilege, DTORequestPrivilege, Privilege> {
+public class ServicePrivilege implements ServiceInterface<DTOResponsePrivilege, DTORequestPrivilege> {
 
     private final RepositoryPrivilege repositoryPrivilege;
     private final RepositoryPrivilegePage repositoryPrivilegePage;
@@ -27,13 +27,13 @@ public class ServicePrivilege implements ServiceInterface<DTOResponsePrivilege, 
     public Page<DTOResponsePrivilege> retrieve(Pageable pageable, String filter) {
         switch (pageable.getSort().toString().substring(0, pageable.getSort().toString().length() - 5)) {
             case "id": {
-                return repositoryPrivilegePage.findByIdOrderByIdAsc(pageable, UUID.fromString(filter)).map(object -> MapStruct.MAPPER.toDTO(object));
+                return repositoryPrivilegePage.findByIdOrderByIdAsc(pageable, UUID.fromString(filter)).map(MapStruct.MAPPER::toDTO);
             }
             case "name": {
-                return repositoryPrivilegePage.findByNameContainingIgnoreCaseOrderByNameAsc(pageable, filter).map(object -> MapStruct.MAPPER.toDTO(object));
+                return repositoryPrivilegePage.findByNameContainingIgnoreCaseOrderByNameAsc(pageable, filter).map(MapStruct.MAPPER::toDTO);
             }
             default: {
-                return repositoryPrivilegePage.findAll(pageable).map(object -> MapStruct.MAPPER.toDTO(object));
+                return repositoryPrivilegePage.findAll(pageable).map(MapStruct.MAPPER::toDTO);
             }
         }
     }

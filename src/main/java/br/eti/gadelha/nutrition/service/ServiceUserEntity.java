@@ -17,7 +17,7 @@ import java.util.Arrays;
 import java.util.UUID;
 
 @Service @RequiredArgsConstructor
-public class ServiceUserEntity implements ServiceInterface<DTOResponseUserEntity, DTORequestUserEntity, UserEntity> {
+public class ServiceUserEntity implements ServiceInterface<DTOResponseUserEntity, DTORequestUserEntity> {
 
     private final RepositoryUserEntity repositoryUserEntity;
     private final RepositoryRole repositoryRole;
@@ -34,13 +34,13 @@ public class ServiceUserEntity implements ServiceInterface<DTOResponseUserEntity
     public Page<DTOResponseUserEntity> retrieve(Pageable pageable, String filter) {
         switch (pageable.getSort().toString().substring(0, pageable.getSort().toString().length() - 5)) {
             case "id": {
-                return repositoryUserEntityPage.findByIdOrderByIdAsc(pageable, UUID.fromString(filter)).map(object -> MapStruct.MAPPER.toDTO(object));
+                return repositoryUserEntityPage.findByIdOrderByIdAsc(pageable, UUID.fromString(filter)).map(MapStruct.MAPPER::toDTO);
             }
             case "username": {
-                return repositoryUserEntityPage.findByUsernameContainingIgnoreCaseOrderByUsernameAsc(pageable, filter).map(object -> MapStruct.MAPPER.toDTO(object));
+                return repositoryUserEntityPage.findByUsernameContainingIgnoreCaseOrderByUsernameAsc(pageable, filter).map(MapStruct.MAPPER::toDTO);
             }
             default: {
-                return repositoryUserEntityPage.findAll(pageable).map(object -> MapStruct.MAPPER.toDTO(object));
+                return repositoryUserEntityPage.findAll(pageable).map(MapStruct.MAPPER::toDTO);
             }
         }
     }

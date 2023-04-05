@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.UUID;
 
 @Service @RequiredArgsConstructor
-public class ServiceRole implements ServiceInterface<DTOResponseRole, DTORequestRole, Role> {
+public class ServiceRole implements ServiceInterface<DTOResponseRole, DTORequestRole> {
 
     private final RepositoryRole repositoryRole;
     private final RepositoryRolePage repositoryRolePage;
@@ -27,13 +27,13 @@ public class ServiceRole implements ServiceInterface<DTOResponseRole, DTORequest
     public Page<DTOResponseRole> retrieve(Pageable pageable, String filter) {
         switch (pageable.getSort().toString().substring(0, pageable.getSort().toString().length() - 5)) {
             case "id": {
-                return repositoryRolePage.findByIdOrderByIdAsc(pageable, UUID.fromString(filter)).map(object -> MapStruct.MAPPER.toDTO(object));
+                return repositoryRolePage.findByIdOrderByIdAsc(pageable, UUID.fromString(filter)).map(MapStruct.MAPPER::toDTO);
             }
             case "name": {
-                return repositoryRolePage.findByNameContainingIgnoreCaseOrderByNameAsc(pageable, filter).map(object -> MapStruct.MAPPER.toDTO(object));
+                return repositoryRolePage.findByNameContainingIgnoreCaseOrderByNameAsc(pageable, filter).map(MapStruct.MAPPER::toDTO);
             }
             default: {
-                return repositoryRolePage.findAll(pageable).map(object -> MapStruct.MAPPER.toDTO(object));
+                return repositoryRolePage.findAll(pageable).map(MapStruct.MAPPER::toDTO);
             }
         }
     }
