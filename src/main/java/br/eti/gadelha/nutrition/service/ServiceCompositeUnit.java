@@ -2,20 +2,14 @@ package br.eti.gadelha.nutrition.service;
 
 import br.eti.gadelha.nutrition.persistence.MapStruct;
 import br.eti.gadelha.nutrition.persistence.model.CompositePK;
-import br.eti.gadelha.nutrition.persistence.model.CompositeUnit;
 import br.eti.gadelha.nutrition.persistence.payload.request.DTORequestCompositeUnit;
 import br.eti.gadelha.nutrition.persistence.payload.response.DTOResponseCompositeUnit;
-import br.eti.gadelha.nutrition.persistence.payload.response.DTOResponseFood;
 import br.eti.gadelha.nutrition.persistence.repository.RepositoryCompositeUnit;
 import br.eti.gadelha.nutrition.persistence.repository.RepositoryCompositeUnitPage;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service @RequiredArgsConstructor
 public class ServiceCompositeUnit {
@@ -26,31 +20,18 @@ public class ServiceCompositeUnit {
     public DTOResponseCompositeUnit create(DTORequestCompositeUnit created){
         return MapStruct.MAPPER.toDTO(repositoryCompositeUnit.save(MapStruct.MAPPER.toObject(created)));
     }
-    public DTOResponseCompositeUnit retrieve(CompositePK id){
-        return MapStruct.MAPPER.toDTO(repositoryCompositeUnit.findById(id).orElseGet(null));
-    }
-    public List<DTOResponseCompositeUnit> retrieve(List<CompositeUnit> list){
-        return list.stream().map(value -> MapStruct.MAPPER.toDTO(value)).collect(Collectors.toList());
-    }
-    public List<DTOResponseCompositeUnit> retrieve(){
-        return retrieve(repositoryCompositeUnit.findAll());
-    }
-    public Page<DTOResponseCompositeUnit> retrieve(Pageable pageable, String value){
-        List<DTOResponseCompositeUnit> list = new ArrayList<>();
-        if (value == null) {
-            return new PageImpl<>(retrieve(repositoryCompositeUnit.findAll()), pageable, list.size());
-        } else {
-            return null;
-//            return new PageImpl<>(retrieve(repositoryCompositeUnit.findByNameContainingIgnoreCaseOrderByNameAsc(value)), pageable, list.size());
-        }
-    }
-    public Page<DTOResponseCompositeUnit> retrievePage(Integer page, Integer size, String sort, String value, String order){
-        Pageable pageable = PageRequest.of(page, size, Sort.by(sort));
-//        if(order != null && order.equals("asc")) pageable = PageRequest.of(page, size, Sort.by(sort).ascending());
-        if (value == null) {
-            return repositoryCompositeUnitPage.findAll(pageable).map(object -> MapStruct.MAPPER.toDTO(object));
-        } else {
-            return repositoryCompositeUnitPage.findByNameContainingIgnoreCaseOrderByNameAsc(pageable, value).map(object -> MapStruct.MAPPER.toDTO(object));
+    public Page<DTOResponseCompositeUnit> retrieve(Pageable pageable, String filter, String name, int number) {
+        switch (pageable.getSort().toString().substring(0, pageable.getSort().toString().length() - 5)) {
+            case "id": {
+//                return repositoryCompositeUnitPage.findByNameAndNumberOrderByNameAndNumberAsc(pageable, name, number).map(object -> MapStruct.MAPPER.toDTO(object));
+                return repositoryCompositeUnitPage.findAll(pageable).map(object -> MapStruct.MAPPER.toDTO(object));
+            }
+            case "name": {
+                return repositoryCompositeUnitPage.findByNameContainingIgnoreCaseOrderByNameAsc(pageable, filter).map(object -> MapStruct.MAPPER.toDTO(object));
+            }
+            default: {
+                return repositoryCompositeUnitPage.findAll(pageable).map(object -> MapStruct.MAPPER.toDTO(object));
+            }
         }
     }
     public DTOResponseCompositeUnit update(CompositePK id, DTORequestCompositeUnit updated){

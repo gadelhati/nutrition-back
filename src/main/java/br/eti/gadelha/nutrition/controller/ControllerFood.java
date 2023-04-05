@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -20,37 +21,24 @@ public class ControllerFood implements ControllerInterface<DTOResponseFood, DTOR
 
     private final ServiceFood serviceFood;
 
-    @PostMapping("")
+    @PostMapping("") @Override @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
     public ResponseEntity<DTOResponseFood> create(@RequestBody @Valid DTORequestFood created){
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/food").toUriString());
         return ResponseEntity.created(uri).body(serviceFood.create(created));
     }
-    @GetMapping("id/{id}")
-    public ResponseEntity<DTOResponseFood> retrieve(@PathVariable("id") UUID id){
-        return ResponseEntity.ok().body(serviceFood.retrieve(id));
+    @GetMapping("") @Override
+    public ResponseEntity<Page<DTOResponseFood>> retrieve(@RequestParam(value = "filter", required = false) String filter, Pageable pageable){
+        return ResponseEntity.ok().body(serviceFood.retrieve(pageable, filter));
     }
-    @GetMapping(value = {"/{value}", "/", ""})
-    public ResponseEntity<Page<DTOResponseFood>> retrieve(@PathVariable(value = "value", required = false) String value, Pageable pageable) {
-        return ResponseEntity.ok().body(serviceFood.retrieve(pageable, value));
-    }
-    @GetMapping(value = {"/{page}/{size}/{sort}", "/{page}/{size}/{sort}/{value}", "/{page}/{size}/{sort}/{value}/{order}"})
-    public ResponseEntity<Page<DTOResponseFood>> retrievePage(
-            @PathVariable(value = "page", required = false) Integer page,
-            @PathVariable(value = "size", required = false) Integer size,
-            @PathVariable(value = "sort", required = false) String sort,
-            @PathVariable(value = "value", required = false) String value,
-            @PathVariable(value = "order", required = false) String order) {
-        return ResponseEntity.ok().body(serviceFood.retrievePage(page, size, sort, value, order));
-    }
-    @PutMapping("")
+    @PutMapping("") @Override @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
     public ResponseEntity<DTOResponseFood> update(@RequestBody @Valid DTORequestFood updated){
         return ResponseEntity.accepted().body(serviceFood.update(updated.getId(), updated));
     }
-    @DeleteMapping("{id}")
+    @DeleteMapping("{id}") @Override @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
     public ResponseEntity<DTOResponseFood> delete(@PathVariable("id") UUID id){
         return ResponseEntity.accepted().body(serviceFood.delete(id));
     }
-    @DeleteMapping("")
+    @DeleteMapping("") @Override @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
     public ResponseEntity<HttpStatus> delete(){
         try {
             serviceFood.delete();

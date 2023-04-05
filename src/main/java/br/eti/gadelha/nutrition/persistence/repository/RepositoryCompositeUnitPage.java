@@ -6,9 +6,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-import java.util.UUID;
-
 public interface RepositoryCompositeUnitPage extends PagingAndSortingRepository<CompositeUnit, CompositePK> {
 
+    //    Page<CompositeUnit> findByNameAndNumberOrderByNameAndNumberAsc(Pageable pageable, String name, int number);
     Page<CompositeUnit> findByNameContainingIgnoreCaseOrderByNameAsc(Pageable pageable, String name);
 }

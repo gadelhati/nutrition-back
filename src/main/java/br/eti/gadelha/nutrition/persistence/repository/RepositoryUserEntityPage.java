@@ -9,5 +9,6 @@ import java.util.UUID;
 
 public interface RepositoryUserEntityPage extends PagingAndSortingRepository<UserEntity, UUID> {
 
+    Page<UserEntity> findByIdOrderByIdAsc(Pageable pageable, UUID id);
     Page<UserEntity> findByUsernameContainingIgnoreCaseOrderByUsernameAsc(Pageable pageable, String username);
 }

@@ -5,19 +5,16 @@ import br.eti.gadelha.nutrition.persistence.model.UserEntity;
 import br.eti.gadelha.nutrition.persistence.payload.request.DTORequestUserEntity;
 import br.eti.gadelha.nutrition.persistence.payload.response.DTOResponseUserEntity;
 import br.eti.gadelha.nutrition.persistence.repository.RepositoryRole;
-import br.eti.gadelha.nutrition.persistence.repository.RepositoryRolePage;
 import br.eti.gadelha.nutrition.persistence.repository.RepositoryUserEntity;
 import br.eti.gadelha.nutrition.persistence.repository.RepositoryUserEntityPage;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service @RequiredArgsConstructor
 public class ServiceUserEntity implements ServiceInterface<DTOResponseUserEntity, DTORequestUserEntity, UserEntity> {
@@ -34,33 +31,17 @@ public class ServiceUserEntity implements ServiceInterface<DTOResponseUserEntity
         return MapStruct.MAPPER.toDTO(repositoryUserEntity.save(MapStruct.MAPPER.toObject(created)));
     }
     @Override
-    public DTOResponseUserEntity retrieve(UUID id){
-        return MapStruct.MAPPER.toDTO(repositoryUserEntity.findById(id).orElseGet(null));
-    }
-    public List<DTOResponseUserEntity> retrieve(List<UserEntity> list){
-        return list.stream().map(value -> MapStruct.MAPPER.toDTO(value)).collect(Collectors.toList());
-    }
-    @Override
-    public List<DTOResponseUserEntity> retrieve(){
-        return retrieve(repositoryUserEntity.findAll());
-    }
-    @Override
-    public Page<DTOResponseUserEntity> retrieve(Pageable pageable, String value){
-        List<DTOResponseUserEntity> list = new ArrayList<>();
-        if (value == null) {
-            return new PageImpl<>(retrieve(repositoryUserEntity.findAll()), pageable, list.size());
-        } else {
-            return new PageImpl<>(retrieve(repositoryUserEntity.findByUsernameContainingIgnoreCaseOrderByUsernameAsc(value)), pageable, list.size());
-        }
-    }
-    @Override
-    public Page<DTOResponseUserEntity> retrievePage(Integer page, Integer size, String sort, String value, String order){
-        Pageable pageable = PageRequest.of(page, size, Sort.by(sort));
-//        if(order != null && order.equals("asc")) pageable = PageRequest.of(page, size, Sort.by(sort).ascending());
-        if (value == null) {
-            return repositoryUserEntityPage.findAll(pageable).map(object -> MapStruct.MAPPER.toDTO(object));
-        } else {
-            return repositoryUserEntityPage.findByUsernameContainingIgnoreCaseOrderByUsernameAsc(pageable, value).map(object -> MapStruct.MAPPER.toDTO(object));
+    public Page<DTOResponseUserEntity> retrieve(Pageable pageable, String filter) {
+        switch (pageable.getSort().toString().substring(0, pageable.getSort().toString().length() - 5)) {
+            case "id": {
+                return repositoryUserEntityPage.findByIdOrderByIdAsc(pageable, UUID.fromString(filter)).map(object -> MapStruct.MAPPER.toDTO(object));
+            }
+            case "username": {
+                return repositoryUserEntityPage.findByUsernameContainingIgnoreCaseOrderByUsernameAsc(pageable, filter).map(object -> MapStruct.MAPPER.toDTO(object));
+            }
+            default: {
+                return repositoryUserEntityPage.findAll(pageable).map(object -> MapStruct.MAPPER.toDTO(object));
+            }
         }
     }
     @Override

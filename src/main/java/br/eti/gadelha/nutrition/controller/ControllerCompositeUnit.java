@@ -3,7 +3,6 @@ package br.eti.gadelha.nutrition.controller;
 import br.eti.gadelha.nutrition.persistence.model.CompositePK;
 import br.eti.gadelha.nutrition.persistence.payload.request.DTORequestCompositeUnit;
 import br.eti.gadelha.nutrition.persistence.payload.response.DTOResponseCompositeUnit;
-import br.eti.gadelha.nutrition.persistence.payload.response.DTOResponseFood;
 import br.eti.gadelha.nutrition.service.ServiceCompositeUnit;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -17,39 +16,29 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 
-@RestController @RequestMapping("/compositeunit") @RequiredArgsConstructor
+@RestController @RequestMapping("/composite_unit") @RequiredArgsConstructor
 public class ControllerCompositeUnit {
 
     private final ServiceCompositeUnit serviceCompositeUnit;
 
-    @PostMapping("") @PreAuthorize("hasAnyRole('ADMIN')")
+    @PostMapping("") @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
     public ResponseEntity<DTOResponseCompositeUnit> create(@RequestBody @Valid DTORequestCompositeUnit created){
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/role").toUriString());
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/composite_unit").toUriString());
         return ResponseEntity.created(uri).body(serviceCompositeUnit.create(created));
     }
-    @GetMapping("/{name}/{number}") @PreAuthorize("hasAnyRole('ADMIN')")
-//    public ResponseEntity<DTOResponseCompositeUnit> retrieve(@PathVariable("id") CompositePK id){
-    public ResponseEntity<DTOResponseCompositeUnit> retrieve(@PathVariable("name") String name, @PathVariable("number") int number){
-        return ResponseEntity.ok().body(serviceCompositeUnit.retrieve(new CompositePK(name, number)));
+    @GetMapping("")
+    public ResponseEntity<Page<DTOResponseCompositeUnit>> retrieve(
+            @RequestParam(value = "filter", required = false) String filter,
+            @RequestParam(value = "name", required = false) String name,
+            @RequestParam(value = "number", required = false) int number,
+            Pageable pageable){
+        return ResponseEntity.ok().body(serviceCompositeUnit.retrieve(pageable, filter, name, number));
     }
-    @GetMapping(value = {"/{value}", "/"}) @PreAuthorize("hasAnyRole('ADMIN')")
-    public ResponseEntity<Page<DTOResponseCompositeUnit>> retrieve(@PathVariable(value = "value", required = false) String value, Pageable pageable) {
-        return ResponseEntity.ok().body(serviceCompositeUnit.retrieve(pageable, value));
-    }
-    @GetMapping(value = {"/{page}/{size}/{sort}", "/{page}/{size}/{sort}/{value}", "/{page}/{size}/{sort}/{value}/{order}"})
-    public ResponseEntity<Page<DTOResponseCompositeUnit>> retrievePage(
-            @PathVariable(value = "page", required = false) Integer page,
-            @PathVariable(value = "size", required = false) Integer size,
-            @PathVariable(value = "sort", required = false) String sort,
-            @PathVariable(value = "value", required = false) String value,
-            @PathVariable(value = "order", required = false) String order) {
-        return ResponseEntity.ok().body(serviceCompositeUnit.retrievePage(page, size, sort, value, order));
-    }
-    @PutMapping("") @PreAuthorize("hasAnyRole('ADMIN')")
+    @PutMapping("") @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
     public ResponseEntity<DTOResponseCompositeUnit> update(@RequestBody @Valid DTORequestCompositeUnit updated){
         return ResponseEntity.accepted().body(serviceCompositeUnit.update(new CompositePK(updated.getName(), updated.getNumber()), updated));
     }
-    @DeleteMapping("/{name}/{number}") @PreAuthorize("hasAnyRole('ADMIN')")
+    @DeleteMapping("{name}/{number}") @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
     public ResponseEntity<DTOResponseCompositeUnit> delete(@PathVariable("name") String name, @PathVariable("number") int number){
         return ResponseEntity.accepted().body(serviceCompositeUnit.delete(new CompositePK(name, number)));
     }

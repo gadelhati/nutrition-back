@@ -7,13 +7,11 @@ import br.eti.gadelha.nutrition.persistence.payload.response.DTOResponseFood;
 import br.eti.gadelha.nutrition.persistence.repository.RepositoryFood;
 import br.eti.gadelha.nutrition.persistence.repository.RepositoryFoodPage;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service @RequiredArgsConstructor
 public class ServiceFood implements ServiceInterface<DTOResponseFood, DTORequestFood, Food> {
@@ -26,32 +24,17 @@ public class ServiceFood implements ServiceInterface<DTOResponseFood, DTORequest
         return MapStruct.MAPPER.toDTO(repositoryFood.save(MapStruct.MAPPER.toObject(created)));
     }
     @Override
-    public DTOResponseFood retrieve(UUID id){
-        return MapStruct.MAPPER.toDTO(repositoryFood.findById(id).orElseGet(null));
-    }
-    public List<DTOResponseFood> retrieve(List<Food> list){
-        return list.stream().map(value -> MapStruct.MAPPER.toDTO(value)).collect(Collectors.toList());
-    }
-    @Override
-    public List<DTOResponseFood> retrieve(){
-        return retrieve(repositoryFood.findAll());
-    }
-    @Override
-    public Page<DTOResponseFood> retrieve(Pageable pageable, String value){
-        if (value == null) {
-            return repositoryFoodPage.findAll(pageable).map(object -> MapStruct.MAPPER.toDTO(object));
-        } else {
-            return repositoryFoodPage.findByNameContainingIgnoreCaseOrderByNameAsc(pageable, value).map(object -> MapStruct.MAPPER.toDTO(object));
-        }
-    }
-    @Override
-    public Page<DTOResponseFood> retrievePage(Integer page, Integer size, String sort, String value, String order){
-        Pageable pageable = PageRequest.of(page, size, Sort.by(sort));
-//        if(order != null && order.equals("asc")) pageable = PageRequest.of(page, size, Sort.by(sort).ascending());
-        if (value == null) {
-            return repositoryFoodPage.findAll(pageable).map(object -> MapStruct.MAPPER.toDTO(object));
-        } else {
-            return repositoryFoodPage.findByNameContainingIgnoreCaseOrderByNameAsc(pageable, value).map(object -> MapStruct.MAPPER.toDTO(object));
+    public Page<DTOResponseFood> retrieve(Pageable pageable, String filter) {
+        switch (pageable.getSort().toString().substring(0, pageable.getSort().toString().length() - 5)) {
+            case "id": {
+                return repositoryFoodPage.findByIdOrderByIdAsc(pageable, UUID.fromString(filter)).map(object -> MapStruct.MAPPER.toDTO(object));
+            }
+            case "name": {
+                return repositoryFoodPage.findByNameContainingIgnoreCaseOrderByNameAsc(pageable, filter).map(object -> MapStruct.MAPPER.toDTO(object));
+            }
+            default: {
+                return repositoryFoodPage.findAll(pageable).map(object -> MapStruct.MAPPER.toDTO(object));
+            }
         }
     }
     @Override

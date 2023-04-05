@@ -1,7 +1,6 @@
 package br.eti.gadelha.nutrition.controller;
 
 import br.eti.gadelha.nutrition.persistence.payload.request.DTORequestUserEntity;
-import br.eti.gadelha.nutrition.persistence.payload.response.DTOResponseFood;
 import br.eti.gadelha.nutrition.persistence.payload.response.DTOResponseUserEntity;
 import br.eti.gadelha.nutrition.service.ServiceUserEntity;
 import jakarta.validation.Valid;
@@ -17,42 +16,29 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.UUID;
 
-@RestController @RequestMapping("/user") @RequiredArgsConstructor
+@RestController @RequestMapping("/user_entity") @RequiredArgsConstructor
 public class ControllerUserEntity implements ControllerInterface<DTOResponseUserEntity, DTORequestUserEntity> {
 
     private final ServiceUserEntity serviceUserEntity;
 
-    @PostMapping("") @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
+    @PostMapping("") @Override @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
     public ResponseEntity<DTOResponseUserEntity> create(@RequestBody @Valid DTORequestUserEntity created){
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/user").toUriString());
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/user_entity").toUriString());
         return ResponseEntity.created(uri).body(serviceUserEntity.create(created));
     }
-    @GetMapping("/id/{id}") @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
-    public ResponseEntity<DTOResponseUserEntity> retrieve(@PathVariable("id") UUID id){
-        return ResponseEntity.ok().body(serviceUserEntity.retrieve(id));
+    @GetMapping("") @Override @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
+    public ResponseEntity<Page<DTOResponseUserEntity>> retrieve(@RequestParam(value = "filter", required = false) String filter, Pageable pageable){
+        return ResponseEntity.ok().body(serviceUserEntity.retrieve(pageable, filter));
     }
-    @GetMapping(value = {"/{value}", "/", ""}) @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
-    public ResponseEntity<Page<DTOResponseUserEntity>> retrieve(@PathVariable(value = "value", required = false) String value, Pageable pageable) {
-        return ResponseEntity.ok().body(serviceUserEntity.retrieve(pageable, value));
-    }
-    @GetMapping(value = {"/{page}/{size}/{sort}", "/{page}/{size}/{sort}/{value}", "/{page}/{size}/{sort}/{value}/{order}"})
-    public ResponseEntity<Page<DTOResponseUserEntity>> retrievePage(
-            @PathVariable(value = "page", required = false) Integer page,
-            @PathVariable(value = "size", required = false) Integer size,
-            @PathVariable(value = "sort", required = false) String sort,
-            @PathVariable(value = "value", required = false) String value,
-            @PathVariable(value = "order", required = false) String order) {
-        return ResponseEntity.ok().body(serviceUserEntity.retrievePage(page, size, sort, value, order));
-    }
-    @PutMapping("") @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
+    @PutMapping("") @Override @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
     public ResponseEntity<DTOResponseUserEntity> update(@RequestBody @Valid DTORequestUserEntity updated){
         return ResponseEntity.accepted().body(serviceUserEntity.update(updated.getId(), updated));
     }
-    @DeleteMapping("{id}") @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
+    @DeleteMapping("{id}") @Override @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
     public ResponseEntity<DTOResponseUserEntity> delete(@PathVariable("id") UUID id){
         return ResponseEntity.accepted().body(serviceUserEntity.delete(id));
     }
-    @DeleteMapping("") @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
+    @DeleteMapping("") @Override @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
     public ResponseEntity<HttpStatus> delete(){
         try {
             serviceUserEntity.delete();
