@@ -44,11 +44,4 @@ public class ServiceCompositeUnit {
     public void delete() {
         repositoryCompositeUnit.deleteAll();
     }
-
-//    public boolean existsByName(String value) {
-//        return repositoryCompositeUnit.existsByNameIgnoreCase(value);
-//    }
-//    public boolean existsByNameAndIdNot(String value, CompositePK id) {
-//        return repositoryCompositeUnit.existsByNameIgnoreCaseAndIdNot(value, id);
-//    }
 }
