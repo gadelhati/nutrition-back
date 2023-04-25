@@ -42,8 +42,9 @@ public class ServiceFood implements ServiceInterface<DTOResponseFood, DTORequest
     }
     @Override
     public DTOResponseFood delete(UUID id){
+        DTOResponseFood dtoResponseFood = MapStruct.MAPPER.toDTO(repositoryFood.findById(id).orElse(null));
         repositoryFood.deleteById(id);
-        return MapStruct.MAPPER.toDTO(repositoryFood.findById(id).orElse(null));
+        return dtoResponseFood;
     }
     @Override
     public void delete() {

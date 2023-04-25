@@ -49,8 +49,9 @@ public class ServiceUserEntity implements ServiceInterface<DTOResponseUserEntity
     }
     @Override
     public DTOResponseUserEntity delete(UUID id){
+        DTOResponseUserEntity dtoResponseUserEntity = MapStruct.MAPPER.toDTO(repositoryUserEntity.findById(id).orElse(null));
         repositoryUserEntity.deleteById(id);
-        return MapStruct.MAPPER.toDTO(repositoryUserEntity.findById(id).orElse(null));
+        return dtoResponseUserEntity;
     }
     @Override
     public void delete() {

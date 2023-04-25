@@ -42,8 +42,9 @@ public class ServicePrivilege implements ServiceInterface<DTOResponsePrivilege, 
     }
     @Override
     public DTOResponsePrivilege delete(UUID id){
+        DTOResponsePrivilege dtoResponsePrivilege = MapStruct.MAPPER.toDTO(repositoryPrivilege.findById(id).orElse(null));
         repositoryPrivilege.deleteById(id);
-        return MapStruct.MAPPER.toDTO(repositoryPrivilege.findById(id).orElse(null));
+        return dtoResponsePrivilege;
     }
     @Override
     public void delete() {

@@ -46,8 +46,9 @@ public class ServiceFoodCategory implements ServiceInterface<DTOResponseFoodCate
 
     @Override
     public DTOResponseFoodCategory delete(UUID id) {
+        DTOResponseFoodCategory dtoResponseFoodCategory = MapStruct.MAPPER.toDTO(repositoryFoodCategory.findById(id).orElse(null));
         repositoryFoodCategory.deleteById(id);
-        return MapStruct.MAPPER.toDTO(repositoryFoodCategory.findById(id).orElse(null));
+        return dtoResponseFoodCategory;
     }
 
     @Override

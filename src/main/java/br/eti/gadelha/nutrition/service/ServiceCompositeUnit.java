@@ -38,8 +38,9 @@ public class ServiceCompositeUnit {
         return MapStruct.MAPPER.toDTO(repositoryCompositeUnit.save(MapStruct.MAPPER.toObject(updated)));
     }
     public DTOResponseCompositeUnit delete(CompositePK id){
+        DTOResponseCompositeUnit dtoResponseCompositeUnit = MapStruct.MAPPER.toDTO(repositoryCompositeUnit.findById(id).orElse(null));
         repositoryCompositeUnit.deleteById(id);
-        return MapStruct.MAPPER.toDTO(repositoryCompositeUnit.findById(id).orElse(null));
+        return dtoResponseCompositeUnit;
     }
     public void delete() {
         repositoryCompositeUnit.deleteAll();

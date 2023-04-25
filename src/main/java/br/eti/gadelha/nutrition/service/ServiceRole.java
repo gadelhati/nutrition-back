@@ -42,8 +42,9 @@ public class ServiceRole implements ServiceInterface<DTOResponseRole, DTORequest
     }
     @Override
     public DTOResponseRole delete(UUID id){
+        DTOResponseRole dtoResponseRole = MapStruct.MAPPER.toDTO(repositoryRole.findById(id).orElse(null));
         repositoryRole.deleteById(id);
-        return MapStruct.MAPPER.toDTO(repositoryRole.findById(id).orElse(null));
+        return dtoResponseRole;
     }
     @Override
     public void delete() {
