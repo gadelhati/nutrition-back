@@ -30,19 +30,20 @@
 CRUD service from a nutritional table.
 
 ### Roadmap
+#### in development
+- [ ] filter by Source
+- [x] travis
+- [x] auditAware with UserEntity, to add user in GenericEntity
+- [x] @PostFilter(hasPermission('')), hasAuthority('Admin')
 #### in concept
+- [ ] add data Point of PostGis
+- [ ] set up Role Hierarchy
 - [ ] service to provide sidebar access
 - [ ] service to provide color palete
-- [ ] change date validate Token
 - [ ] improve refresh token
-- [ ] work with git
+- [ ] change application.properties to [dev using h2, and prod using postgres]
 - [ ] add Internationalization to ValidationMessages.properties
 - [ ] swagger something is not showing (Whitelabel Error Page)
-#### in development
-- [x] travis
-- [x] auditAware with UserEntity
-- [x] set up Role and Privileges
-- [x] @PostFilter(hasPermission('')), hasAuthority('Admin')
 
 ## Summary
 * [How to work with this project](#how-to-work-with-this-project)
