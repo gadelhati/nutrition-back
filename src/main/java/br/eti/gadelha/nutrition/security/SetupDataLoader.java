@@ -70,7 +70,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         if (role == null) {
             role = new Role();
             role.setName(name);
-//            role.setPrivileges((Set<Privilege>) privileges);
+            role.setPrivileges((Set<Privilege>) privileges);
             repositoryRole.save(role);
         }
         return role;
