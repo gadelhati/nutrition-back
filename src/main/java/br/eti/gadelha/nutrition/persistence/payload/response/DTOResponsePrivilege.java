@@ -13,5 +13,5 @@ public class DTOResponsePrivilege {
 
     private UUID id;
     private String name;
-    private Set<Role> roles = new HashSet<>();
+//    private Set<Role> roles = new HashSet<>();
 }
