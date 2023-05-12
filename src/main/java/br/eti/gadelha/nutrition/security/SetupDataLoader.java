@@ -49,7 +49,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         userEntity.setUsername("Test");
         userEntity.setPassword(passwordEncoder.encode("test"));
         userEntity.setEmail("test@test.com");
-        userEntity.setRoles(Arrays.asList(adminRole));
+        userEntity.setRole(Arrays.asList(adminRole));
         userEntity.setActive(true);
         repositoryUserEntity.save(userEntity);
         alreadySetup = true;

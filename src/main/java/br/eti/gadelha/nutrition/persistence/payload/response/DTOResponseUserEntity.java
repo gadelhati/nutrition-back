@@ -15,5 +15,5 @@ public class DTOResponseUserEntity {
     private String email;
     private String password;
     private Boolean active;
-    private Collection<Role> roles;
+    private Collection<Role> role;
 }

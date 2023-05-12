@@ -20,7 +20,7 @@ public class UserEntity extends GenericEntity {
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-    private Collection<Role> roles;
+    private Collection<Role> role;
 
     public UserEntity(String username, String email, String password, boolean active) {
         this.username = username;
@@ -28,9 +28,9 @@ public class UserEntity extends GenericEntity {
         this.password = password;
         this.active = active;
     }
-    public UserEntity(String username, String password, Collection<Role> roles) {
+    public UserEntity(String username, String password, Collection<Role> role) {
         this.username = username;
         this.password = password;
-        this.roles = roles;
+        this.role = role;
     }
 }

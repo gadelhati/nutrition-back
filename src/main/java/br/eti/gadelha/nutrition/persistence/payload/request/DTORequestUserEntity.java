@@ -21,5 +21,5 @@ public class DTORequestUserEntity {
     private String password;
     @NotNull(message = "{user.active.not.null}")
     private boolean active;
-    private Collection<Role> roles;
+    private Collection<Role> role;
 }

@@ -26,7 +26,7 @@ public class ServiceUserEntity implements ServiceInterface<DTOResponseUserEntity
     @Override
     public DTOResponseUserEntity create(DTORequestUserEntity created){
         created.setPassword(passwordEncoder.encode(created.getPassword()));
-        created.setRoles(Collections.singletonList(repositoryRole.findByName("ROLE_USER")));
+        created.setRole(Collections.singletonList(repositoryRole.findByName("ROLE_USER")));
         return MapStruct.MAPPER.toDTO(repositoryUserEntity.save(MapStruct.MAPPER.toObject(created)));
     }
     @Override
