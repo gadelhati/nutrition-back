@@ -13,7 +13,7 @@ public class ControllerAuth {
 
     private final ServiceAuth serviceAuth;
 
-    @PostMapping("")
+    @PostMapping("/login")
     public ResponseEntity<DTOResponseAuth> login(@RequestBody @Valid DTORequestAuth value){
         return ResponseEntity.accepted().body(serviceAuth.login(value));
     }
