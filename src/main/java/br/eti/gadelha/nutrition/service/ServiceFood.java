@@ -23,13 +23,13 @@ public class ServiceFood implements ServiceInterface<DTOResponseFood, DTORequest
         return MapStruct.MAPPER.toDTO(repositoryFood.save(MapStruct.MAPPER.toObject(created)));
     }
     @Override
-    public Page<DTOResponseFood> retrieve(Pageable pageable, String filter) {
-        switch (pageable.getSort().toString().substring(0, pageable.getSort().toString().length() - 5)) {
+    public Page<DTOResponseFood> retrieve(Pageable pageable, String key, String value) {
+        switch (key) {
             case "id": {
-                return repositoryFoodPage.findByIdOrderByIdAsc(pageable, UUID.fromString(filter)).map(MapStruct.MAPPER::toDTO);
+                return repositoryFoodPage.findByIdOrderByIdAsc(pageable, UUID.fromString(value)).map(MapStruct.MAPPER::toDTO);
             }
             case "name": {
-                return repositoryFoodPage.findByNameContainingIgnoreCaseOrderByNameAsc(pageable, filter).map(MapStruct.MAPPER::toDTO);
+                return repositoryFoodPage.findByNameContainingIgnoreCaseOrderByNameAsc(pageable, value).map(MapStruct.MAPPER::toDTO);
             }
             default: {
                 return repositoryFoodPage.findAll(pageable).map(MapStruct.MAPPER::toDTO);

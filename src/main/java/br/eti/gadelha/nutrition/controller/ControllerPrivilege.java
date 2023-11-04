@@ -27,8 +27,8 @@ public class ControllerPrivilege implements ControllerInterface<DTOResponsePrivi
         return ResponseEntity.created(uri).body(servicePrivilege.create(created));
     }
     @GetMapping("") @Override @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
-    public ResponseEntity<Page<DTOResponsePrivilege>> retrieve(@RequestParam(value = "filter", required = false) String filter, Pageable pageable){
-        return ResponseEntity.ok().body(servicePrivilege.retrieve(pageable, filter));
+    public ResponseEntity<Page<DTOResponsePrivilege>> retrieve(@RequestParam(name = "key", defaultValue = "", required = false) String key, @RequestParam(name="value", defaultValue = "", required = false) String value, Pageable pageable){
+        return ResponseEntity.ok().body(servicePrivilege.retrieve(pageable, key, value));
     }
     @PutMapping("") @Override @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<DTOResponsePrivilege> update(@RequestBody @Valid DTORequestPrivilege updated){

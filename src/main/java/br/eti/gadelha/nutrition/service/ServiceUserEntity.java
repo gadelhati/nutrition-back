@@ -1,6 +1,7 @@
 package br.eti.gadelha.nutrition.service;
 
 import br.eti.gadelha.nutrition.persistence.MapStruct;
+import br.eti.gadelha.nutrition.persistence.model.UserEntity;
 import br.eti.gadelha.nutrition.persistence.payload.request.DTORequestUserEntity;
 import br.eti.gadelha.nutrition.persistence.payload.response.DTOResponseUserEntity;
 import br.eti.gadelha.nutrition.persistence.repository.RepositoryRole;
@@ -30,13 +31,16 @@ public class ServiceUserEntity implements ServiceInterface<DTOResponseUserEntity
         return MapStruct.MAPPER.toDTO(repositoryUserEntity.save(MapStruct.MAPPER.toObject(created)));
     }
     @Override
-    public Page<DTOResponseUserEntity> retrieve(Pageable pageable, String filter) {
-        switch (pageable.getSort().toString().substring(0, pageable.getSort().toString().length() - 5)) {
+    public Page<DTOResponseUserEntity> retrieve(Pageable pageable, String key, String value) {
+        switch (key) {
             case "id": {
-                return repositoryUserEntityPage.findByIdOrderByIdAsc(pageable, UUID.fromString(filter)).map(MapStruct.MAPPER::toDTO);
+                return repositoryUserEntityPage.findByIdOrderByIdAsc(pageable, UUID.fromString(value)).map(MapStruct.MAPPER::toDTO);
             }
             case "username": {
-                return repositoryUserEntityPage.findByUsernameContainingIgnoreCaseOrderByUsernameAsc(pageable, filter).map(MapStruct.MAPPER::toDTO);
+                return repositoryUserEntityPage.findByUsernameContainingIgnoreCaseOrderByUsernameAsc(pageable, value).map(MapStruct.MAPPER::toDTO);
+            }
+            case "email": {
+                return repositoryUserEntityPage.findByEmailContainingIgnoreCaseOrderByEmailAsc(pageable, value).map(MapStruct.MAPPER::toDTO);
             }
             default: {
                 return repositoryUserEntityPage.findAll(pageable).map(MapStruct.MAPPER::toDTO);
@@ -45,6 +49,8 @@ public class ServiceUserEntity implements ServiceInterface<DTOResponseUserEntity
     }
     @Override
     public DTOResponseUserEntity update(UUID id, DTORequestUserEntity updated){
+        DTOResponseUserEntity dtoResponseUserEntity = MapStruct.MAPPER.toDTO(repositoryUserEntity.findById(id).orElse(null));
+        updated.setPassword(dtoResponseUserEntity.getPassword());
         return MapStruct.MAPPER.toDTO(repositoryUserEntity.save(MapStruct.MAPPER.toObject(updated)));
     }
     @Override
@@ -69,5 +75,12 @@ public class ServiceUserEntity implements ServiceInterface<DTOResponseUserEntity
     }
     public boolean existsByEmailAndIdNot(String value, UUID id) {
         return repositoryUserEntity.existsByEmailIgnoreCaseAndIdNot(value, id);
+    }
+
+    public DTOResponseUserEntity changePassword(DTORequestUserEntity updated){
+        UserEntity user = repositoryUserEntity.findById(updated.getId()).orElse(null);
+        assert user != null;
+        user.setPassword(passwordEncoder.encode(updated.getPassword()));
+        return MapStruct.MAPPER.toDTO(repositoryUserEntity.save(user));
     }
 }

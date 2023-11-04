@@ -27,8 +27,8 @@ public class ControllerUserEntity implements ControllerInterface<DTOResponseUser
         return ResponseEntity.created(uri).body(serviceUserEntity.create(created));
     }
     @GetMapping("") @Override @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
-    public ResponseEntity<Page<DTOResponseUserEntity>> retrieve(@RequestParam(value = "filter", required = false) String filter, Pageable pageable){
-        return ResponseEntity.ok().body(serviceUserEntity.retrieve(pageable, filter));
+    public ResponseEntity<Page<DTOResponseUserEntity>> retrieve(@RequestParam(name = "key", defaultValue = "", required = false) String key, @RequestParam(name="value", defaultValue = "", required = false) String value, Pageable pageable){
+        return ResponseEntity.ok().body(serviceUserEntity.retrieve(pageable, key, value));
     }
     @PutMapping("") @Override @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
     public ResponseEntity<DTOResponseUserEntity> update(@RequestBody @Valid DTORequestUserEntity updated){
@@ -45,6 +45,15 @@ public class ControllerUserEntity implements ControllerInterface<DTOResponseUser
             return new ResponseEntity<>(null, HttpStatus.ACCEPTED);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PutMapping("/changePassword")
+    public ResponseEntity<DTOResponseUserEntity> changePassword(@RequestBody @Valid DTORequestUserEntity updated){
+        try {
+            return new ResponseEntity<>(serviceUserEntity.changePassword(updated), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

@@ -27,8 +27,8 @@ public class ControllerFoodCategory implements ControllerInterface<DTOResponseFo
         return ResponseEntity.created(uri).body(serviceFoodCategory.create(created));
     }
     @GetMapping("") @Override
-    public ResponseEntity<Page<DTOResponseFoodCategory>> retrieve(@RequestParam(value = "filter", required = false) String filter, Pageable pageable){
-        return ResponseEntity.ok().body(serviceFoodCategory.retrieve(pageable, filter));
+    public ResponseEntity<Page<DTOResponseFoodCategory>> retrieve(@RequestParam(name = "key", defaultValue = "", required = false) String key, @RequestParam(name="value", defaultValue = "", required = false) String value, Pageable pageable){
+        return ResponseEntity.ok().body(serviceFoodCategory.retrieve(pageable, key, value));
     }
     @PutMapping("") @Override @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
     public ResponseEntity<DTOResponseFoodCategory> update(@RequestBody @Valid DTORequestFoodCategory updated){
