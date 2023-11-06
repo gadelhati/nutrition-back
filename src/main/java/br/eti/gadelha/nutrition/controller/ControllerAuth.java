@@ -14,6 +14,10 @@ public class ControllerAuth {
 
     private final ServiceAuth serviceAuth;
 
+    @GetMapping("/ping")
+    public String login(){
+        return "ping";
+    }
     @PostMapping("/login")
     public ResponseEntity<DTOResponseAuth> login(@RequestBody @Valid DTORequestAuth value){
         return ResponseEntity.accepted().body(serviceAuth.login(value));
