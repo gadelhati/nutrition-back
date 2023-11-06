@@ -4,7 +4,6 @@ import br.eti.gadelha.nutrition.persistence.MapStruct;
 import br.eti.gadelha.nutrition.persistence.payload.request.DTORequestFood;
 import br.eti.gadelha.nutrition.persistence.payload.response.DTOResponseFood;
 import br.eti.gadelha.nutrition.persistence.repository.RepositoryFood;
-import br.eti.gadelha.nutrition.persistence.repository.RepositoryFoodPage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +15,7 @@ import java.util.UUID;
 public class ServiceFood implements ServiceInterface<DTOResponseFood, DTORequestFood> {
 
     private final RepositoryFood repositoryFood;
-    private final RepositoryFoodPage repositoryFoodPage;
+//    private final RepositoryFoodPage repositoryFoodPage;
 
     @Override
     public DTOResponseFood create(DTORequestFood created){
@@ -26,13 +25,13 @@ public class ServiceFood implements ServiceInterface<DTOResponseFood, DTORequest
     public Page<DTOResponseFood> retrieve(Pageable pageable, String key, String value) {
         switch (key) {
             case "id": {
-                return repositoryFoodPage.findByIdOrderByIdAsc(pageable, UUID.fromString(value)).map(MapStruct.MAPPER::toDTO);
+                return repositoryFood.findByIdOrderByIdAsc(pageable, UUID.fromString(value)).map(MapStruct.MAPPER::toDTO);
             }
             case "name": {
-                return repositoryFoodPage.findByNameContainingIgnoreCaseOrderByNameAsc(pageable, value).map(MapStruct.MAPPER::toDTO);
+                return repositoryFood.findByNameContainingIgnoreCaseOrderByNameAsc(pageable, value).map(MapStruct.MAPPER::toDTO);
             }
             default: {
-                return repositoryFoodPage.findAll(pageable).map(MapStruct.MAPPER::toDTO);
+                return repositoryFood.findAll(pageable).map(MapStruct.MAPPER::toDTO);
             }
         }
     }
