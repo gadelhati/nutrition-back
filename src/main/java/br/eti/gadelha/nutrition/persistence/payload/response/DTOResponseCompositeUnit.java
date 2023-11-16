@@ -8,4 +8,5 @@ public class DTOResponseCompositeUnit {
 
     private String name;
     private int number;
+    private String value;
 }

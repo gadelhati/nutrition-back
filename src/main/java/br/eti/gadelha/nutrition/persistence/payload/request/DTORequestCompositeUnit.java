@@ -7,4 +7,5 @@ public class DTORequestCompositeUnit {
 
     private String name;
     private int number;
+    private String value;
 }

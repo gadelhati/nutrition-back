@@ -15,4 +15,5 @@ public class CompositeUnit {
     private String name;
     @Id
     private int number;
+    private String value;
 }

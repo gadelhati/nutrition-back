@@ -4,7 +4,6 @@ import br.eti.gadelha.nutrition.persistence.MapStruct;
 import br.eti.gadelha.nutrition.persistence.model.CompositePK;
 import br.eti.gadelha.nutrition.persistence.payload.request.DTORequestCompositeUnit;
 import br.eti.gadelha.nutrition.persistence.payload.response.DTOResponseCompositeUnit;
-import br.eti.gadelha.nutrition.persistence.payload.response.DTOResponseFood;
 import br.eti.gadelha.nutrition.persistence.repository.RepositoryCompositeUnit;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -29,6 +28,9 @@ public class ServiceCompositeUnit {
             case "number": {
                 return repositoryCompositeUnit.findByNumberAndNameOrderByNumberAsc(pageable, name, number).map(MapStruct.MAPPER::toDTO);
             }
+            case "value": {
+                return repositoryCompositeUnit.findByValueContainingIgnoreCaseOrderByValueAsc(pageable, value).map(MapStruct.MAPPER::toDTO);
+            }
             default: {
                 return repositoryCompositeUnit.findAll(pageable).map(MapStruct.MAPPER::toDTO);
             }
@@ -38,6 +40,9 @@ public class ServiceCompositeUnit {
         switch (key) {
             case "name": {
                 return repositoryCompositeUnit.findByNameContainingIgnoreCaseOrderByNameAsc(pageable, value).map(MapStruct.MAPPER::toDTO);
+            }
+            case "value": {
+                return repositoryCompositeUnit.findByValueContainingIgnoreCaseOrderByValueAsc(pageable, value).map(MapStruct.MAPPER::toDTO);
             }
             default: {
                 return repositoryCompositeUnit.findAll(pageable).map(MapStruct.MAPPER::toDTO);

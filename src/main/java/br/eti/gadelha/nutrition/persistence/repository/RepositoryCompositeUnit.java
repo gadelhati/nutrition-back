@@ -10,4 +10,5 @@ public interface RepositoryCompositeUnit extends JpaRepository<CompositeUnit, Co
     Page<CompositeUnit> findByNameAndNumberOrderByNameAsc(Pageable pageable, String name, int number);
     Page<CompositeUnit> findByNumberAndNameOrderByNumberAsc(Pageable pageable, String name, int number);
     Page<CompositeUnit> findByNameContainingIgnoreCaseOrderByNameAsc(Pageable pageable, String name);
+    Page<CompositeUnit> findByValueContainingIgnoreCaseOrderByValueAsc(Pageable pageable, String name);
 }
