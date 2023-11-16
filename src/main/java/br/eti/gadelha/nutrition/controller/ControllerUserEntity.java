@@ -38,7 +38,7 @@ public class ControllerUserEntity implements ControllerInterface<DTOResponseUser
     public ResponseEntity<DTOResponseUserEntity> delete(@PathVariable("id") UUID id){
         return ResponseEntity.accepted().body(serviceUserEntity.delete(id));
     }
-    @DeleteMapping("") @Override @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
+    @DeleteMapping("") @Override @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<HttpStatus> delete(){
         try {
             serviceUserEntity.delete();

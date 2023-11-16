@@ -38,7 +38,7 @@ public class ControllerFoodCategory implements ControllerInterface<DTOResponseFo
     public ResponseEntity<DTOResponseFoodCategory> delete(@PathVariable("id") UUID id){
         return ResponseEntity.accepted().body(serviceFoodCategory.delete(id));
     }
-    @DeleteMapping("") @Override @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
+    @DeleteMapping("") @Override @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<HttpStatus> delete(){
         try {
             serviceFoodCategory.delete();
