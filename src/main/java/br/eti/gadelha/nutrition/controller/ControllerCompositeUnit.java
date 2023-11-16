@@ -26,19 +26,24 @@ public class ControllerCompositeUnit {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/composite_unit").toUriString());
         return ResponseEntity.created(uri).body(serviceCompositeUnit.create(created));
     }
-    @GetMapping("")
+    @GetMapping("/composite")
     public ResponseEntity<Page<DTOResponseCompositeUnit>> retrieve(
-            @RequestParam(value = "filter", required = false) String filter,
+            @RequestParam(name = "key", defaultValue = "", required = false) String key,
+            @RequestParam(name="value", defaultValue = "", required = false) String value,
+            Pageable pageable,
             @RequestParam(value = "name", required = false) String name,
-            @RequestParam(value = "number", required = false) int number,
-            Pageable pageable){
-        return ResponseEntity.ok().body(serviceCompositeUnit.retrieve(pageable, filter, name, number));
+            @RequestParam(value = "number", required = false) int number){
+        return ResponseEntity.ok().body(serviceCompositeUnit.retrieveComposite(pageable, key, value, name, number));
+    }
+    @GetMapping("") @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
+    public ResponseEntity<Page<DTOResponseCompositeUnit>> retrieve(@RequestParam(name = "key", defaultValue = "", required = false) String key, @RequestParam(name="value", defaultValue = "", required = false) String value, Pageable pageable){
+        return ResponseEntity.ok().body(serviceCompositeUnit.retrieve(pageable, key, value));
     }
     @PutMapping("") @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
     public ResponseEntity<DTOResponseCompositeUnit> update(@RequestBody @Valid DTORequestCompositeUnit updated){
         return ResponseEntity.accepted().body(serviceCompositeUnit.update(new CompositePK(updated.getName(), updated.getNumber()), updated));
     }
-    @DeleteMapping("{name}/{number}") @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
+    @DeleteMapping("/{name}/{number}") @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN')")
     public ResponseEntity<DTOResponseCompositeUnit> delete(@PathVariable("name") String name, @PathVariable("number") int number){
         return ResponseEntity.accepted().body(serviceCompositeUnit.delete(new CompositePK(name, number)));
     }
