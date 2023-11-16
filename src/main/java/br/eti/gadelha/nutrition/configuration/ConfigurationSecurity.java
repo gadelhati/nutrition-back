@@ -25,17 +25,17 @@ public class ConfigurationSecurity {
     private final ServiceCustomUserDetails userDetailsService;
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .cors().and().csrf().disable()
-                .exceptionHandling().authenticationEntryPoint(authEntryPoint).and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeHttpRequests()
-                    .requestMatchers(HttpMethod.GET, "/auth/ping").permitAll()
-                    .requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
+    public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity
+            .cors().and().csrf().disable()
+            .exceptionHandling().authenticationEntryPoint(authEntryPoint).and()
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+            .authorizeHttpRequests()
+                .requestMatchers(HttpMethod.GET, "/auth/ping").permitAll()
+                .requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
                 .anyRequest().authenticated();
-        http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
-        return http.build();
+        httpSecurity.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+        return httpSecurity.build();
     }
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
