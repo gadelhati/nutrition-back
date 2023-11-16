@@ -34,7 +34,7 @@ public class ControllerPrivilege implements ControllerInterface<DTOResponsePrivi
     public ResponseEntity<DTOResponsePrivilege> update(@RequestBody @Valid DTORequestPrivilege updated){
         return ResponseEntity.accepted().body(servicePrivilege.update(updated.getId(), updated));
     }
-    @DeleteMapping("{id}") @Override @PreAuthorize("hasAnyRole('ADMIN')")
+    @DeleteMapping("/{id}") @Override @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<DTOResponsePrivilege> delete(@PathVariable("id") UUID id){
         return ResponseEntity.accepted().body(servicePrivilege.delete(id));
     }

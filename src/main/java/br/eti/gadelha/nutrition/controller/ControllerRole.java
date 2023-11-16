@@ -34,7 +34,7 @@ public class ControllerRole implements ControllerInterface<DTOResponseRole, DTOR
     public ResponseEntity<DTOResponseRole> update(@RequestBody @Valid DTORequestRole updated){
         return ResponseEntity.accepted().body(serviceRole.update(updated.getId(), updated));
     }
-    @DeleteMapping("{id}") @Override @PreAuthorize("hasAnyRole('ADMIN')")
+    @DeleteMapping("/{id}") @Override @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<DTOResponseRole> delete(@PathVariable("id") UUID id){
         return ResponseEntity.accepted().body(serviceRole.delete(id));
     }
